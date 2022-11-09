@@ -1,1 +1,1 @@
-# susi
+# Susi project
