@@ -1,0 +1,20 @@
+[
+    {
+        "title": "Рол Філадельфія",
+        "price": "100 грн",
+        "slug": "philadelphia",
+        "parameters": "7"
+    },
+    {
+        "title": "Рол Філадельфія з вугрем",
+        "price": "128",
+        "slug": "philadelphia-z-vygrem",
+        "parameters": "8"
+    },
+    {
+        "title": "Рол Філадельфія з Тунцем",
+        "price": "135",
+        "slug": "philadelphia-z-tuncem",
+        "parameters": "10"
+    }
+]
