@@ -37,7 +37,7 @@ const Layout = ({ children }) => {
           <div className='header-burger'>=</div>
         </div>
       </div>
-      <main>{children}</main>
+      <main className='container'>{children}</main>
     </>
   )
 }

@@ -1,13 +1,14 @@
 import { graphql } from 'gatsby'
 import React from 'react'
 import Item from '../components/Item'
+import OrdersTitle from '../components/OrdersTitle'
 import Layout from '../layout'
 
 const IndexPage = ({ data }) => {
   const orders = data.allProductsJson.edges
   return (
     <Layout>
-      <h1 className='container'>Main content</h1>
+      <OrdersTitle />
       <h1>
         {orders.map((order) => {
           return <Item key={order.node.id} orderdata={order.node} />
