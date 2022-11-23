@@ -1,0 +1,39 @@
+// @font-face {
+//   font-family: "Avenir";
+//   src: url("../../../static/fonts/Avenir.woff") format("woff");
+//   font-weight: normal;
+//   font-style: normal;
+// }
+
+
+//<---- font copy with 
+// https://github.com/LamiSaadat/bandsite/blob/866e36349c7e8b280c3a99a44e25e6b4ed489a5e/styles/bio.css
+
+
+@font-face {
+  font-family: "AvenirNext LT Pro";
+  src: url("../../../public/fonts/AvenirNextLTPro-Regular.woff") format("woff"), 
+  url("../../../public/fonts/AvenirNextLTPro-Regular.woff2") format("woff2"),;
+  // url("../assets/Font/Avenir-TTF/AvenirNextLTPro.ttf") format("ttf"), 
+  // url("../assets/Font/Avenir-OTF/AvenirNextLTPro-Regular.otf") format("otf");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "AvenirNext LT Pro";
+  src: url("../../../public/fonts/AvenirNextLTPro-Demi.woff") format("woff"),
+  url("../../../public/fonts/AvenirNextLTPro-Demi.woff2") format("woff2");
+  // url("../assets/Font/Avenir-TTF/AvenirNextLTProDemi.ttf") format("ttf"),
+  // url("../assets/Font/Avenir-OTF/AvenirNextLTPro-Demi.otf") format("otf");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "AvenirNext LT Pro";
+  src: url("../../../public/fonts/AvenirNextLTPro-Bold.woff") format("woff"),
+  url("../../../public/fonts/AvenirNextLTPro-Bold.woff2") format("woff2");
+  // url("../assets/Font/Avenir-TTF/AvenirNextLTProBold.ttf") format("ttf"),
+  // url("../assets/Font/Avenir-OTF/AvenirNextLTPro-Bold.otf") format("otf");
+  font-weight: 700;
+  font-style: normal;
+}
