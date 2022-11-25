@@ -5,7 +5,7 @@ import OrdersTitle from '../components/OrdersTitle'
 import Layout from '../layout'
 
 const IndexPage = ({ data }) => {
-  const orders = data.allProductsJson.edges
+  const orders = data.allMarkdownRemark.edges
   return (
     <Layout>
       <OrdersTitle />
@@ -15,25 +15,35 @@ const IndexPage = ({ data }) => {
         })}
       </h1>
       {/* <---  JSON preview data  ---> */}
-      {/* <pre>{JSON.stringify(data, null, 4)}</pre> */}
+      {/* <pre>{JSON.stringify(orders, null, 4)}</pre> */}
     </Layout>
   )
 }
 
-export const query = graphql`
+export default IndexPage
+
+export const allProducts = graphql`
   {
-    allProductsJson {
+    allMarkdownRemark {
       edges {
         node {
-          title
-          price
-          parameters
-          slug
           id
+          frontmatter {
+            sku
+            path
+            weight
+            title
+            price
+            image
+            category
+            parameters
+            mainCategory
+            description
+            product_composition
+            calories
+          }
         }
       }
     }
   }
 `
-
-export default IndexPage
