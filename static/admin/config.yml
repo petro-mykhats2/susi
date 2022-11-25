@@ -1,0 +1,176 @@
+backend:
+  name: git-gateway
+  branch: staging
+  accept_roles:
+    - admin
+    - editor
+slug:
+  encoding: 'ascii'
+  clean_accents: true
+  sanitize_replacement: '-'
+
+publish_mode: editorial_workflow
+media_folder: static/img
+public_folder: /img
+
+collections:
+  # Main Pages EN
+  - name: 'mainPageEn'
+    label: 'Main Pages (english)'
+    filter: { field: language, value: en }
+    identifier_field: name
+    editor:
+      preview: false
+    files:
+      #Index
+      - file: 'content/en/main-pages/index.md'
+        label: Index
+        name: indexEN
+        identifier_field: name
+        fields:
+          - {
+              label: Template Key,
+              name: templateKey,
+              widget: hidden,
+              default: templates/index,
+            }
+          - { label: Type, name: type, widget: hidden, default: 1 }
+          - { label: Language, name: language, widget: hidden, default: en }
+          - { label: Title, name: title, widget: string }
+          - { label: SEO Description, name: description, widget: text }
+
+      #Journal
+      - file: 'content/en/main-pages/journal.md'
+        label: Journal
+        name: journalEN
+        identifier_field: name
+        fields:
+          - {
+              label: Template Key,
+              name: templateKey,
+              widget: hidden,
+              default: templates/journal,
+            }
+          - { label: Type, name: type, widget: hidden, default: 1 }
+          - { label: Language, name: language, widget: hidden, default: en }
+          - { label: Title, name: title, widget: string }
+          - { label: SEO Description, name: description, widget: text }
+
+  #Note EN
+  - name: 'noteEn'
+    label: 'Note (english)'
+    folder: 'content/en/note'
+    filter: { field: contentType, value: note }
+    create: true
+    slug: '{{slug}}'
+    identifier_field: slug
+    fields:
+      - {
+          label: Template Key,
+          name: templateKey,
+          widget: hidden,
+          default: templates/note,
+        }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Language, name: language, widget: hidden, default: en }
+      - {
+          label: Content Type,
+          name: contentType,
+          widget: hidden,
+          default: note,
+        }
+      - {
+          label: Title,
+          name: title,
+          widget: string,
+          pattern: ['.{0,80}', 'Oopsy, no more that 80 characters'],
+        }
+      - {
+          label: Body,
+          name: body,
+          widget: markdown,
+          default: 'Be interesting but not annoying',
+        }
+      - {
+          label: Date,
+          name: date,
+          widget: date,
+          format: YYYY-MM-DD,
+          default: '',
+        }
+  #----------------------------------------------DE
+
+  # Main Pages DE
+  - name: 'mainPageDe'
+    identifier_field: name
+    label: 'Main Pages (deutsch)'
+    filter: { field: language, value: de }
+    editor:
+      preview: false
+    files:
+      #Home
+      - file: 'content/de/main-pages/index.md'
+        label: Index
+        name: indexDE
+        identifier_field: name
+        fields:
+          - { label: Template Key, name: templateKey, widget: hidden }
+          - { label: Type, name: type, widget: hidden, default: 1 }
+          - { label: Language, name: language, widget: hidden, default: de }
+          - { label: Title, name: titles, widget: string }
+          - { label: SEO Description, name: description, widget: text }
+
+      #Journal DE
+      - file: 'content/de/main-pages/journal.md'
+        label: Journal
+        name: journalDE
+        identifier_field: name
+        fields:
+          - {
+              label: Template Key,
+              name: templateKey,
+              widget: hidden,
+              default: templates/journal,
+            }
+          - { label: Type, name: type, widget: hidden, default: 1 }
+          - { label: Language, name: language, widget: hidden, default: de }
+          - { label: Title, name: title, widget: string }
+          - { label: SEO Description, name: description, widget: text }
+
+  #Note DE
+  - name: 'noteDe'
+    label: 'Note (deutsch)'
+    folder: 'content/de/note'
+    filter: { field: contentType, value: mote }
+    create: true
+    slug: '{{slug}}'
+    identifier_field: slug
+    fields:
+      - {
+          label: Template Key,
+          name: templateKey,
+          widget: hidden,
+          default: templates/note,
+        }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Language, name: language, widget: hidden, default: de }
+      - {
+          label: Content Type,
+          name: contentType,
+          widget: hidden,
+          default: note,
+        }
+      - {
+          label: Title,
+          name: title,
+          widget: string,
+          pattern: ['.{0,80}', 'Oopsy, no more that 80 characters'],
+        }
+      - { label: Body, name: body, widget: markdown }
+      - {
+          label: Date,
+          name: date,
+          widget: date,
+          format: YYYY-MM-DD,
+          default: '',
+        }
