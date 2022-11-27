@@ -4,7 +4,6 @@ import SimpleSlider from './Slick'
 
 function OrderBlock({ data }) {
   // const orders = data.allMarkdownRemark.edges
-  console.log('datakkkkkkkk', data)
   return (
     <div className='order_block'>
       <div className='slick'>
