@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: staging
+  branch: /staging
   accept_roles:
     - admin
     - editor

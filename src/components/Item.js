@@ -6,7 +6,11 @@ const Item = ({ orderdata }) => {
       <span>{orderdata.frontmatter.title + '   '}</span>
       <span>{orderdata.frontmatter.parameters + '   '}</span>
       <span>{orderdata.frontmatter.price}</span>
-      <img src={orderdata.frontmatter.image} alt='imagee' />
+      <img
+        className='item_img'
+        src={orderdata.frontmatter.image}
+        alt='imagee'
+      />
     </div>
   )
 }

@@ -9,6 +9,6 @@ price: '319.00 грн'
 path: 'philadelphia_z_lososem_i_avokado'
 parameters: '5'
 mainCategory: роли
-category: філадельфія роли
+category: Філадельфія роли
 image: '/img/philadelphia_z_lososem_i_avokado.jpeg'
 ---

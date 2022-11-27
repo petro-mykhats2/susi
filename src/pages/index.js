@@ -1,19 +1,20 @@
-import { graphql } from 'gatsby'
 import React from 'react'
-import Item from '../components/Item'
+// import Item from '../components/Item'
+import OrderLi from '../components/OrderLi'
 import OrdersTitle from '../components/OrdersTitle'
 import Layout from '../layout'
+import { graphql } from 'gatsby'
 
 const IndexPage = ({ data }) => {
-  const orders = data.allMarkdownRemark.edges
   return (
     <Layout>
       <OrdersTitle />
-      <h1>
+      <OrderLi datas={data} />
+      {/* <h1>
         {orders.map((order) => {
           return <Item key={order.node.id} orderdata={order.node} />
         })}
-      </h1>
+      </h1> */}
       {/* <---  JSON preview data  ---> */}
       {/* <pre>{JSON.stringify(orders, null, 4)}</pre> */}
     </Layout>
