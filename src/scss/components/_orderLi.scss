@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .order_li {
     background-color: rgb(230, 230, 230);
 }
@@ -47,6 +48,22 @@
 }
 
 .order_block {
-    display: flex;
-    background-color: rgb(222, 247, 218);
+    // display: flex;
+    // background-color: rgb(121, 80, 219);
+    height: 300px;
 }
+
+// &.slick-arrow-color {
+//     color: 
+//     rgb(96, 80, 80)
+// };
+
+.slides {
+    .slick-next:before{
+        color: red;
+    }
+    .slick-prev:before{
+        color: red;
+    }
+}
+

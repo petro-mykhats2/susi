@@ -2,7 +2,7 @@ import React from 'react'
 
 const Item = ({ orderdata }) => {
   return (
-    <div>
+    <div className='item'>
       <span>{orderdata.frontmatter.title + '   '}</span>
       <span>{orderdata.frontmatter.parameters + '   '}</span>
       <span>{orderdata.frontmatter.price}</span>

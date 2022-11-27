@@ -4,12 +4,14 @@ import OrderLi from '../components/OrderLi'
 import OrdersTitle from '../components/OrdersTitle'
 import Layout from '../layout'
 import { graphql } from 'gatsby'
+// import SimpleSlider from '../components/Slick'
 
 const IndexPage = ({ data }) => {
   return (
     <Layout>
       <OrdersTitle />
       <OrderLi datas={data} />
+      <div className='slick'>{/* <SimpleSlider /> */}</div>
       {/* <h1>
         {orders.map((order) => {
           return <Item key={order.node.id} orderdata={order.node} />
