@@ -5,9 +5,8 @@ import 'slick-carousel/slick/slick-theme.css'
 import Item from './Item'
 
 function SimpleSlider({ dataitem }) {
-  console.log('proppppppppssss', JSON.stringify(dataitem))
   const orders = dataitem.allMarkdownRemark.edges
-  console.log('orders', orders)
+
   const settings = {
     dots: true,
     infinite: true,
@@ -55,23 +54,6 @@ function SimpleSlider({ dataitem }) {
         {orders.map((order) => {
           return <Item key={order.node.id} orderdata={order.node} />
         })}
-        {/* <pre>{JSON.stringify(orders, null, 4)}</pre> */}
-        {/* <h3>1</h3>
-        </div>
-        <div>
-          <h3>2</h3>
-        </div>
-        <div>
-          <h3>3</h3>
-        </div>
-        <div>
-          <h3>4</h3>
-        </div>
-        <div>
-          <h3>5</h3>
-        </div>
-        <div>
-          <h3>6</h3> */}
       </Slider>
     </div>
   )
