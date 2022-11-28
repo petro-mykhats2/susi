@@ -11,31 +11,32 @@ function SimpleSlider({ dataitem }) {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
     arrows: true,
     className: 'slides',
+    dots: false,
 
     // mobileFirst: true,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1400,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToScroll: 1,
           infinite: true,
           dots: true,
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 856,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 430,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -48,8 +49,6 @@ function SimpleSlider({ dataitem }) {
   }
   return (
     <div>
-      <h2> Single Item</h2>
-
       <Slider {...settings}>
         {orders.map((order) => {
           return <Item key={order.node.id} orderdata={order.node} />
