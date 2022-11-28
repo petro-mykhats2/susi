@@ -1,0 +1,14 @@
+---
+title: '44444 44444444444 4444'
+description: 'Рол Філадельфія з лососем - неймовірне поєднання у вишуканій форм Наш Фірмовий Рол, з карамелізованим тростинним цукром'
+product_composition: 'Лосось, Крем-сир, Груша, Унагі, Тростинний цукор'
+calories: '520,67 ккал'
+sku: 'sku-4'
+weight: '300 г'
+price: '319.00 грн'
+path: 'karamelna_philadelphia'
+parameters: '5'
+mainCategory: роли
+category: Філадельфія роли
+image: '/img/karamelna_philadelphia.jpeg'
+---
