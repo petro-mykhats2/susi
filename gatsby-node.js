@@ -3,7 +3,7 @@ const path = require('path')
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
 
-  const postTemplate = path.resolve('src/pages/index.js')
+  const postTemplate = path.resolve('src/pages/templateProduct.js')
 
   return graphql(`
     {
@@ -13,18 +13,12 @@ exports.createPages = ({ graphql, actions }) => {
             html
             id
             frontmatter {
-              sku
               path
-              weight
               title
               price
               image
-              category
               parameters
-              mainCategory
-              description
-              product_composition
-              calories
+              top
             }
           }
         }
@@ -36,10 +30,9 @@ exports.createPages = ({ graphql, actions }) => {
     }
 
     res.data.allMarkdownRemark.edges.forEach((edges) => {
-      const alldata = edges.node.frontmatter.path
-      console.log('alldata', alldata)
+      const alldata = edges.node.frontmatter
       createPage({
-        path: `/${edges.node.frontmatter.path}/`,
+        path: `/menu/${edges.node.frontmatter.path}/`,
         component: postTemplate,
         context: { alldata },
       })

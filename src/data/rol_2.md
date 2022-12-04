@@ -7,6 +7,7 @@ sku: 'sku-2'
 weight: '295 г'
 price: '289.00 грн'
 path: 'philadelphia_v_kunzhuti'
+top: false
 parameters: '5'
 mainCategory: роли
 category: Філадельфія роли

@@ -1,15 +1,19 @@
+import { Link } from 'gatsby'
 import React from 'react'
 
 const Item = ({ orderdata }) => {
   return (
-    <div className='item'>
+    <Link to={`/menu/${orderdata.frontmatter.path}`} className='item'>
       <div className='item-top'>
         <div className='order-top_weight'>{orderdata.frontmatter.weight}</div>
       </div>
 
-      <div className='stiker-product-block-mini'>
-        <img src='/img/top.png' alt='imagee' />
-      </div>
+      {orderdata.frontmatter.top ? (
+        <div className='stiker-product-block-mini'>
+          <img src='/img/top.png' alt='imagee' />
+        </div>
+      ) : null}
+
       <div className='item-img'>
         <img
           // className='item_img'
@@ -30,7 +34,7 @@ const Item = ({ orderdata }) => {
       {/* <span>{orderdata.frontmatter.title + '   '}</span>
       <span>{orderdata.frontmatter.parameters + '   '}</span>
       <span>{orderdata.frontmatter.price}</span> */}
-    </div>
+    </Link>
   )
 }
 export default Item

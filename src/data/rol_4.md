@@ -6,7 +6,8 @@ calories: '520,67 ккал'
 sku: 'sku-4'
 weight: '300 г'
 price: '319.00 грн'
-path: 'karamelna_philadelphia'
+top: true
+path: '4444'
 parameters: '5'
 mainCategory: роли
 category: Філадельфія роли
