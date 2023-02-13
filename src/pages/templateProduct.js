@@ -17,8 +17,11 @@ function Product({ pageContext }) {
             <div className='product-label'>Кількість:</div>
             <div className='product-label_under'>8 шт</div>
             <div className='product-label'>Вага:</div>
-            <div className='product-label_under'>285г</div>
-            <div className='product-label'>Склад:</div>
+            <div className='product-label_under'>{pageContext.weight}</div>
+            <div className='product-label'>
+              Склад: {pageContext.product_composition}
+            </div>
+
             <div className='product-label_under product-slider'>Slider</div>
             <div className='product-right_bottom'>
               <div className='product-right_bottom_left'>

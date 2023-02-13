@@ -20,6 +20,8 @@ exports.createPages = async ({ graphql, actions }) => {
               parameters
               top
               description
+              weight
+              product_composition
             }
           }
         }
@@ -42,6 +44,8 @@ exports.createPages = async ({ graphql, actions }) => {
           parameters: edges.node.frontmatter.parameters,
           top: edges.node.frontmatter.top,
           description: edges.node.frontmatter.description,
+          weight: edges.node.frontmatter.weight,
+          product_composition: edges.node.frontmatter.product_composition,
         },
       })
     })
