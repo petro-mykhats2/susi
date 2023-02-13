@@ -1,8 +1,7 @@
 import React from 'react'
 
 function Product({ pageContext }) {
-  const { alldata } = pageContext
-
+  console.log('pageContext', pageContext)
   return (
     <div className='product'>
       <div className='bone'>
@@ -11,10 +10,10 @@ function Product({ pageContext }) {
             <div className='product-favorite'>
               <img src='/img/favorite.png' alt='imagee' />
             </div>
-            <img src={alldata.image} />
+            <img src={pageContext.image} />
           </div>
           <div className='product-right'>
-            <div className='product-name'>Філадельфія в Кунжуті</div>
+            <div className='product-name'>{pageContext.title}</div>
             <div className='product-label'>Кількість:</div>
             <div className='product-label_under'>8 шт</div>
             <div className='product-label'>Вага:</div>
@@ -23,7 +22,7 @@ function Product({ pageContext }) {
             <div className='product-label_under product-slider'>Slider</div>
             <div className='product-right_bottom'>
               <div className='product-right_bottom_left'>
-                <div className='product-price'>653.50 грн</div>
+                <div className='product-price'>{pageContext.price}</div>
                 <div className='product-calc'>
                   <div className='product-calc_less'>-</div>
                   <div className='product-calc_counter'>1</div>
@@ -41,19 +40,7 @@ function Product({ pageContext }) {
             </div>
           </div>
         </div>
-        <div className='product-info'>
-          Метка — это ключевое слово, позволяющее отнести ваш вопрос в одну
-          категорию с другими похожими вопросами. Благодаря подбору правильных
-          меток другие участники смогут проще найти ваш вопрос и быстрее дать на
-          него ответ. Показать все синонимы метокМетка — это ключевое слово,
-          позволяющее отнести ваш вопрос в одну категорию с другими похожими
-          вопросами. Благодаря подбору правильных меток другие участники смогут
-          проще найти ваш вопрос и быстрее дать на него ответ. Показать все
-          синонимы метокМетка — это ключевое слово, позволяющее отнести ваш
-          вопрос в одну категорию с другими похожими вопросами. Благодаря
-          подбору правильных меток другие участники смогут проще найти ваш
-          вопрос и быстрее дать на него ответ. Показать все синонимы меток
-        </div>
+        <div className='product-info'>{pageContext.description}</div>
       </div>
     </div>
   )

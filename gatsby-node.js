@@ -1,11 +1,11 @@
 const path = require('path')
 
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
   const postTemplate = path.resolve('src/pages/templateProduct.js')
 
-  return graphql(`
+  return await graphql(`
     {
       allMarkdownRemark {
         edges {
@@ -19,6 +19,7 @@ exports.createPages = ({ graphql, actions }) => {
               image
               parameters
               top
+              description
             }
           }
         }
@@ -30,11 +31,18 @@ exports.createPages = ({ graphql, actions }) => {
     }
 
     res.data.allMarkdownRemark.edges.forEach((edges) => {
-      const alldata = edges.node.frontmatter
+      // const alldata = edges.node.frontmatter
       createPage({
         path: `/menu/${edges.node.frontmatter.path}/`,
         component: postTemplate,
-        context: { alldata },
+        context: {
+          title: edges.node.frontmatter.title,
+          price: edges.node.frontmatter.price,
+          image: edges.node.frontmatter.image,
+          parameters: edges.node.frontmatter.parameters,
+          top: edges.node.frontmatter.top,
+          description: edges.node.frontmatter.description,
+        },
       })
     })
   })
