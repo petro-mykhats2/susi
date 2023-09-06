@@ -55,8 +55,9 @@
 }
 
 .slides {
-  
-
+    // background-color: #e80e0e;
+    min-height: 300px; /* Задайте висоту, яка вам потрібна */
+      
     .slick-next:before{
         color: rgb(88, 88, 88);
     }

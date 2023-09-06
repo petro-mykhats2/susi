@@ -10,7 +10,7 @@ const IndexPage = ({ data }) => {
     <Layout>
       <OrdersTitle />
       <OrderLi datas={data} />
-      <OrderLi datas={data} />
+      {/* <OrderLi datas={data} /> */}
     </Layout>
   )
 }
