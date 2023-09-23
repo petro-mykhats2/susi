@@ -5,7 +5,7 @@ import OrderLiTop from './OrderLiTop'
 function OrderLi({ datas }) {
   return (
     <div className='order_li'>
-      <OrderLiTop />
+      <OrderLiTop data={datas} />
       <OrderBlock data={datas} />
     </div>
   )

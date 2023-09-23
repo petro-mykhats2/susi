@@ -2,6 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 import useSiteMetaQuery from '../hooks/useSiteMetaQuery'
+import { Link } from 'gatsby'
 
 const Layout = ({ children }) => {
   const siteMetadata = useSiteMetaQuery()
@@ -24,7 +25,9 @@ const Layout = ({ children }) => {
       </Helmet>
       <div className='header'>
         <div className='header container'>
-          <div className='header-logo'>Logo</div>
+          <Link to={`/`} className='header-logo'>
+            Logo
+          </Link>
           <div className='header-menu'>
             <div className='header-menu_image'>
               <img src='/img/basket_icon.png' alt='dark theme' />
