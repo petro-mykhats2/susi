@@ -5,9 +5,11 @@ import Layout from '../layout'
 import { graphql } from 'gatsby'
 
 const IndexPage = ({ data }) => {
+  // sortData = data.allMarkdownRemark.edges
   return (
     <Layout>
       <OrdersTitle />
+      <OrderLi datas={data} />
       <OrderLi datas={data} />
     </Layout>
   )
@@ -34,6 +36,7 @@ export const allProducts = graphql`
             description
             product_composition
             calories
+            top
           }
         }
       }

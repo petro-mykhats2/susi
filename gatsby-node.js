@@ -1,11 +1,11 @@
 const path = require('path')
 
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
-  const postTemplate = path.resolve('src/pages/index.js')
+  const postTemplate = path.resolve('src/pages/templateProduct.js')
 
-  return graphql(`
+  return await graphql(`
     {
       allMarkdownRemark {
         edges {
@@ -13,18 +13,15 @@ exports.createPages = ({ graphql, actions }) => {
             html
             id
             frontmatter {
-              sku
               path
-              weight
               title
               price
               image
-              category
               parameters
-              mainCategory
+              top
               description
+              weight
               product_composition
-              calories
             }
           }
         }
@@ -36,12 +33,20 @@ exports.createPages = ({ graphql, actions }) => {
     }
 
     res.data.allMarkdownRemark.edges.forEach((edges) => {
-      const alldata = edges.node.frontmatter.path
-      console.log('alldata', alldata)
+      // const alldata = edges.node.frontmatter
       createPage({
-        path: `/${edges.node.frontmatter.path}/`,
+        path: `/menu/${edges.node.frontmatter.path}/`,
         component: postTemplate,
-        context: { alldata },
+        context: {
+          title: edges.node.frontmatter.title,
+          price: edges.node.frontmatter.price,
+          image: edges.node.frontmatter.image,
+          parameters: edges.node.frontmatter.parameters,
+          top: edges.node.frontmatter.top,
+          description: edges.node.frontmatter.description,
+          weight: edges.node.frontmatter.weight,
+          product_composition: edges.node.frontmatter.product_composition,
+        },
       })
     })
   })

@@ -1,176 +1,644 @@
 backend:
   name: git-gateway
-  branch: /staging
-  accept_roles:
-    - admin
-    - editor
-slug:
-  encoding: 'ascii'
-  clean_accents: true
-  sanitize_replacement: '-'
+  branch: netlify
 
-publish_mode: editorial_workflow
+local_backend: true
 media_folder: static/img
 public_folder: /img
 
+publish_mode: editorial_workflow
+
 collections:
-  # Main Pages EN
-  - name: 'mainPageEn'
-    label: 'Main Pages (english)'
-    filter: { field: language, value: en }
-    identifier_field: name
-    editor:
-      preview: false
-    files:
-      #Index
-      - file: 'content/en/main-pages/index.md'
-        label: Index
-        name: indexEN
-        identifier_field: name
-        fields:
-          - {
-              label: Template Key,
-              name: templateKey,
-              widget: hidden,
-              default: templates/index,
-            }
-          - { label: Type, name: type, widget: hidden, default: 1 }
-          - { label: Language, name: language, widget: hidden, default: en }
-          - { label: Title, name: title, widget: string }
-          - { label: SEO Description, name: description, widget: text }
-
-      #Journal
-      - file: 'content/en/main-pages/journal.md'
-        label: Journal
-        name: journalEN
-        identifier_field: name
-        fields:
-          - {
-              label: Template Key,
-              name: templateKey,
-              widget: hidden,
-              default: templates/journal,
-            }
-          - { label: Type, name: type, widget: hidden, default: 1 }
-          - { label: Language, name: language, widget: hidden, default: en }
-          - { label: Title, name: title, widget: string }
-          - { label: SEO Description, name: description, widget: text }
-
-  #Note EN
-  - name: 'noteEn'
-    label: 'Note (english)'
-    folder: 'content/en/note'
-    filter: { field: contentType, value: note }
-    create: true
+  - name: landing
+    label: Landing
+    label_singular: 'Landing'
+    folder: content/landing
+    create: false
     slug: '{{slug}}'
-    identifier_field: slug
     fields:
       - {
-          label: Template Key,
-          name: templateKey,
-          widget: hidden,
-          default: templates/note,
+          label: 'Template Key',
+          name: 'templateKey',
+          widget: 'hidden',
+          default: 'landing',
         }
-      - { label: Slug, name: slug, widget: string }
-      - { label: Language, name: language, widget: hidden, default: en }
+      - label: Preview
+        name: preview
+        widget: boolean
+        required: true
+      - { label: Title, name: title, widget: string }
       - {
-          label: Content Type,
-          name: contentType,
-          widget: hidden,
-          default: note,
+          label: Section,
+          name: sections,
+          widget: list,
+          fields:
+            [
+              {
+                label: Type,
+                name: type,
+                widget: select,
+                options:
+                  [
+                    'WIDE',
+                    'SMALL',
+                    'HIGH',
+                    'HIGH_RIGHT',
+                    'HIGH_LEFT',
+                    'BRANDING',
+                  ],
+                required: true,
+              },
+              {
+                label: 'Projects',
+                name: 'projects',
+                widget: 'relation',
+                collection: 'projects',
+                search_fields: ['slug'],
+                value_field: '{{slug}}',
+                display_fields: ['title'],
+                multiple: true,
+                min: 1,
+                max: 3,
+              },
+            ],
         }
-      - {
-          label: Title,
-          name: title,
-          widget: string,
-          pattern: ['.{0,80}', 'Oopsy, no more that 80 characters'],
-        }
-      - {
-          label: Body,
-          name: body,
-          widget: markdown,
-          default: 'Be interesting but not annoying',
-        }
-      - {
-          label: Date,
-          name: date,
-          widget: date,
-          format: YYYY-MM-DD,
-          default: '',
-        }
-  #----------------------------------------------DE
 
-  # Main Pages DE
-  - name: 'mainPageDe'
-    identifier_field: name
-    label: 'Main Pages (deutsch)'
-    filter: { field: language, value: de }
-    editor:
-      preview: false
-    files:
-      #Home
-      - file: 'content/de/main-pages/index.md'
-        label: Index
-        name: indexDE
-        identifier_field: name
-        fields:
-          - { label: Template Key, name: templateKey, widget: hidden }
-          - { label: Type, name: type, widget: hidden, default: 1 }
-          - { label: Language, name: language, widget: hidden, default: de }
-          - { label: Title, name: titles, widget: string }
-          - { label: SEO Description, name: description, widget: text }
-
-      #Journal DE
-      - file: 'content/de/main-pages/journal.md'
-        label: Journal
-        name: journalDE
-        identifier_field: name
-        fields:
-          - {
-              label: Template Key,
-              name: templateKey,
-              widget: hidden,
-              default: templates/journal,
-            }
-          - { label: Type, name: type, widget: hidden, default: 1 }
-          - { label: Language, name: language, widget: hidden, default: de }
-          - { label: Title, name: title, widget: string }
-          - { label: SEO Description, name: description, widget: text }
-
-  #Note DE
-  - name: 'noteDe'
-    label: 'Note (deutsch)'
-    folder: 'content/de/note'
-    filter: { field: contentType, value: mote }
+  - name: projects
+    identifier_field: title
+    label: 'Projects'
+    folder: content/projects
     create: true
     slug: '{{slug}}'
-    identifier_field: slug
     fields:
       - {
-          label: Template Key,
-          name: templateKey,
-          widget: hidden,
-          default: templates/note,
+          label: 'Template Key',
+          name: 'templateKey',
+          widget: 'hidden',
+          default: 'projects',
         }
-      - { label: Slug, name: slug, widget: string }
-      - { label: Language, name: language, widget: hidden, default: de }
-      - {
-          label: Content Type,
-          name: contentType,
-          widget: hidden,
-          default: note,
-        }
-      - {
-          label: Title,
-          name: title,
-          widget: string,
-          pattern: ['.{0,80}', 'Oopsy, no more that 80 characters'],
-        }
-      - { label: Body, name: body, widget: markdown }
-      - {
-          label: Date,
-          name: date,
-          widget: date,
-          format: YYYY-MM-DD,
-          default: '',
-        }
+      - name: seo
+        label: SEO
+        widget: 'object'
+        fields:
+          - { label: Title, name: title, widget: string, required: true }
+          - {
+              label: Description,
+              name: description,
+              widget: string,
+              required: true,
+            }
+          - { label: Cover, name: seoCover, widget: image, required: false }
+
+      - label: Title
+        name: title
+        widget: markdown
+        required: true
+      - label: Title color
+        name: titleColor
+        widget: color
+        default: '#000000'
+        required: true
+      - label: Preview
+        name: preview
+        widget: boolean
+        required: true
+      - label: Text
+        name: text
+        widget: markdown
+        required: false
+      - label: Text color
+        name: textColor
+        widget: color
+        default: '#000000'
+        required: true
+      - label: Preview background color
+        name: bgColor
+        widget: color
+        default: '#ffffff'
+        required: true
+      - label: hashtag
+        name: hashtag
+        widget: string
+        required: false
+      - label: Hashtag color
+        name: hashtagColor
+        widget: color
+        default: '#000000'
+        required: true
+
+      - label: Image position
+        name: wrapBoxBgPositionStyle
+        widget: select
+        options: ['CENTER', 'LEFT', 'WIDTHCOVER', 'REGULAR']
+        default: 'WIDTHCOVER'
+        required: false
+
+      - label: Image Style Type
+        name: imageStyleType
+        widget: select
+        options: ['icon', 'high', 'cover']
+        required: false
+
+      - label: Img
+        name: img
+        widget: image
+        required: false
+
+      - label: imgTabPro
+        name: imgTabPro
+        widget: image
+        required: false
+
+      - label: imgTab
+        name: imgTab
+        widget: image
+        required: false
+
+      - label: imgTabMob
+        name: imgTabMob
+        widget: image
+        required: false
+
+      - label: imgMob
+        name: imgMob
+        widget: image
+        required: false
+
+      - name: header
+        label: Header
+        widget: 'object'
+        fields:
+          - { label: Title, name: title, widget: string, required: true }
+          - {
+              label: Image Background,
+              name: imageBackground,
+              widget: 'color',
+              default: '#ffffff',
+              required: false,
+            }
+          - {
+              label: Image Header Mobile,
+              name: imgHeaderMob,
+              widget: image,
+              required: false,
+            }
+          - {
+              label: Image Header Tablet,
+              name: imgHeaderTablet,
+              widget: image,
+              required: false,
+            }
+          - {
+              label: Image Header Laptop,
+              name: imgHeaderLaptop,
+              widget: image,
+              required: false,
+            }
+          - {
+              label: Logo Color,
+              name: imgColor,
+              widget: 'select',
+              options: ['BLACK', 'WHITE'],
+              required: true,
+              default: 'BLACK',
+            }
+          - { label: Location, name: location, widget: string, required: false }
+          - { label: Industry, name: industry, widget: string, required: false }
+
+      - name: content
+        label: Section
+        collapsed: false
+        create: true
+        slug: '{{slug}}'
+        widget: 'list'
+        fields:
+          - { label: Title, name: title, widget: string, required: false }
+          - {
+              label: Description,
+              name: description,
+              widget: string,
+              required: false,
+            }
+          - {
+              label: Background Color,
+              name: backgroundColor,
+              widget: 'color',
+              default: '#ffffff',
+              required: true,
+            }
+          - {
+              label: Text Color,
+              name: textColor,
+              widget: color,
+              default: '#000000',
+              required: true,
+            }
+          - label: 'Image Section'
+            name: imageSection
+            widget: 'object'
+            fields:
+              - label: Paddings
+                name: paddings
+                widget: boolean
+                default: false
+
+              - label: Image type
+                name: type
+                widget: select
+                options: ['FULL', 'CENTERED', 'FIXED']
+                required: false
+
+              - label: Image Mobile
+                name: imgMob
+                widget: image
+                required: false
+
+              - label: Image Tablet
+                name: imgTab
+                widget: image
+                required: false
+
+              - label: Image Laptop
+                name: imgLaptop
+                widget: image
+                required: false
+
+          - name: multipleImageSection
+            label: Multiple Image Section
+            collapsed: false
+            create: true
+            slug: '{{slug}}'
+            widget: 'list'
+            fields:
+              - label: Image Mobile
+                name: imgMob
+                widget: image
+                required: false
+              - label: Image Tablet
+                name: imgTab
+                widget: image
+                required: false
+              - label: Image Laptop
+                name: imgLaptop
+                widget: image
+                required: false
+              - label: Background color Image
+                name: imgBackground
+                widget: color
+                default: '#ffffff'
+                required: true
+
+  - name: capability_page
+    label: Capability page
+    identifier_field: types
+    folder: content/capability-Page
+    create: true
+    slug: '{{slug}}'
+    fields:
+      - label: 'Template Key'
+        name: 'templateKey'
+        widget: 'hidden'
+        default: 'capability_page_new'
+
+      - label: Preview
+        name: preview
+        widget: boolean
+        required: true
+      - { label: Title, name: title, widget: string }
+
+      - label: 'Sections'
+        name: 'sections'
+        widget: 'list'
+        types:
+          - label: 'WEDO'
+            name: 'WEDO'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Main Title',
+                  name: 'mainText',
+                  widget: 'markdown',
+                  buttons: [bold, heading-two, bulleted-list, numbered-list],
+                  required: true,
+                }
+              - {
+                  label: 'Main Title Color',
+                  name: 'mainTextColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#fffff',
+                }
+              - {
+                  label: 'Title Left Block (Large)',
+                  name: 'title',
+                  widget: 'markdown',
+                  buttons: [bold, heading-two, bulleted-list, numbered-list],
+                  required: true,
+                }
+              - {
+                  label: 'titleColor',
+                  name: 'titleColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Right Block. Top-Left Title',
+                  name: 'title2',
+                  widget: 'markdown',
+                  buttons: [bold, heading-two, bulleted-list, numbered-list],
+                  required: true,
+                }
+              - {
+                  label: 'Top-Left title color',
+                  name: 'titleColor2',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Right Block. Top-Right Title',
+                  name: 'title3',
+                  widget: 'markdown',
+                  buttons: [bold, heading-two, bulleted-list, numbered-list],
+                  required: true,
+                }
+              - {
+                  label: 'Top-Right title color',
+                  name: 'titleColor3',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Right Block. Bottom-Right Title',
+                  name: 'title4',
+                  widget: 'markdown',
+                  buttons: [bold, heading-two, bulleted-list, numbered-list],
+                  required: true,
+                }
+              - {
+                  label: 'Bottom-Right title color',
+                  name: 'titleColor4',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Right Block. Bottom-Left Title',
+                  name: 'title5',
+                  widget: 'markdown',
+                  buttons: [bold, heading-two, bulleted-list, numbered-list],
+                  required: true,
+                }
+              - {
+                  label: 'Bottom-Left title color',
+                  name: 'titleColor5',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+
+          - label: 'VERTICALS'
+            name: 'VERTICALS'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Title Left',
+                  name: 'title',
+                  widget: 'string',
+                  required: true,
+                }
+              - {
+                  label: 'Title Color',
+                  name: 'titleColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Background Color',
+                  name: 'bgColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#FFFFFF',
+                }
+              - {
+                  label: 'Text',
+                  name: 'text',
+                  widget: 'string',
+                  required: true,
+                }
+              - {
+                  label: 'Text Color',
+                  name: 'textColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#FFFFFF',
+                }
+              - label: 'Item Text'
+                name: 'itemText'
+                widget: 'list'
+                fields:
+                  - { label: 'Item Title', name: 'itemTitle', widget: 'string' }
+                  - {
+                      label: 'ID',
+                      name: 'id',
+                      widget: 'number',
+                      valueType: 'int',
+                      required: true,
+                    }
+
+          - label: 'COOPERATION'
+            name: 'COOPERATION'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Title',
+                  name: 'title',
+                  widget: 'string',
+                  required: true,
+                }
+              - {
+                  label: 'Title Color',
+                  name: 'titleColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Background Color',
+                  name: 'bgColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#FFFFFF',
+                }
+              - {
+                  label: 'Text',
+                  name: 'text',
+                  widget: 'string',
+                  required: true,
+                }
+              - {
+                  label: 'Text Color',
+                  name: 'textColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - label: 'Item Text'
+                name: 'itemText'
+                required: true
+                widget: 'list'
+                fields:
+                  - {
+                      label: 'Item Title',
+                      name: 'itemTitle',
+                      widget: 'string',
+                      required: true,
+                    }
+                  - {
+                      label: 'Item Text',
+                      name: 'item_Text',
+                      widget: 'string',
+                      required: true,
+                    }
+                  - {
+                      label: 'Item Text Ramaining',
+                      name: 'item_Remaining',
+                      widget: 'string',
+                      required: false,
+                    }
+                  - {
+                      label: 'Item Background Color',
+                      name: 'bgColor',
+                      widget: 'color',
+                      required: true,
+                      default: '#000',
+                    }
+                  - {
+                      label: 'Item all Text Color',
+                      name: 'textColor',
+                      widget: 'color',
+                      required: true,
+                      default: '#fff',
+                    }
+                  - {
+                      label: 'ID',
+                      name: 'id',
+                      widget: 'number',
+                      valueType: 'int',
+                      required: true,
+                    }
+
+          - label: 'DELIVERABLES'
+            name: 'DELIVERABLES'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Title',
+                  name: 'title',
+                  widget: 'string',
+                  required: true,
+                }
+              - {
+                  label: 'Title Color',
+                  name: 'titleColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Background Color',
+                  name: 'bgColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#FFFFFF',
+                }
+              - label: 'Item Text'
+                name: 'itemText'
+                required: true
+                widget: 'list'
+                fields:
+                  - {
+                      label: 'Item Title',
+                      name: 'itemTitle',
+                      widget: 'string',
+                      required: true,
+                    }
+                  - {
+                      label: 'Item Text',
+                      name: 'item_Text',
+                      widget: 'string',
+                      required: true,
+                    }
+                  - {
+                      label: 'ID',
+                      name: 'id',
+                      widget: 'number',
+                      valueType: 'int',
+                      required: true,
+                    }
+          - label: 'FEEDBACK'
+            name: 'FEEDBACK'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Title',
+                  name: 'title',
+                  widget: 'string',
+                  required: true,
+                }
+              - {
+                  label: 'Title Color',
+                  name: 'titleColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Background Color',
+                  name: 'bgColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#FFFFFF',
+                }
+              - {
+                  label: 'Title Small',
+                  name: 'title_small',
+                  widget: 'string',
+                  required: true,
+                }
+              - {
+                  label: 'Title Small Color',
+                  name: 'title_smallColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Text',
+                  name: 'text',
+                  widget: 'string',
+                  required: true,
+                }
+              - {
+                  label: 'Text Color',
+                  name: 'textColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Text Bottom',
+                  name: 'text_bottom',
+                  widget: 'string',
+                  required: true,
+                }
+              - {
+                  label: 'Text Bottom Color',
+                  name: 'text_bottomColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }

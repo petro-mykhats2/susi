@@ -8,7 +8,6 @@ function SimpleSlider({ dataitem }) {
   const orders = dataitem.allMarkdownRemark.edges
 
   const settings = {
-    dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 4,
