@@ -9,11 +9,62 @@ public_folder: /img
 publish_mode: editorial_workflow
 
 collections:
+  - name: products # Назва вашої нової колекції продуктів
+    label: Products # Заголовок колекції, який буде відображатися в адмін-панелі
+    folder: content/products # Шлях до папки, де буде зберігатися контент продуктів
+    create: true # Дозволити створення нових записів
+    slug: '{{slug}}' # Генерація слагу для кожного продукту
+    fields:
+      - {
+          label: 'Template Key',
+          name: 'templateKey',
+          widget: 'hidden',
+          default: 'products',
+        }
+      - label: Title # Назва продукту
+        name: title
+        widget: string
+      - label: Price # Ціна продукту
+        name: price
+        widget: string
+      - label: Type of Product # Тип продукту (вибір з колекції "typesProducts")
+        name: type
+        widget: relation
+        collection: typesProducts # Вибір колекції "typesProducts"
+        search_fields: ['title'] # Поле для пошуку за назвою типу продукту
+        value_field: '{{slug}}'
+        display_fields: ['title']
+      - label: Image
+        name: image
+        widget: image
+        required: false
+
+  - name: typesProducts # Назва вашої нової колекції
+    label: Types of Products # Заголовок колекції, який буде відображатися в адмін-панелі
+    folder: content/typesProducts # Шлях до папки, де буде зберігатися контент типів продуктів
+    create: true # Дозволити створення нових записів
+    slug: '{{slug}}' # Генерація слагу для кожного запису
+    fields:
+      - label: 'Template Key'
+        name: 'templateKey'
+        widget: 'hidden'
+        default: 'typesProducts'
+      - label: Title # Назва типу продукту (наприклад, "одяг," "авто," "електроніка")
+        name: title
+        widget: string
+      - label: Path # шлях на англійській (наприклад susi, roly...)
+        name: path
+        widget: string
+      - label: Image
+        name: image
+        widget: image
+        required: false
+
   - name: landing
     label: Landing
     label_singular: 'Landing'
     folder: content/landing
-    create: false
+    create: true
     slug: '{{slug}}'
     fields:
       - {

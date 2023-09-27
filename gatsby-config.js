@@ -30,8 +30,16 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: `data`,
-        path: `${__dirname}/src/data/`,
+        path: `${__dirname}/content/products/`,
         ignore: [`**/\.*`], // ignore files starting with a dot
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: `typesProducts`,
+        path: `${__dirname}/content/typesProducts/`,
+        ignore: [`**/\.*`], // ігнорувати файли, що починаються з крапки
       },
     },
     'gatsby-transformer-json',

@@ -7,7 +7,7 @@ function Rolls({ data }) {
   const orders = data.allMarkdownRemark.edges
   return (
     <Layout>
-      Філадельфія роли
+      Сети
       <div className='rolls'>
         {orders.map((order) => {
           return (
@@ -25,11 +25,14 @@ export default Rolls
 
 export const allProducts = graphql`
   {
-    allMarkdownRemark {
+    allMarkdownRemark(
+      filter: { frontmatter: { templateKey: { eq: "products" } } }
+    ) {
       edges {
         node {
           id
           frontmatter {
+            templateKey
             sku
             path
             weight

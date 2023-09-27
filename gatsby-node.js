@@ -13,6 +13,7 @@ exports.createPages = async ({ graphql, actions }) => {
             html
             id
             frontmatter {
+              templateKey
               path
               title
               price
@@ -21,6 +22,7 @@ exports.createPages = async ({ graphql, actions }) => {
               top
               description
               weight
+              type
               product_composition
             }
           }

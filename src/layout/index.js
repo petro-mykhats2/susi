@@ -32,7 +32,9 @@ const Layout = ({ children }) => {
             <div className='header-menu_image'>
               <img src='/img/basket_icon.png' alt='dark theme' />
             </div>
-            <div className='header-menu_text'>Меню</div>
+            <Link to={`/menu/`} className='header-menu_text'>
+              Меню
+            </Link>
           </div>
           <div className='header-cart'>
             <img src='/img/basket_icon.png' alt='dark theme' />

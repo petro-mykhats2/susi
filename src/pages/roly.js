@@ -1,25 +1,33 @@
 import React from 'react'
-import OrderLi from '../components/OrderLi'
-import OrdersTitle from '../components/OrdersTitle'
-import Layout from '../layout'
 import { graphql } from 'gatsby'
+import Item from '../components/Item'
+import Layout from '../layout'
 
-const IndexPage = ({ data }) => {
-  // sortData = data.allMarkdownRemark.edges
+function Rolls({ data }) {
+  const orders = data.allMarkdownRemark.edges
   return (
     <Layout>
-      <OrdersTitle />
-      <OrderLi datas={data} />
-      <OrderLi datas={data} />
+      Філадельфія роли
+      <div className='rolls'>
+        {orders.map((order) => {
+          return (
+            <div className='rollItem'>
+              <Item key={order.node.id} orderdata={order.node} />
+            </div>
+          )
+        })}
+      </div>
     </Layout>
   )
 }
 
-export default IndexPage
+export default Rolls
 
 export const allProducts = graphql`
   {
-    allMarkdownRemark {
+    allMarkdownRemark(
+      filter: { frontmatter: { templateKey: { eq: "products" } } }
+    ) {
       edges {
         node {
           id
