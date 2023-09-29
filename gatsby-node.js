@@ -1,4 +1,5 @@
 const path = require('path')
+const _ = require('lodash')
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
@@ -12,6 +13,9 @@ exports.createPages = async ({ graphql, actions }) => {
           node {
             html
             id
+            fields {
+              slug
+            }
             frontmatter {
               templateKey
               path
@@ -52,4 +56,42 @@ exports.createPages = async ({ graphql, actions }) => {
       })
     })
   })
+}
+
+// Tag pages:
+let tags = []
+// Iterate through each post, putting all found tags into `tags`
+posts.forEach((edge) => {
+  if (_.get(edge, `node.frontmatter.tags`)) {
+    tags = tags.concat(edge.node.frontmatter.tags)
+  }
+})
+// Eliminate duplicate tags
+tags = _.uniq(tags)
+
+// Make tag pages
+tags.forEach((tag) => {
+  const tagPath = `/tags/${_.kebabCase(tag)}/`
+
+  createPage({
+    path: tagPath,
+    component: path.resolve(`src/templates/tags.js`),
+    context: {
+      tag,
+    },
+  })
+})
+
+const { createFilePath } = require(`gatsby-source-filesystem`)
+
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions
+  if (node.internal.type === `MarkdownRemark`) {
+    const value = createFilePath({ node, getNode })
+    createNodeField({
+      name: `slug`,
+      node,
+      value,
+    })
+  }
 }
