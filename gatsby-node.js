@@ -4,11 +4,13 @@ const _ = require('lodash')
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
-  const postTemplate = path.resolve('src/pages/templateProduct.js')
+  const productTemplate = path.resolve('src/pages/templateProduct.js')
 
   return await graphql(`
     {
-      allMarkdownRemark {
+      allMarkdownRemark(
+        filter: { frontmatter: { templateKey: { eq: "products" } } }
+      ) {
         edges {
           node {
             html
@@ -18,7 +20,6 @@ exports.createPages = async ({ graphql, actions }) => {
             }
             frontmatter {
               templateKey
-              path
               title
               price
               image
@@ -41,8 +42,8 @@ exports.createPages = async ({ graphql, actions }) => {
     res.data.allMarkdownRemark.edges.forEach((edges) => {
       // const alldata = edges.node.frontmatter
       createPage({
-        path: `/menu/${edges.node.frontmatter.path}/`,
-        component: postTemplate,
+        path: `/menu${edges.node.fields.slug}`,
+        component: productTemplate,
         context: {
           title: edges.node.frontmatter.title,
           price: edges.node.frontmatter.price,
@@ -59,25 +60,25 @@ exports.createPages = async ({ graphql, actions }) => {
 }
 
 // Tag pages:
-let tags = []
+let type = []
 // Iterate through each post, putting all found tags into `tags`
-posts.forEach((edge) => {
-  if (_.get(edge, `node.frontmatter.tags`)) {
-    tags = tags.concat(edge.node.frontmatter.tags)
+type.forEach((edge) => {
+  if (_.get(edge, `node.frontmatter.type`)) {
+    type = type.concat(edge.node.frontmatter.type)
   }
 })
 // Eliminate duplicate tags
-tags = _.uniq(tags)
+type = _.uniq(type)
 
 // Make tag pages
-tags.forEach((tag) => {
-  const tagPath = `/tags/${_.kebabCase(tag)}/`
+type.forEach((tag) => {
+  const typePath = `/type/${_.kebabCase(tag)}/`
 
   createPage({
-    path: tagPath,
-    component: path.resolve(`src/templates/tags.js`),
+    path: typePath,
+    component: path.resolve(`src/templates/roly.js`),
     context: {
-      tag,
+      type,
     },
   })
 })

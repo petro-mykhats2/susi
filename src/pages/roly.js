@@ -5,6 +5,7 @@ import Layout from '../layout'
 
 function Rolls({ data }) {
   const orders = data.allMarkdownRemark.edges
+  console.log('ordersRolls///', data)
   return (
     <Layout>
       Філадельфія роли
@@ -31,10 +32,12 @@ export const allProducts = graphql`
       edges {
         node {
           id
+          fields {
+            slug
+          }
           frontmatter {
             templateKey
             sku
-            path
             weight
             title
             price

@@ -8,7 +8,6 @@ sku: 'sku-4'
 weight: '320 г'
 price: '379.00 грн'
 top: true
-path: '4444'
 parameters: '5'
 type: роли
 mainCategory: роли

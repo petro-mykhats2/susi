@@ -23,7 +23,7 @@ function Menu({ data }) {
 
 export default Menu
 
-export const allProducts = graphql`
+export const allCategoryMenu = graphql`
   {
     allMarkdownRemark(
       filter: { frontmatter: { templateKey: { eq: "typesProducts" } } }
@@ -31,11 +31,13 @@ export const allProducts = graphql`
       edges {
         node {
           id
+          fields {
+            slug
+          }
           frontmatter {
             templateKey
             title
             image
-            path
           }
         }
       }

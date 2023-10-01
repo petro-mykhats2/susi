@@ -10,7 +10,7 @@ const IndexPage = ({ data }) => {
     <Layout>
       <OrdersTitle />
       <OrderLi datas={data} />
-      <OrderLi datas={data} />
+      {/* <OrderLi datas={data} /> */}
     </Layout>
   )
 }
@@ -23,10 +23,12 @@ export const allProducts = graphql`
       edges {
         node {
           id
+          fields {
+            slug
+          }
           frontmatter {
             templateKey
             sku
-            path
             weight
             title
             price

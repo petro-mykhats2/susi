@@ -3,25 +3,25 @@ import { graphql } from 'gatsby'
 import Item from '../components/Item'
 import Layout from '../layout'
 
-function Rolls({ data }) {
-  const orders = data.allMarkdownRemark.edges
+function Rollsa() {
+  // const orders = data.allMarkdownRemark.edges
   return (
     <Layout>
       Сети
       <div className='rolls'>
-        {orders.map((order) => {
+        {/* {orders.map((order) => {
           return (
             <div className='rollItem'>
               <Item key={order.node.id} orderdata={order.node} />
             </div>
           )
-        })}
+        })} */}
       </div>
     </Layout>
   )
 }
 
-export default Rolls
+export default Rollsa
 
 export const allProducts = graphql`
   {
@@ -34,7 +34,6 @@ export const allProducts = graphql`
           frontmatter {
             templateKey
             sku
-            path
             weight
             title
             price

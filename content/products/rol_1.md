@@ -1,5 +1,4 @@
 ---
-path: philadelphia_z_lososem_i_avokado
 templateKey: products
 calories: 500 ккал
 price: 319.00 грн
