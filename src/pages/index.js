@@ -1,39 +1,45 @@
-import { graphql } from 'gatsby'
 import React from 'react'
-import Item from '../components/Item'
+import OrderLi from '../components/OrderLi'
 import OrdersTitle from '../components/OrdersTitle'
 import Layout from '../layout'
+import { graphql } from 'gatsby'
 
 const IndexPage = ({ data }) => {
-  const orders = data.allProductsJson.edges
+  // sortData = data.allMarkdownRemark.edges
   return (
     <Layout>
       <OrdersTitle />
-      <h1>
-        {orders.map((order) => {
-          return <Item key={order.node.id} orderdata={order.node} />
-        })}
-      </h1>
-      {/* <---  JSON preview data  ---> */}
-      {/* <pre>{JSON.stringify(data, null, 4)}</pre> */}
+      <OrderLi datas={data} />
+      <OrderLi datas={data} />
     </Layout>
   )
 }
 
-export const query = graphql`
+export default IndexPage
+
+export const allProducts = graphql`
   {
-    allProductsJson {
+    allMarkdownRemark {
       edges {
         node {
-          title
-          price
-          parameters
-          slug
           id
+          frontmatter {
+            sku
+            path
+            weight
+            title
+            price
+            image
+            category
+            parameters
+            mainCategory
+            description
+            product_composition
+            calories
+            top
+          }
         }
       }
     }
   }
 `
-
-export default IndexPage
