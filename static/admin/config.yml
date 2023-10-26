@@ -55,10 +55,15 @@ collections:
       - label: Path # шлях на англійській (наприклад susi, roly...)
         name: path
         widget: string
+        equired: false
       - label: Image
         name: image
         widget: image
         required: false
+      - label: Name products
+        name: name
+        widget: string
+        required: true
 
   - name: landing
     label: Landing

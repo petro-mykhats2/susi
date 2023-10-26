@@ -1,6 +1,7 @@
 ---
 templateKey: typesProducts
-# path: susi
-title: Суші
+title: susi
+path: SusiPath
+name: Суші
 image: /img/susi.png
 ---

@@ -10,7 +10,7 @@ const ItemMenu = ({ orderdata }) => {
         <div className='item-img'>
           <img src={orderdata.frontmatter.image} alt='imagee' />{' '}
         </div>
-        <div className='item-title'>{orderdata.frontmatter.title}</div>
+        <div className='item-title'>{orderdata.frontmatter.name}</div>
       </div>
     </Link>
   )

@@ -37,6 +37,7 @@ export const allCategoryMenu = graphql`
           }
           frontmatter {
             templateKey
+            name
             title
             image
           }
