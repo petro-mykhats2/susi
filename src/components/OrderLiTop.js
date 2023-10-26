@@ -1,7 +1,7 @@
 import { Link } from 'gatsby'
 import React from 'react'
 
-function OrderLiTop() {
+function OrderLiTop({ data }) {
   return (
     <div className='order_li_top'>
       <div className='order_li_top_title'>Філадельфія роли</div>

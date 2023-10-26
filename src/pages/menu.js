@@ -5,6 +5,7 @@ import ItemMenu from '../components/ItemMenu'
 
 function Menu({ data }) {
   const orders = data.allMarkdownRemark.edges
+  console.log('orders!!!!', orders)
   return (
     <Layout>
       Меню

@@ -1,6 +1,6 @@
 ---
 templateKey: typesProducts
-path: maky
+# path: maky
 title: Маки
 image: /img/maki.png
 ---

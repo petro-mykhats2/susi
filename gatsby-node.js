@@ -45,6 +45,7 @@ exports.createPages = async ({ graphql, actions }) => {
         path: `/menu${edges.node.fields.slug}`,
         component: productTemplate,
         context: {
+          slug: edges.node.fields.slug,
           title: edges.node.frontmatter.title,
           price: edges.node.frontmatter.price,
           image: edges.node.frontmatter.image,
@@ -60,28 +61,30 @@ exports.createPages = async ({ graphql, actions }) => {
 }
 
 // Tag pages:
-let type = []
-// Iterate through each post, putting all found tags into `tags`
-type.forEach((edge) => {
-  if (_.get(edge, `node.frontmatter.type`)) {
-    type = type.concat(edge.node.frontmatter.type)
-  }
-})
-// Eliminate duplicate tags
-type = _.uniq(type)
+// let type = []
+// // Iterate through each post, putting all found tags into `tags`
+// type.forEach((edge) => {
+//   if (_.get(edge, `node.frontmatter.type`)) {
+//     type = type.concat(edge.node.frontmatter.type)
+//   }
+// })
+// // Eliminate duplicate tags
+// type = _.uniq(type)
 
-// Make tag pages
-type.forEach((tag) => {
-  const typePath = `/type/${_.kebabCase(tag)}/`
+// // Make tag pages
+// type.forEach((tag) => {
+//   const typePath = `/type/${_.kebabCase(tag)}/`
 
-  createPage({
-    path: typePath,
-    component: path.resolve(`src/templates/roly.js`),
-    context: {
-      type,
-    },
-  })
-})
+//   createPage({
+//     path: typePath,
+//     component: path.resolve(`src/templates/roly.js`),
+//     context: {
+//       type,
+//     },
+//   })
+// })
+
+// створює slugs
 
 const { createFilePath } = require(`gatsby-source-filesystem`)
 

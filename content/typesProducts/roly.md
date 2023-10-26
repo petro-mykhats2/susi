@@ -1,6 +1,6 @@
 ---
 templateKey: typesProducts
-path: roly
+# path: roly
 title: Роли
 image: /img/roly.png
 ---

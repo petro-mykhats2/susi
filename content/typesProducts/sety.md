@@ -1,7 +1,6 @@
 ---
 templateKey: typesProducts
 title: Сети
-path: sety
-img: /img/sety.png
+# path: sety
 image: /img/sety.png
 ---
