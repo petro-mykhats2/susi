@@ -2,11 +2,12 @@ import React from 'react'
 import OrderBlock from './OrderBlock'
 import OrderLiTop from './OrderLiTop'
 
-function OrderLi({ datas }) {
+function OrderLi({ block, products, key }) {
+  // console.log('datas in orderLi', block, products)
   return (
     <div className='order_li'>
-      <OrderLiTop />
-      <OrderBlock data={datas} />
+      <OrderLiTop key={block.id} block={block} />
+      <OrderBlock key={key} products={products} />
     </div>
   )
 }

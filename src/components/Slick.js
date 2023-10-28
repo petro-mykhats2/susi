@@ -4,19 +4,16 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Item from './Item'
 
-function SimpleSlider({ dataitem }) {
-  const orders = dataitem.allMarkdownRemark.edges
+function SimpleSlider({ products }) {
+  const slidesToShow = products.length >= 4 ? 4 : products.length
 
   const settings = {
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
     slidesToScroll: 1,
     arrows: true,
     className: 'slides',
     dots: false,
-
-    // mobileFirst: true,
     responsive: [
       {
         breakpoint: 1400,
@@ -41,17 +38,14 @@ function SimpleSlider({ dataitem }) {
           slidesToScroll: 1,
         },
       },
-      // You can unslick at a given breakpoint now by adding:
-      // settings: "unslick"
-      // instead of a settings object
     ],
   }
   return (
     <div>
-      <Slider {...settings}>
-        {orders.map((order) => {
-          return <Item key={order.node.id} orderdata={order.node} />
-        })}
+      <Slider {...settings} slidesToShow={slidesToShow}>
+        {products.map((product, index) => (
+          <Item key={index} orderdata={product} />
+        ))}
       </Slider>
     </div>
   )

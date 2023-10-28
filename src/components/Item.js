@@ -2,8 +2,13 @@ import { Link } from 'gatsby'
 import React from 'react'
 
 const Item = ({ orderdata }) => {
+  // console.log('orderdata in item...', orderdata)
   return (
-    <Link to={`/menu/${orderdata.frontmatter.path}`} className='item'>
+    <Link
+      // to='/'
+      to={`menu${orderdata.fields.slug}`}
+      className='item'
+    >
       <div>
         {' '}
         <div className='item-top'>
