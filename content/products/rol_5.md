@@ -8,7 +8,7 @@ sku: 'sku-5'
 weight: '235 г'
 price: '190.00 грн'
 top: true
-type: ролиqq
+type: roly
 parameters: '5'
 mainCategory: роли
 category: Філадельфія роли

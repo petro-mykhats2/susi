@@ -42,6 +42,14 @@ module.exports = {
         ignore: [`**/\.*`], // ігнорувати файли, що починаються з крапки
       },
     },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: `landing`,
+        path: `${__dirname}/content/landing/`,
+        ignore: [`**/\.*`], // ігнорувати файли, що починаються з крапки
+      },
+    },
     'gatsby-transformer-json',
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',

@@ -90,8 +90,8 @@ collections:
           fields:
             [
               {
-                label: 'Projects',
-                name: 'projects',
+                label: 'Block',
+                name: 'block',
                 widget: 'relation',
                 collection: 'typesProducts',
                 search_fields: ['slug'],

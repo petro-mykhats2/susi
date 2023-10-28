@@ -9,7 +9,7 @@ weight: '320 г'
 price: '379.00 грн'
 top: true
 parameters: '5'
-type: роли
+type: roly
 mainCategory: роли
 category: Філадельфія роли
 image: '/img/philadelphia_z_tuncem.jpeg'
