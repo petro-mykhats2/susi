@@ -4,7 +4,10 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Item from './Item'
 
-function SimpleSlider({ products }) {
+function SimpleSlider({ products, customKey }) {
+  if (!products || products.length === 0) {
+    return <div>No products available.</div>
+  }
   const slidesToShow = products.length >= 4 ? 4 : products.length
 
   const settings = {

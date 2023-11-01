@@ -5,12 +5,19 @@ import OrdersTitle from '../components/OrdersTitle'
 import OrderLi from '../components/OrderLi'
 
 const IndexPage = ({ data }) => {
-  const { section, allProducts } = data
+  const { section, allProducts, allTypesProducts } = data
 
   const blockData = section.nodes[0].frontmatter.sections // Отримуємо дані блоків
 
   // Створюємо об'єкт, де ключі - це значення з "block", а значення - товари відповідного типу
   const productsByBlock = {}
+
+  // Створюємо об'єкт, де ключі - це значення з "title", а значення - назви блоків з "name"
+  const blockNames = {}
+
+  allTypesProducts.edges.forEach(({ node }) => {
+    blockNames[node.frontmatter.title] = node.frontmatter.name
+  })
 
   allProducts.edges.forEach(({ node }) => {
     const productType = node.frontmatter.type // Тип товару
@@ -23,13 +30,22 @@ const IndexPage = ({ data }) => {
     }
   })
 
+  // Оновлюємо блоки в blockData з відповідними назвами
+  const updatedBlockData = blockData.map((block) => {
+    return {
+      block: block.block,
+      name: blockNames[block.block] || '', // Додаємо назву блоку з allTypesProducts або залишаємо порожнім рядок
+    }
+  })
+
   return (
     <Layout>
       <OrdersTitle />
-      {blockData.map((block, index) => (
+      {updatedBlockData.map((block, index) => (
         <OrderLi
           key={index}
           block={block.block}
+          name={block.name} // Передаємо назву блоку
           products={productsByBlock[block.block]}
         />
       ))}
@@ -50,6 +66,18 @@ export const allProducts = graphql`
           title
           sections {
             block
+          }
+        }
+      }
+    }
+    allTypesProducts: allMarkdownRemark(
+      filter: { frontmatter: { templateKey: { eq: "typesProducts" } } }
+    ) {
+      edges {
+        node {
+          frontmatter {
+            name
+            title
           }
         }
       }

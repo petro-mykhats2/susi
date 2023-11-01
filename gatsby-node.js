@@ -1,5 +1,6 @@
 const path = require('path')
 const _ = require('lodash')
+const slugify = require('slugify')
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
@@ -42,7 +43,7 @@ exports.createPages = async ({ graphql, actions }) => {
     res.data.allMarkdownRemark.edges.forEach((edges) => {
       // const alldata = edges.node.frontmatter
       createPage({
-        path: `/menu${edges.node.fields.slug}`,
+        path: `/menu/product/${edges.node.fields.slug}`,
         component: productTemplate,
         context: {
           slug: edges.node.fields.slug,
@@ -60,42 +61,21 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 }
 
-// Tag pages:
-// let type = []
-// // Iterate through each post, putting all found tags into `tags`
-// type.forEach((edge) => {
-//   if (_.get(edge, `node.frontmatter.type`)) {
-//     type = type.concat(edge.node.frontmatter.type)
-//   }
-// })
-// // Eliminate duplicate tags
-// type = _.uniq(type)
-
-// // Make tag pages
-// type.forEach((tag) => {
-//   const typePath = `/type/${_.kebabCase(tag)}/`
-
-//   createPage({
-//     path: typePath,
-//     component: path.resolve(`src/templates/roly.js`),
-//     context: {
-//       type,
-//     },
-//   })
-// })
-
+//
 // створює slugs
-
-const { createFilePath } = require(`gatsby-source-filesystem`)
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
   if (node.internal.type === `MarkdownRemark`) {
-    const value = createFilePath({ node, getNode })
+    const title = node.frontmatter.title // Отримуємо назву з frontmatter
+
+    // Створюємо slug і транслітеруємо його
+    const slug = slugify(title, { lower: true, remove: /[*+~.()'"!:@]/g })
+
     createNodeField({
       name: `slug`,
       node,
-      value,
+      value: slug, // Використовуємо новий slug
     })
   }
 }

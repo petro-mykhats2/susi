@@ -1,11 +1,11 @@
 import React from 'react'
 import SimpleSlider from './Slick'
 
-function OrderBlock({ products, key }) {
+function OrderBlock({ products, customKey }) {
   return (
     <div className='order_block'>
       <div className='slick'>
-        <SimpleSlider key={key} products={products} />
+        <SimpleSlider customKey={customKey} products={products} />
       </div>
     </div>
   )

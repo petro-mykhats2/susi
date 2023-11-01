@@ -4,7 +4,7 @@ import React from 'react'
 const ItemMenu = ({ orderdata }) => {
   console.log('orderdata in ItemMenu', orderdata)
   return (
-    <Link to={`/menu${orderdata.fields.slug}`} className='item'>
+    <Link to={`/menu/${orderdata.fields.slug}`} className='item'>
       <div>
         {' '}
         <div className='item-img'>

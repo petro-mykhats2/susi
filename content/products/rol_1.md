@@ -4,7 +4,7 @@ calories: 500 ккал
 price: 319.00 грн
 parameters: '5'
 top: true
-mainCategory: роли
+mainCategory: roly
 title: Філадельфія з лососем та авокадо
 weight: 320 г
 product_composition: Лосось, Крем-сир, Авокадо, Огірок.

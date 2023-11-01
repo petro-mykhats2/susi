@@ -49,13 +49,10 @@ collections:
         name: 'templateKey'
         widget: 'hidden'
         default: 'typesProducts'
-      - label: Title # Назва типу продукту (наприклад, "одяг," "авто," "електроніка")
+      - label: Title (small eng sympols for path) # Назва типу продукту (наприклад, "одяг," "авто," "електроніка")
         name: title
         widget: string
-      - label: Path # шлях на англійській (наприклад susi, roly...)
-        name: path
-        widget: string
-        equired: false
+        required: true
       - label: Image
         name: image
         widget: image
@@ -96,7 +93,7 @@ collections:
                 collection: 'typesProducts',
                 search_fields: ['slug'],
                 value_field: '{{slug}}',
-                display_fields: ['title'],
+                display_fields: ['name'],
                 multiple: false,
                 min: 1,
                 max: 1,
