@@ -4,20 +4,21 @@ import Item from '../../components/Item'
 import Layout from '../../layout'
 
 function All({ data }) {
-  console.log('datammmm', data)
-  // const orders = data.allMarkdownRemark.edges
   const title = data.markdownRemark.frontmatter.title
+  const name = data.markdownRemark.frontmatter.name
+
+  // Фільтрація продуктів за умовою type === title
+  const filteredProducts = data.allProducts.edges.filter(
+    ({ node }) => node.frontmatter.type === title
+  )
+
   return (
     <Layout>
-      {title} jhhjhjhjhjh - новий
-      <div className='rolls'>
-        {/* {orders.map((order) => {
-          return (
-            <div className='rollItem'>
-              <Item key={order.node.id} orderdata={order.node} />
-            </div>
-          )
-        })} */}
+      <h1>{name}</h1>
+      <div className='rollsss'>
+        {filteredProducts.map(({ node }) => (
+          <Item key={node.id} orderdata={node} />
+        ))}
       </div>
     </Layout>
   )
@@ -33,6 +34,32 @@ export const query = graphql`
       }
       frontmatter {
         title
+        name
+      }
+    }
+    allProducts: allMarkdownRemark {
+      edges {
+        node {
+          id
+          fields {
+            slug
+          }
+          frontmatter {
+            templateKey
+            sku
+            weight
+            title
+            price
+            image
+            category
+            parameters
+            mainCategory
+            description
+            product_composition
+            calories
+            type
+          }
+        }
       }
     }
   }
