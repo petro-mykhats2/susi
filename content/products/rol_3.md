@@ -10,7 +10,5 @@ price: '319.00 грн'
 top: false
 type: roly
 parameters: '5'
-mainCategory: роли
-category: Філадельфія роли
 image: '/img/karamelna_philadelphia.jpeg'
 ---

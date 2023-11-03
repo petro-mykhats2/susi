@@ -96,9 +96,7 @@ export const allProducts = graphql`
             title
             price
             image
-            category
             parameters
-            mainCategory
             description
             product_composition
             calories
