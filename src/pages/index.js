@@ -20,7 +20,7 @@ const IndexPage = ({ data }) => {
   })
 
   allProducts.edges.forEach(({ node }) => {
-    const productType = node.frontmatter.type // Тип товару
+    const productType = node.frontmatter.categoryProduct // Тип товару
     if (productType) {
       // Якщо тип існує
       if (!productsByBlock[productType]) {
@@ -100,7 +100,7 @@ export const allProducts = graphql`
             description
             product_composition
             calories
-            type
+            categoryProduct
           }
         }
       }

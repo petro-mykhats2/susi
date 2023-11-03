@@ -8,7 +8,7 @@ sku: 'sku-2'
 weight: '295 г'
 price: '289.00 грн'
 top: false
-type: roly
+categoryProduct: roly
 parameters: '5'
 image: '/img/philadelphia_v_kunzhuti.jpeg'
 ---

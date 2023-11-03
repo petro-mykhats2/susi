@@ -7,9 +7,9 @@ function All({ data }) {
   const title = data.markdownRemark.frontmatter.title
   const name = data.markdownRemark.frontmatter.name
 
-  // Фільтрація продуктів за умовою type === title
+  // Фільтрація продуктів за умовою categoryProduct === title
   const filteredProducts = data.allProducts.edges.filter(
-    ({ node }) => node.frontmatter.type === title
+    ({ node }) => node.frontmatter.categoryProduct === title
   )
 
   return (
@@ -55,7 +55,7 @@ export const query = graphql`
             description
             product_composition
             calories
-            type
+            categoryProduct
           }
         }
       }

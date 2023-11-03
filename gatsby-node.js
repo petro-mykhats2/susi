@@ -28,7 +28,7 @@ exports.createPages = async ({ graphql, actions }) => {
               top
               description
               weight
-              type
+              categoryProduct
               product_composition
             }
           }

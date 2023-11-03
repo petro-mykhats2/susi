@@ -9,6 +9,6 @@ weight: '320 г'
 price: '379.00 грн'
 top: true
 parameters: '5'
-type: roly
+categoryProduct: roly
 image: '/img/philadelphia_z_tuncem.jpeg'
 ---

@@ -28,7 +28,7 @@ collections:
         name: price
         widget: string
       - label: Type of Product # Тип продукту (вибір з колекції "typesProducts")
-        name: type
+        name: categoryProduct
         widget: relation
         collection: typesProducts # Вибір колекції "typesProducts"
         search_fields: ['title'] # Поле для пошуку за назвою типу продукту
@@ -280,8 +280,8 @@ collections:
                 widget: boolean
                 default: false
 
-              - label: Image type
-                name: type
+              - label: Image categoryProduct
+                name: categoryProduct
                 widget: select
                 options: ['FULL', 'CENTERED', 'FIXED']
                 required: false
