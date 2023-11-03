@@ -8,9 +8,7 @@ sku: 'sku-5'
 weight: '235 г'
 price: '190.00 грн'
 top: true
-type: roly
+categoryProduct: roly
 parameters: '5'
-mainCategory: роли
-category: Філадельфія роли
 image: '/img/karamelna_philadelphia.jpeg'
 ---

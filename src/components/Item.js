@@ -6,7 +6,7 @@ const Item = ({ orderdata }) => {
   return (
     <Link
       // to='/'
-      to={`menu${orderdata.fields.slug}`}
+      to={`/menu/product/${orderdata.fields.slug}`}
       className='item'
     >
       <div>
