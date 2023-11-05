@@ -1,0 +1,38 @@
+.menuCategory {
+
+    &-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    &-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        min-height: 440px;
+        box-shadow: 0 0 0 transparent; 
+        transition: box-shadow 0.3s ease;
+        flex: 0 0 calc(25% - 10px); 
+        margin: 4px; 
+        padding: 30px;
+
+        @include sm {
+        font-size: 18px;
+        margin-bottom: 20px;
+        height: 2rem;
+      }
+
+        &-top {
+            position: absolute;
+            right: 0;
+            top: 0;
+            left: auto;
+            height: 45%;
+            display: block;
+            z-index: 9999;
+            width: 30%;
+        }
+    }
+}

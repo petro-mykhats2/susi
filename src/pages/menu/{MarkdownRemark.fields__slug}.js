@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import Item from '../../components/Item'
 import Layout from '../../layout'
+import ItemProductCategory from '../../components/ItemProductCategory'
 
 function All({ data }) {
   const title = data.markdownRemark.frontmatter.title
@@ -15,9 +15,9 @@ function All({ data }) {
   return (
     <Layout>
       <h1>{name}</h1>
-      <div className='rollsss'>
+      <div className='menuCategory-container'>
         {filteredProducts.map(({ node }) => (
-          <Item key={node.id} orderdata={node} />
+          <ItemProductCategory key={node.id} orderdata={node} />
         ))}
       </div>
     </Layout>
