@@ -14,15 +14,22 @@
         min-height: 440px;
         box-shadow: 0 0 0 transparent; 
         transition: box-shadow 0.3s ease;
-        flex: 0 0 calc(25% - 10px); 
+        flex: 0 0 calc(90% - 10px); 
         margin: 4px; 
         padding: 30px;
+         flex-wrap: nowrap;
+
+         @include xsl {
+            flex: 0 0 calc(38% - 10px);
+          } 
 
         @include sm {
-        font-size: 18px;
-        margin-bottom: 20px;
-        height: 2rem;
-      }
+            flex: 0 0 calc(25% - 10px);
+          }
+
+          @include lg {
+            flex: 0 0 calc(18% - 10px);
+          }
 
         &-top {
             position: absolute;

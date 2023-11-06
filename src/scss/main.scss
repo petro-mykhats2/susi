@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-
+@import "utils/mixins", "utils/variables";
 @import "base/base";
 @import "base/grid";
 @import "base/reset";
@@ -13,8 +13,7 @@
 @import "pages/menu";
 @import "pages/templateProduct";
 @import "pages/menuCategory";
-@import "utils/mixins";
-@import "utils/variables";
+
 
 // @import "themes/fonts";
 // @import "layout/myshop";
