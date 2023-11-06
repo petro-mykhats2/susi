@@ -101,6 +101,7 @@ export const allProducts = graphql`
             product_composition
             calories
             categoryProduct
+            top
           }
         }
       }

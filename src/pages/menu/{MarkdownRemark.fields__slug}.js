@@ -56,6 +56,7 @@ export const query = graphql`
             product_composition
             calories
             categoryProduct
+            top
           }
         }
       }

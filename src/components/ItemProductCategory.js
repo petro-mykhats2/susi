@@ -18,11 +18,7 @@ const ItemProductCategory = ({ orderdata }) => {
           </div>
         ) : null}
         <div className='item-img'>
-          <img
-            // className='item_img'
-            src={orderdata.frontmatter.image}
-            alt='imagee'
-          />{' '}
+          <img src={orderdata.frontmatter.image} alt='imagee' />{' '}
         </div>
         <div className='item-title'>{orderdata.frontmatter.title}</div>
         <div className='item-text'>{orderdata.frontmatter.description}</div>
@@ -36,10 +32,6 @@ const ItemProductCategory = ({ orderdata }) => {
 
         <div className='item-buttom_button'>В кошик</div>
       </div>
-
-      {/* <span>{orderdata.frontmatter.title + '   '}</span>
-      <span>{orderdata.frontmatter.parameters + '   '}</span>
-      <span>{orderdata.frontmatter.price}</span> */}
     </Link>
   )
 }
