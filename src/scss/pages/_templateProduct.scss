@@ -1,8 +1,10 @@
 .product {
     min-height: 650px;
-    margin: 0 15px;
-    @media (min-width: 800px) {
-    margin: 0 80px;
+    margin: 20px 15px 0px 15px;
+
+
+    @media (min-width: 1250px) {
+    margin: 0px 80px 
     }
 }
 
