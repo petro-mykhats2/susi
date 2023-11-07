@@ -1,8 +1,9 @@
 import React from 'react'
 import Layout from '../layout'
+import { Link } from 'gatsby'
 
 function Product({ pageContext }) {
-  console.log('pageContext', pageContext)
+  // console.log('pageContext', pageContext)
   return (
     <Layout>
       <div className='product'>
