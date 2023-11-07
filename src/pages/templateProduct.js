@@ -3,9 +3,31 @@ import Layout from '../layout'
 import { Link } from 'gatsby'
 
 function Product({ pageContext }) {
-  // console.log('pageContext', pageContext)
+  console.log('pageContext', pageContext)
+  // Отримуємо список категорій з контексту
+  const categories = pageContext.categories
+
+  // Шукаємо категорію, яка відповідає `categoryProduct` поточного товару
+  const currentCategory = categories.find(
+    (category) => category.node.fields.slug === pageContext.categoryProduct
+  )
+
   return (
     <Layout>
+      <div className='breadcrumb'>
+        <Link to='/'>Головна</Link>
+        <span>{'>'}</span>
+        <Link to={`/menu/`}>Меню</Link>
+        <span>{'>'}</span>
+        {/* Виводимо назву знайденої категорії, якщо така є */}
+        {currentCategory && (
+          <Link to={`/menu/${currentCategory.node.fields.slug}`}>
+            {currentCategory.node.frontmatter.name}
+          </Link>
+        )}
+        <span>{'>'}</span>
+        <span>{pageContext.title}</span>
+      </div>
       <div className='product'>
         <div className='product-top'>
           <div className='product-img'>

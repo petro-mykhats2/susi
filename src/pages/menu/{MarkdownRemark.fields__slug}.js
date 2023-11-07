@@ -14,6 +14,14 @@ function All({ data }) {
 
   return (
     <Layout>
+      <div className='breadcrumb'>
+        <Link to='/'>Головна</Link>
+        <span>{'>'}</span>
+        <Link to={`/menu/`}>Menu</Link>
+        <span>{'>'}</span>
+        <span>{name}</span>
+      </div>
+      <br></br>
       <h1>{name}</h1>
       <div className='menuCategory-container'>
         {filteredProducts.map(({ node }) => (

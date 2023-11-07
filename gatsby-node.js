@@ -34,14 +34,35 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+
+      allCategoryMenu_top: allMarkdownRemark(
+        filter: { frontmatter: { templateKey: { eq: "typesProducts" } } }
+      ) {
+        edges {
+          node {
+            id
+            fields {
+              slug
+            }
+            frontmatter {
+              templateKey
+              name
+              title
+              image
+            }
+          }
+        }
+      }
     }
   `).then((res) => {
     if (res.errors) {
       return Promise.reject(res.errors)
     }
 
-    res.data.allMarkdownRemark.edges.forEach((edges) => {
-      // const alldata = edges.node.frontmatter
+    const products = res.data.allMarkdownRemark.edges
+    const categories = res.data.allCategoryMenu_top.edges
+
+    products.forEach((edges) => {
       createPage({
         path: `/menu/product/${edges.node.fields.slug}`,
         component: productTemplate,
@@ -55,27 +76,23 @@ exports.createPages = async ({ graphql, actions }) => {
           description: edges.node.frontmatter.description,
           weight: edges.node.frontmatter.weight,
           product_composition: edges.node.frontmatter.product_composition,
+          categoryProduct: edges.node.frontmatter.categoryProduct,
+          categories, // Додаємо список категорій до контексту
         },
       })
     })
   })
 }
 
-//
-// створює slugs
-
-exports.onCreateNode = ({ node, actions, getNode }) => {
+exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions
   if (node.internal.type === `MarkdownRemark`) {
-    const title = node.frontmatter.title // Отримуємо назву з frontmatter
-
-    // Створюємо slug і транслітеруємо його
+    const title = node.frontmatter.title
     const slug = slugify(title, { lower: true, remove: /[*+~.()'"!:@]/g })
-
     createNodeField({
       name: `slug`,
       node,
-      value: slug, // Використовуємо новий slug
+      value: slug,
     })
   }
 }

@@ -8,6 +8,11 @@ function Menu({ data }) {
   console.log('orders!!!!', orders)
   return (
     <Layout>
+      <div className='breadcrumb'>
+        <Link to='/'>Головна</Link>
+        <span>{'>'}</span>
+        <span>Меню</span>
+      </div>
       <div className='menu-top'>
         {/* замінити іконку тому що присутні метадані 
         що скачано з інтернету */}
