@@ -1,10 +1,12 @@
 import { Link } from 'gatsby'
 import React from 'react'
 
-const Item = ({ orderdata }) => {
-  // console.log('orderdata in item...', orderdata)
+const ItemProductCategory = ({ orderdata }) => {
   return (
-    <Link to={`/menu/product/${orderdata.fields.slug}`} className='item'>
+    <Link
+      to={`/menu/product/${orderdata.fields.slug}`}
+      className='menuCategory-item'
+    >
       <div>
         {' '}
         <div className='item-top'>
@@ -33,4 +35,4 @@ const Item = ({ orderdata }) => {
     </Link>
   )
 }
-export default Item
+export default ItemProductCategory

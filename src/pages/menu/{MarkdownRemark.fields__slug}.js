@@ -1,7 +1,7 @@
 import React from 'react'
-import { graphql } from 'gatsby'
-import Item from '../../components/Item'
+import { Link, graphql } from 'gatsby'
 import Layout from '../../layout'
+import ItemProductCategory from '../../components/ItemProductCategory'
 
 function All({ data }) {
   const title = data.markdownRemark.frontmatter.title
@@ -14,10 +14,18 @@ function All({ data }) {
 
   return (
     <Layout>
+      <div className='breadcrumb'>
+        <Link to='/'>Головна</Link>
+        <span>{'>'}</span>
+        <Link to={`/menu/`}>Menu</Link>
+        <span>{'>'}</span>
+        <span>{name}</span>
+      </div>
+      <br></br>
       <h1>{name}</h1>
-      <div className='rollsss'>
+      <div className='menuCategory-container'>
         {filteredProducts.map(({ node }) => (
-          <Item key={node.id} orderdata={node} />
+          <ItemProductCategory key={node.id} orderdata={node} />
         ))}
       </div>
     </Layout>
@@ -56,6 +64,7 @@ export const query = graphql`
             product_composition
             calories
             categoryProduct
+            top
           }
         }
       }
