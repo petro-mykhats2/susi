@@ -6,7 +6,6 @@
 @import "base/reset";
 // @import "base/typography";
 
-@import "layout/header";
 @import "components/ordersTitle";
 @import "components/orderLi";
 @import "components/menuTop";
@@ -15,11 +14,11 @@
 @import "pages/menu";
 @import "pages/templateProduct";
 @import "pages/menuCategory";
+@import "layout/layout";
 
 
 // @import "themes/fonts";
 // @import "layout/myshop";
-// @import "layout/footer", "layout/layout", "layout/my-component";
 // @import "layout/acesories";
 // @import "components/sidebar";
 // @import "components/mymodal";

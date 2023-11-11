@@ -8,9 +8,17 @@ function Product({ pageContext }) {
   const categories = pageContext.categories
 
   // Шукаємо категорію, яка відповідає `categoryProduct` поточного товару
-  const currentCategory = categories.find(
-    (category) => category.node.fields.slug === pageContext.categoryProduct
-  )
+  // const currentCategory = categories.find(
+  //   (category) => category.node.fields.slug === pageContext.categoryProduct
+  // )
+  console.log('categories-test:', categories)
+  const currentCategory =
+    categories &&
+    categories.find(
+      (category) =>
+        category.node.fields.slug ===
+        (pageContext && pageContext.categoryProduct)
+    )
 
   return (
     <Layout>
