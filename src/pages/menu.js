@@ -16,7 +16,7 @@ function Menu({ data }) {
       <div className='menu-top'>
         {/* замінити іконку тому що присутні метадані 
         що скачано з інтернету */}
-        <img className='menu-top__img' src='/img/menuIcon.png' alt='imagee' />
+        <img className='menu-top__img' src='/img/menuIcon2.png' alt='imagee' />
         <div className='menu-top__title'>Суші меню</div>
       </div>
       <div className='menuContainer'>

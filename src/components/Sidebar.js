@@ -27,51 +27,32 @@ export default () => {
             </Link>
           </MenuLink>
           <NavItems>
-            <Link to='/'>Home</Link>
-            <Link to='/articles'>Articles</Link>
-            <a href='#'>About</a>
-            <a href='#'>Products</a>
+            <Link to='/'>Головна</Link>
+            <Link to='/contacts/'>Контакти</Link>
+            <Link to='/'>Доставка</Link>
+            <Link to='/'>Акції</Link>
           </NavItems>
 
           <SideMenu>
             <Menu right={true} isOpen={menuState.menuOpen}>
               <Link className='menu-item' to='/' onClick={() => closeMenu()}>
-                Home
+                Головна
               </Link>
               <Link
                 className='menu-item'
-                to='/articles'
+                to='/contacts/'
                 onClick={() => closeMenu()}
               >
-                Articles
+                Контакти
               </Link>
-              <Link
-                className='menu-item'
-                to='/centered-div'
-                onClick={() => closeMenu()}
-              >
-                Centered Div
+              <Link className='menu-item' to='/' onClick={() => closeMenu()}>
+                Вибране
               </Link>
-              <Link
-                className='menu-item'
-                to='/form-sample'
-                onClick={() => closeMenu()}
-              >
-                Form Sample
+              <Link className='menu-item' to='/' onClick={() => closeMenu()}>
+                Корзина
               </Link>
-              <Link
-                className='menu-item'
-                to='/reactstrap-form'
-                onClick={() => closeMenu()}
-              >
-                Reactstrap Form
-              </Link>
-              <Link
-                className='menu-item'
-                to='/react-final-form'
-                onClick={() => closeMenu()}
-              >
-                React Final Form
+              <Link className='menu-item' to='/' onClick={() => closeMenu()}>
+                Доставка
               </Link>
             </Menu>
           </SideMenu>
@@ -101,23 +82,43 @@ const ContainerNav = styled.div`
   // background-color: #f792a4;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: start;
+
+  @media (min-width: 375px) {
+    justify-content: space-between;
+  }
 `
 
 const Logo = styled.div`
-  padding: 1em 1em 0 1em;
+  padding: 0em 0em 0 0em;
   img {
     height: 100%;
   }
   span {
-    padding-left: 15px;
+    padding-left: 5px;
     color: #fff;
-    font-size: 34px;
+    font-size: 14px;
+  }
+
+  @media (min-width: 768px) {
+    padding: 1em 1em 0 1em;
+    span {
+      padding-left: 10px;
+      font-size: 34px;
+    }
   }
 `
 const MenuLink = styled.div`
-  padding: 2em 1em 0 1em;
+font-size: 10px;
+  padding: 3em 1em 0 2em;
   color: #fff;
+  img {
+    width: 15px;
+    height: 15px;
+  }
+  @media (min-width: 375px) {
+    padding: 2em 1em 0 1em;
+    font-size: 16px;
   img {
     width: 25px;
     height: 25px;
