@@ -28,16 +28,30 @@ const Sidebar = () => {
             </Link>
           </Logo>
           <MenuLink>
-            <Link className='slidebar-logo' to={`/menu`}>
+            <Link
+              className='slidebar-logo sparkle u-hover--sparkle'
+              to={`/menu`}
+            >
               <img src='/img/menuIcon.png' alt='menu' />
               Меню
             </Link>
+            {/* <div>
+              <h1 class='sparkle u-hover--sparkle'>Sparkle Hover</h1>
+            </div> */}
           </MenuLink>
           <NavItems>
-            <Link to='/'>Головна</Link>
-            <Link to='/contacts/'>Контакти</Link>
-            <Link to='/'>Доставка</Link>
-            <Link to='/'>Акції</Link>
+            <Link className='sparkle u-hover--sparkle' to='/'>
+              Головна
+            </Link>
+            <Link className='sparkle u-hover--sparkle' to='/contacts/'>
+              Контакти
+            </Link>
+            <Link className='sparkle u-hover--sparkle' to='/'>
+              Доставка
+            </Link>
+            <Link className='sparkle u-hover--sparkle' to='/'>
+              Акції
+            </Link>
           </NavItems>
 
           <SideMenu>

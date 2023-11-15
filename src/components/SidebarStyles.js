@@ -70,14 +70,16 @@ export const NavItems = styled.div`
   flex-wrap: nowrap;
   justify-content: flex-end;
   margin-top: 1em;
+  height: 50px;
   a {
     color: #fff;
     text-align: center;
     padding: 1em;
     text-decoration: none;
     font-size: 1em;
+
     &:hover {
-      color: #333;
+      font-weight: 600;
     }
   }
   @media (max-width: 768px) {
