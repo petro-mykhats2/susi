@@ -43,6 +43,10 @@ const IndexPage = ({ data }) => {
     <Layout>
       <MenuTop data={allTypesProducts} />
       <OrdersTitle />
+      <div className='decorative-image'>
+        <img src='/img/wassabi.png' alt='dark theme' />
+      </div>
+
       {updatedBlockData.map((block, index) => (
         <OrderLi
           key={index}
