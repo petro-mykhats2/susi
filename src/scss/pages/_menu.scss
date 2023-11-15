@@ -1,25 +1,40 @@
 .menu-top {
     display: flex;
     flex-direction: row;
-    margin-top: 60px;
-    margin-bottom: 50px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+
+    @include sm {
+        margin-top: 60px;
+        margin-bottom: 50px;
+    }
 }
 
 .menu-top__img {
     display: inline-block;
-    width: 36px;
-    height: 36px;
-    margin-right: 17px;
+    width: 16px;
+    height: 16px;
+    margin-right: 7px;
     -o-object-fit: contain;
     object-fit: contain;
     -o-object-position: center;
     object-position: center;
     font-style: normal;
     line-height: 1.15;
+
+    @include sm {
+        width: 36px;
+        height: 36px;
+        margin-right: 17px;
+    }
 }
 
 .menu-top__title {
-    font-size: 34px;
+    font-size: 16px;
+
+    @include sm {
+        font-size: 34px;
+      }
 }
 
 .menuContainer {
@@ -29,13 +44,35 @@
     justify-content: flex-start;
     
     &-item {
-        min-width: 218px;
+        min-width: 70%;
         padding: 20px;
         margin: 10px;
         flex-basis: calc(19% - 0px);
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         border: #7e7e7e 2px solid;
 
+        @include xss {
+            min-width: 100px;
+            
+            
+        }
+
+        @include sm {
+            min-width: 218px;
+            padding: 20px;
+            margin: 10px;
+            flex-basis: calc(19% - 0px);
+            flex-wrap: wrap;
+            border: #7e7e7e 2px solid;
+        }
+    }
+
+    .item-img {
+        height: 50px;
+
+        @include sm {
+            height: 150px;
+        }
     }
 
     &-item:hover {
@@ -57,4 +94,8 @@
         //     height: 2rem;
         //   }
     }
+}
+
+.menu-item__img {
+    background-color: #ec6969;
 }

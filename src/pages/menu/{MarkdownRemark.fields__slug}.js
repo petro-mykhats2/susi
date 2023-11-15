@@ -17,7 +17,7 @@ function All({ data }) {
       <div className='breadcrumb'>
         <Link to='/'>Головна</Link>
         <span>{'>'}</span>
-        <Link to={`/menu/`}>Menu</Link>
+        <Link to={`/menu/`}>Меню</Link>
         <span>{'>'}</span>
         <span>{name}</span>
       </div>

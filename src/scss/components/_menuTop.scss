@@ -22,15 +22,42 @@
             display: flex;
             flex-direction: row;
             align-items: center;
+            -webkit-transition: all 0.2s ease;
+            transition: all 0.2s ease;
         }
         
-        &-title {
-            font-size: 16px;
+        &__title {
             margin-left: 5px;
+    
+            @include sm {
+                flex: 0 0 calc(25% - 10px);
+              }
+    
+              @include lg {
+                
+                font-size: 16px;
+                margin-left: 5px;
+              }
         }
     
         &-image {
             width: 30px;
+            padding-right: 5px;
+            -webkit-transition: all 0.5s ease;
+            transition: all 0.5s ease;
         }
     }
+}
+
+.menuTop-item img {
+    filter: grayscale(100%);
+}
+.menuTop-item:hover {
+    img {
+        filter: grayscale(0);
+        -webkit-transform: rotate(10deg); 
+        transform: rotate(10deg);
+    }
+	color: #ba752f;
+    font-size: 17px;
 }
