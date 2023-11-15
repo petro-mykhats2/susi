@@ -22,22 +22,19 @@
             display: flex;
             flex-direction: row;
             align-items: center;
+            -webkit-transition: all 0.2s ease;
+            transition: all 0.2s ease;
         }
         
         &__title {
-            background-color: #d24848;
-            font-size: 76px;
             margin-left: 5px;
-
-            // @include xsl {
-            //     flex: 0 0 calc(38% - 10px);
-            //   } 
     
             @include sm {
                 flex: 0 0 calc(25% - 10px);
               }
     
               @include lg {
+                
                 font-size: 16px;
                 margin-left: 5px;
               }
@@ -45,6 +42,22 @@
     
         &-image {
             width: 30px;
+            padding-right: 5px;
+            -webkit-transition: all 0.5s ease;
+            transition: all 0.5s ease;
         }
     }
+}
+
+.menuTop-item img {
+    filter: grayscale(100%);
+}
+.menuTop-item:hover {
+    img {
+        filter: grayscale(0);
+        -webkit-transform: rotate(10deg); 
+        transform: rotate(10deg);
+    }
+	color: #ba752f;
+    font-size: 17px;
 }
