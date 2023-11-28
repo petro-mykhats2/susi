@@ -23,6 +23,10 @@ const Cart = () => {
       )
     : 0
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
+
   return (
     <div>
       <h2>Корзина</h2>
@@ -30,13 +34,18 @@ const Cart = () => {
         <div>Корзина пуста</div>
       ) : (
         <div>
-          <form>
+          <form onSubmit={handleSubmit}>
             {cartItems &&
               cartItems.map((item) => (
                 <li key={item.id}>
-                  <img className='imgSmallCart' src={item.img} />
+                  <img
+                    className='Cart__imgSmall'
+                    src={item.img}
+                    alt={item.name}
+                  />
                   {item.name}
                   <button
+                    type='button'
                     onClick={() =>
                       handleChangeQuantity(item, item.quantity - 1)
                     }
@@ -45,15 +54,20 @@ const Cart = () => {
                   </button>
                   {item.quantity}
                   <button
+                    type='button'
                     onClick={() =>
                       handleChangeQuantity(item, item.quantity + 1)
                     }
                   >
                     +
                   </button>
-                  ${item.price}${item.price * item.quantity}
+                  ${item.price.toFixed(2)}=$
+                  {(item.price * item.quantity).toFixed(2)}
                   <div>
-                    <button onClick={() => handleRemoveFromCart(item)}>
+                    <button
+                      type='button'
+                      onClick={() => handleRemoveFromCart(item)}
+                    >
                       Видалити
                     </button>
                   </div>
