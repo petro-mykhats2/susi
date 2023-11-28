@@ -139,8 +139,44 @@
         background-color: #000000; 
     }
     .item-buttom_button:active {
-        background-color: #d50c0c; 
+        background-color: #944602; 
     }
 .imgSmallCart {
     width: 50px;
 }    
+
+.added-to-cart-message {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(45deg, $orange, $orange); /* Градієнтний фон - можна використовувати один колір для рівномірного фону */
+    color: $white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тінь */
+    z-index: 1000;
+    text-align: center;
+    display: block;
+    opacity: 0;
+    animation: fadeInOut 3s ease-in-out; 
+  }
+  
+  @keyframes fadeInOut {
+    0%, 100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+    20% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  
+
+  
+
+  
+  
+  
+  
