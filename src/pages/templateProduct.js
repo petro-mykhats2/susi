@@ -2,10 +2,17 @@ import React from 'react'
 import Layout from '../layout'
 import { Link } from 'gatsby'
 
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../redux/cart'
+
 function Product({ pageContext }) {
-  console.log('pageContext', pageContext)
   // Отримуємо список категорій з контексту
+  console.log('pageContext/////////', pageContext.forCart)
   const categories = pageContext.categories
+  const dispatch = useDispatch()
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product))
+  }
 
   // Шукаємо категорію, яка відповідає `categoryProduct` поточного товару
   // const currentCategory = categories.find(
@@ -88,7 +95,12 @@ function Product({ pageContext }) {
                   <div className='product_button_img'>
                     <img src='/img/shopping-cart.png' alt='imagee' />
                   </div>
-                  <div className='product_button_text'>В КОШИК</div>
+                  <div
+                    onClick={() => handleAddToCart(pageContext.forCart)}
+                    className='product_button_text'
+                  >
+                    ФВ КОШИК,,,,
+                  </div>
                 </div>
               </div>
             </div>

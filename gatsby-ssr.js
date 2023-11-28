@@ -1,4 +1,4 @@
-import './src/scss/main.scss'
+// gatsby-ssr.js
 import React from 'react'
 import { Provider } from 'react-redux'
 import store from './src/redux/state/store'

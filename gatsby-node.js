@@ -77,7 +77,8 @@ exports.createPages = async ({ graphql, actions }) => {
           weight: edges.node.frontmatter.weight,
           product_composition: edges.node.frontmatter.product_composition,
           categoryProduct: edges.node.frontmatter.categoryProduct,
-          categories, // Додаємо список категорій до контексту
+          categories,
+          forCart: edges.node, // Додаємо список категорій до контексту
         },
       })
     })
