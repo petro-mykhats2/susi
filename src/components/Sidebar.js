@@ -9,9 +9,17 @@ import {
   NavItems,
   SideMenu,
 } from './SidebarStyles'
+import { useSelector } from 'react-redux'
 
 const Sidebar = () => {
   const [menuState, setMenuOpen] = useState({ menuOpen: false })
+
+  const cartItems = useSelector((state) => state.cart.cartItems)
+  console.log('cartItems', cartItems)
+  const totalQuantity = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  )
 
   const closeMenu = () => {
     setMenuOpen({ menuOpen: false })
@@ -51,6 +59,16 @@ const Sidebar = () => {
             </Link>
             <Link className='sparkle u-hover--sparkle' to='/'>
               Акції
+            </Link>
+            <Link className='sparkle u-hover--sparkle' to='/'>
+              Корзина
+              <img
+                className='sidebar-shopping-cart-image'
+                src='/img/shopping-cart.png'
+              />
+              {totalQuantity > 0 ? (
+                <div className='shopping-cart-count'>{totalQuantity}</div>
+              ) : null}
             </Link>
           </NavItems>
 

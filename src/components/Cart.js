@@ -75,7 +75,7 @@ const Cart = () => {
               ))}
             <li>
               <div>Загальна вартість:</div>
-              <div>${cartTotal.toFixed(2)}</div>
+              <div>{cartTotal.toFixed(2)} грн</div>
             </li>
           </form>
           <hr />
