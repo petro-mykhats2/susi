@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Layout from '../layout'
 import { Link } from 'gatsby'
 
@@ -6,12 +6,19 @@ import { useDispatch } from 'react-redux'
 import { addToCart } from '../redux/cart'
 
 function Product({ pageContext }) {
-  // Отримуємо список категорій з контексту
-  console.log('pageContext/////////', pageContext.forCart)
+  // console.log('pageContext/////////', pageContext.forCart)
   const categories = pageContext.categories
   const dispatch = useDispatch()
+  const [showAddedToCartMessage, setShowAddedToCartMessage] = useState(false)
+
+  console.log('showAddedToCartMessage', showAddedToCartMessage)
   const handleAddToCart = (product) => {
     dispatch(addToCart(product))
+    setShowAddedToCartMessage(true)
+
+    setTimeout(() => {
+      setShowAddedToCartMessage(false)
+    }, 3000)
   }
 
   // Шукаємо категорію, яка відповідає `categoryProduct` поточного товару
@@ -53,6 +60,12 @@ function Product({ pageContext }) {
           </div>
           <div className='product-right'>
             <div className='product-name'>{pageContext.title}</div>
+            {/* Додано до корзини повідомлення */}
+            {showAddedToCartMessage && (
+              <div className='added-to-cart-message' style={{ top: '50px' }}>
+                Додано до корзини
+              </div>
+            )}{' '}
             <div className='product-label'>Кількість:</div>
             <div className='product-label_under'>8 шт</div>
             <div className='product-label'>Вага:</div>
@@ -60,7 +73,6 @@ function Product({ pageContext }) {
             <div className='product-label'>
               Склад: {pageContext.product_composition}
             </div>
-
             <div className='product-label_under product-slider'>
               <div className='product-slider-item'>
                 <div className='product-slider-item-img'>
@@ -91,16 +103,14 @@ function Product({ pageContext }) {
                 </div>
               </div>
               <div className='product-right_bottom_right'>
-                <div className='product_button'>
+                <div
+                  className='product_button'
+                  onClick={() => handleAddToCart(pageContext.forCart)}
+                >
                   <div className='product_button_img'>
                     <img src='/img/shopping-cart.png' alt='imagee' />
                   </div>
-                  <div
-                    onClick={() => handleAddToCart(pageContext.forCart)}
-                    className='product_button_text'
-                  >
-                    ФВ КОШИК,,,,
-                  </div>
+                  <div className='product_button_text'>В КОШИК</div>
                 </div>
               </div>
             </div>

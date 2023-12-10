@@ -1,5 +1,5 @@
 import { Link } from 'gatsby'
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../redux/cart'
@@ -7,9 +7,16 @@ import { addToCart } from '../redux/cart'
 // перевірити чи з цього компонента додається в корзину
 
 const ItemProductCategory = ({ orderdata }) => {
+  const [showAddedToCartMessage, setShowAddedToCartMessage] = useState(false)
+
   const dispatch = useDispatch()
   const handleAddToCart = (product) => {
     dispatch(addToCart(product))
+    setShowAddedToCartMessage(true)
+
+    setTimeout(() => {
+      setShowAddedToCartMessage(false)
+    }, 3000)
   }
   return (
     <div className='menuCategory-item'>
@@ -29,6 +36,12 @@ const ItemProductCategory = ({ orderdata }) => {
           <div className='item-img'>
             <img src={orderdata.frontmatter.image} alt='imagee' />{' '}
           </div>
+          {/* Додано до корзини повідомлення */}
+          {showAddedToCartMessage && (
+            <div className='added-to-cart-message' style={{ top: '50px' }}>
+              Додано до корзини
+            </div>
+          )}
           <div className='item-title'>{orderdata.frontmatter.title}</div>
           <div className='item-text'>{orderdata.frontmatter.description}</div>
           <div className='item-text'>
@@ -41,10 +54,10 @@ const ItemProductCategory = ({ orderdata }) => {
         <div className='item-buttom_price'>{orderdata.frontmatter.price}</div>
 
         <div
-          onClick={handleAddToCart(orderdata)}
+          onClick={() => handleAddToCart(orderdata)}
           className='item-buttom_button'
         >
-          В кошик!!!!!!!!
+          В кошик
         </div>
       </div>
     </div>

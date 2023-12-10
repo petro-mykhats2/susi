@@ -61,8 +61,8 @@ const Cart = () => {
                   >
                     +
                   </button>
-                  ${item.price.toFixed(2)}=$
-                  {(item.price * item.quantity).toFixed(2)}
+                  х {item.price.toFixed(2)}грн ={' '}
+                  {(item.price * item.quantity).toFixed(2)} грн
                   <div>
                     <button
                       type='button'
