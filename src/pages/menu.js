@@ -22,8 +22,8 @@ function Menu({ data }) {
       <div className='menuContainer'>
         {orders.map((order) => {
           return (
-            <div className='menuContainer-item'>
-              <ItemMenu key={order.node.id} orderdata={order.node} />
+            <div key={order.node.id} className='menuContainer-item'>
+              <ItemMenu orderdata={order.node} />
             </div>
           )
         })}

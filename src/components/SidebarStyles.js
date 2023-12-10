@@ -70,16 +70,35 @@ export const NavItems = styled.div`
   flex-wrap: nowrap;
   justify-content: flex-end;
   margin-top: 1em;
+  height: 50px;
   a {
     color: #fff;
     text-align: center;
     padding: 1em;
     text-decoration: none;
     font-size: 1em;
+
     &:hover {
-      color: #333;
+      font-weight: 600;
     }
   }
+  .sidebar-shopping-cart-image {
+    padding-left: 3px;
+    width: 19px;
+    height: 19px;
+  }
+  .shopping-cart-count {
+    position: absolute;
+    top: 10px;
+    right: 4px;
+    background-color: white;
+    color: orange;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 2px 5px;
+    border-radius: 50%;
+  }
+
   @media (max-width: 768px) {
     display: none;
   }
@@ -101,7 +120,7 @@ export const SideMenu = styled.div`
     width: 24px;
     height: 24px;
     right: 24px;
-    top: 24px;
+    top: 27px;
   }
   .bm-burger-bars {
     background: #373a47;

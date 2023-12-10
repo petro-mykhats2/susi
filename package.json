@@ -14,6 +14,7 @@
     "proxy": "npx netlify-cms-proxy-server"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.7",
     "axios": "^1.3.2",
     "gatsby": "^5.0.0",
     "gatsby-image": "^3.11.0",
@@ -34,7 +35,9 @@
     "react-burger-menu": "^3.0.9",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
+    "react-redux": "^8.1.3",
     "react-slick": "^0.29.0",
+    "redux": "^4.2.1",
     "sass": "^1.56.1",
     "slick-carousel": "^1.8.1",
     "slugify": "^1.6.6"
