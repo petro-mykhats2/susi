@@ -22,6 +22,10 @@ export const ContainerNav = styled.div`
   justify-content: start;
 
   @media (min-width: 375px) {
+    justify-content: start;
+  }
+
+  @media (min-width: 460px) {
     justify-content: space-between;
   }
 `
@@ -29,12 +33,25 @@ export const ContainerNav = styled.div`
 export const Logo = styled.div`
   padding: 0em 0em 0 0em;
   img {
-    height: 100%;
+    height: 75%;
+    padding-top 10px;
+    @media (min-width: 375px) {
+      height: 100%;
+      padding-top 0px;
+    }
   }
   span {
     padding-left: 5px;
     color: #fff;
-    font-size: 14px;
+    font-size: 10px;
+  }
+
+  @media (min-width: 375px) {
+    span {
+      padding-left: 10px;
+      font-size: 14px;
+      color: white;
+    }
   }
 
   @media (min-width: 768px) {
@@ -54,7 +71,7 @@ export const MenuLink = styled.div`
     width: 15px;
     height: 15px;
   }
-  @media (min-width: 375px) {
+  @media (min-width: 460px) {
     padding: 2em 1em 0 1em;
     font-size: 16px;
     img {
@@ -89,8 +106,8 @@ export const NavItems = styled.div`
   }
   .shopping-cart-count {
     position: absolute;
-    top: 10px;
-    right: 4px;
+    top: 3px;
+    right: 0px;
     background-color: white;
     color: orange;
     font-size: 16px;

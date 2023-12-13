@@ -38,7 +38,7 @@ const ItemProductCategory = ({ orderdata }) => {
           </div>
           {/* Додано до корзини повідомлення */}
           {showAddedToCartMessage && (
-            <div className='added-to-cart-message' style={{ top: '50px' }}>
+            <div className='added-to-cart-message' style={{ top: '250px' }}>
               Додано до корзини
             </div>
           )}

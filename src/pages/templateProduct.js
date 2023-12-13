@@ -62,10 +62,8 @@ function Product({ pageContext }) {
             <div className='product-name'>{pageContext.title}</div>
             {/* Додано до корзини повідомлення */}
             {showAddedToCartMessage && (
-              <div className='added-to-cart-message' style={{ top: '50px' }}>
-                Додано до корзини
-              </div>
-            )}{' '}
+              <div className='added-to-cart-message'>Додано до корзини</div>
+            )}
             <div className='product-label'>Кількість:</div>
             <div className='product-label_under'>8 шт</div>
             <div className='product-label'>Вага:</div>

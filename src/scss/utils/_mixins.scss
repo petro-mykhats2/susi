@@ -1,5 +1,6 @@
 $xss: 320px;
 $xs: 375px;
+$xsxs: 460px;
 $xsl: 574px;
 $xsll: 650px;
 $sm: 768px;
@@ -17,6 +18,11 @@ $ll: 2750px;
 
 @mixin xs {
   @media only screen and (min-width: $xs) {
+    @content;
+  }
+}
+@mixin xsxs {
+  @media only screen and (min-width: $xsxs) {
     @content;
   }
 }
