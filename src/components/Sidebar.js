@@ -32,7 +32,7 @@ const Sidebar = () => {
           <Logo>
             <Link className='slidebar-logo' to={`/`}>
               <img src='/img/logosushi.png' alt='logo' />
-              <span>Sushi & Rolls</span>
+              <span className='sidebar-title'>Sushi & Rolls</span>
             </Link>
           </Logo>
           <MenuLink>
@@ -43,6 +43,18 @@ const Sidebar = () => {
               <img src='/img/menuIcon.png' alt='menu' />
               Меню
             </Link>
+            <Link className='sparkle u-hover--sparkle' to='/'>
+              <span className='shopping-cart-mob'>
+                <img
+                  className='sidebar-shopping-cart-image'
+                  src='/img/shopping-cart.png'
+                />
+                {totalQuantity > 0 ? (
+                  <div className='shopping-cart-count-mob'>{totalQuantity}</div>
+                ) : null}
+              </span>
+            </Link>
+
             {/* <div>
               <h1 class='sparkle u-hover--sparkle'>Sparkle Hover</h1>
             </div> */}
@@ -61,7 +73,7 @@ const Sidebar = () => {
               Акції
             </Link>
             <Link className='sparkle u-hover--sparkle' to='/'>
-              Корзина
+              {/* Корзина */}
               <img
                 className='sidebar-shopping-cart-image'
                 src='/img/shopping-cart.png'

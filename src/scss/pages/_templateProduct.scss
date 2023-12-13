@@ -50,6 +50,7 @@
  }
 
 .product-right {
+    position: relative;
     margin-top: 40px;
 
     @include md {
@@ -213,6 +214,7 @@ img {
     width: 100%;
     background-color: #f7922c;
     justify-content: center;
+    cursor: pointer;
 
     @include xsll {
         margin-left: 40px;
