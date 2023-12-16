@@ -10,9 +10,15 @@ import {
   SideMenu,
 } from './SidebarStyles'
 import { useSelector } from 'react-redux'
+import CartSlider from './CartSlider'
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen }) => {
   const [menuState, setMenuOpen] = useState({ menuOpen: false })
+  const [isCartOpen, setIsCartOpen] = useState(false)
+
+  const handleToggleCart = () => {
+    setIsCartOpen(!isCartOpen)
+  }
 
   const cartItems = useSelector((state) => state.cart.cartItems)
   console.log('cartItems', cartItems)
@@ -43,7 +49,10 @@ const Sidebar = () => {
               <img src='/img/menuIcon.png' alt='menu' />
               Меню
             </Link>
-            <Link className='sparkle u-hover--sparkle' to='/'>
+            <span
+              className='sparkle u-hover--sparkle'
+              onClick={handleToggleCart}
+            >
               <span className='shopping-cart-mob'>
                 <img
                   className='sidebar-shopping-cart-image'
@@ -53,7 +62,7 @@ const Sidebar = () => {
                   <div className='shopping-cart-count-mob'>{totalQuantity}</div>
                 ) : null}
               </span>
-            </Link>
+            </span>
 
             {/* <div>
               <h1 class='sparkle u-hover--sparkle'>Sparkle Hover</h1>
@@ -72,7 +81,10 @@ const Sidebar = () => {
             <Link className='sparkle u-hover--sparkle' to='/'>
               Акції
             </Link>
-            <Link className='sparkle u-hover--sparkle' to='/'>
+            <span
+              onClick={handleToggleCart}
+              className='sparkle u-hover--sparkle'
+            >
               {/* Корзина */}
               <img
                 className='sidebar-shopping-cart-image'
@@ -81,7 +93,7 @@ const Sidebar = () => {
               {totalQuantity > 0 ? (
                 <div className='shopping-cart-count'>{totalQuantity}</div>
               ) : null}
-            </Link>
+            </span>
           </NavItems>
 
           <SideMenu>
@@ -109,6 +121,7 @@ const Sidebar = () => {
           </SideMenu>
         </ContainerNav>
       </TopNav>
+      <CartSlider isOpen={isCartOpen} onClose={handleToggleCart} />
     </>
   )
 }

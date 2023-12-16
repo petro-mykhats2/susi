@@ -29,55 +29,61 @@ const Cart = () => {
 
   return (
     <div>
-      <h2>Корзина</h2>
       {cartItems && cartItems.length === 0 ? (
         <div>Корзина пуста</div>
       ) : (
-        <div>
-          <form onSubmit={handleSubmit}>
+        <div className='cart-container'>
+          <div onSubmit={handleSubmit}>
             {cartItems &&
               cartItems.map((item) => (
-                <li key={item.id}>
-                  <img
-                    className='Cart__imgSmall'
-                    src={item.img}
-                    alt={item.name}
-                  />
-                  {item.name}
-                  <button
-                    type='button'
-                    onClick={() =>
-                      handleChangeQuantity(item, item.quantity - 1)
-                    }
-                  >
-                    -
-                  </button>
-                  {item.quantity}
-                  <button
-                    type='button'
-                    onClick={() =>
-                      handleChangeQuantity(item, item.quantity + 1)
-                    }
-                  >
-                    +
-                  </button>
-                  х {item.price.toFixed(2)}грн ={' '}
-                  {(item.price * item.quantity).toFixed(2)} грн
+                <div key={item.id} className='cart-item'>
                   <div>
-                    <button
-                      type='button'
+                    <span
+                      className='cart-button'
                       onClick={() => handleRemoveFromCart(item)}
-                    >
-                      Видалити
-                    </button>
+                    ></span>
                   </div>
-                </li>
+                  <div className='card-item__img'>
+                    <img
+                      className='Cart__imgSmall'
+                      src={item.img}
+                      alt={item.name}
+                    />
+                  </div>
+                  <div className='cart-name'>{item.name}</div>
+                  <div className='cart-item__buttom'>
+                    <div className='cart-totalPrice'>
+                      {(item.price * item.quantity).toFixed(2)} грн
+                    </div>
+                    <div className='cart-buttons'>
+                      <button
+                        type='button'
+                        className='cart-button-quantity'
+                        onClick={() =>
+                          handleChangeQuantity(item, item.quantity - 1)
+                        }
+                      >
+                        -
+                      </button>
+                      {item.quantity}
+                      <button
+                        type='button'
+                        className='cart-button-quantity'
+                        onClick={() =>
+                          handleChangeQuantity(item, item.quantity + 1)
+                        }
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                </div>
               ))}
-            <li>
-              <div>Загальна вартість:</div>
+            <span className='total-price'>
+              <div className='total-price-title'>Загальна вартість:</div>
               <div>{cartTotal.toFixed(2)} грн</div>
-            </li>
-          </form>
+            </span>
+          </div>
           <hr />
         </div>
       )}
