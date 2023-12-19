@@ -111,9 +111,9 @@ const Sidebar = ({ isOpen }) => {
               <Link className='menu-item' to='/' onClick={() => closeMenu()}>
                 Вибране
               </Link>
-              <Link className='menu-item' to='/' onClick={() => closeMenu()}>
+              {/* <Link className='menu-item' to='/' onClick={() => closeMenu()}>
                 Корзина
-              </Link>
+              </Link> */}
               <Link className='menu-item' to='/' onClick={() => closeMenu()}>
                 Доставка
               </Link>
