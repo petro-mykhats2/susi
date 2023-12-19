@@ -65,11 +65,11 @@ export const Logo = styled.div`
 
 export const MenuLink = styled.div`
   font-size: 10px;
-  padding: 3em 1em 0 2em;
+  padding: 3em 1em 0 1.7em;
   color: #fff;
   img {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
   }
   @media (min-width: 460px) {
     padding: 2em 1em 0 1em;
@@ -106,8 +106,8 @@ export const NavItems = styled.div`
   }
   .shopping-cart-count {
     position: absolute;
-    top: 3px;
-    right: 0px;
+    top: 7px;
+    right: 7px;
     background-color: white;
     color: orange;
     font-size: 16px;
@@ -116,7 +116,7 @@ export const NavItems = styled.div`
     border-radius: 50%;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     display: none;
   }
 `

@@ -101,10 +101,11 @@
 }
 
 .shopping-cart-count {
+
     &-mob {
         position: absolute;
-        top: -3px;
-        right: -5px;
+        top: 4px;
+        right: 4px;
         background-color: $white;
         color: orange;
         font-size: 12px;
@@ -113,8 +114,8 @@
         border-radius: 50%;
 
         @include xsxs {
-            top: 3px;
-            right: 0px;
+            top: 8px;
+            right: 8px;
         }
 
         @include sm {
@@ -122,8 +123,10 @@
         }
        
     }
+    
 }
 .shopping-cart-mob {
+    
     @include sm {
         display: none;
     }
