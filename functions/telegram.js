@@ -1,6 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api')
 // const token = process.env.YOUR_TELEGRAM_BOT_TOKEN
-const token = process.env.SUSHI_TELEGRAM_TOKEN
+// const token = process.env.SUSHI_TELEGRAM_TOKEN
+const token = '6462249989:AAF3uURDfNwTQp3RDT_X-4vzWWiL36pOkUg'
 const bot = new TelegramBot(token, { polling: false })
 
 exports.handler = async function (event, context) {
@@ -14,20 +15,20 @@ exports.handler = async function (event, context) {
 
   const chatId = 735449634
   const requestBody = JSON.parse(event.body)
-  const { name, email, message, cartItems, cartTotal } = requestBody
+  const { name, email, message } = requestBody
 
-  const formattedCartItems = cartItems
-    .map((item) => {
-      return `${item.name} - К-сть: ${item.quantity} - Ціна: $${
-        item.price
-      } - Сумма: $${item.price * item.quantity}`
-    })
-    .join('\n')
+  // const formattedCartItems = cartItems
+  //   .map((item) => {
+  //     return `${item.name} - К-сть: ${item.quantity} - Ціна: $${
+  //       item.price
+  //     } - Сумма: $${item.price * item.quantity}`
+  //   })
+  //   .join('\n')
 
   try {
     await bot.sendMessage(
       chatId,
-      `Name: ${name}\nEmail: ${email}\nMessage: ${message}\nZakaz:\n${formattedCartItems}]\nНа сумму: ${cartTotal}`
+      `Name: ${name}\nEmail: ${email}\nMessage: ${message}\nZakaz:`
     )
     return {
       statusCode: 200,
