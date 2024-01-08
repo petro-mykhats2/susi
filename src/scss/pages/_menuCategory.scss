@@ -6,6 +6,10 @@
         justify-content: flex-start;
     }
 
+    &-item:hover {
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1)
+    }
+
     &-item {
         display: flex;
         position: relative;
@@ -18,7 +22,9 @@
         flex: 0 0 calc(90% - 10px); 
         margin: 4px; 
         padding: 30px;
-         flex-wrap: nowrap;
+        flex-wrap: nowrap;
+
+
 
          @include xsl {
             flex: 0 0 calc(38% - 10px);
