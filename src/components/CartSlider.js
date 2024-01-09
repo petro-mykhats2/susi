@@ -108,7 +108,7 @@
 
 import React, { useState } from 'react'
 import Cart from './Cart'
-import fetch from 'cross-fetch'
+import fetch from 'node-fetch'
 
 const CartSlider = ({ isOpen, onClose }) => {
   const [isOrdering, setIsOrdering] = useState(false)
