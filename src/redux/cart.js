@@ -6,9 +6,10 @@ const initialState = {
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 export const CHANGE_QUANTITY = 'CHANGE_QUANTITY'
+export const CLEAR_CART = 'CLEAR_CART'
 
 export const addToCart = (product) => {
-  console.log('product.......uuu', product)
+  console.log('product який додався до корзини', product)
   return {
     type: ADD_TO_CART,
     payload: {
@@ -41,8 +42,21 @@ export const changeQuantity = (product, quantity) => {
   }
 }
 
+export const clearCart = () => {
+  return {
+    type: CLEAR_CART,
+  }
+}
+
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'CLEAR_CART':
+      return {
+        ...state,
+        cartItems: [],
+        total: 0,
+      }
+
     case 'ADD_TO_CART':
       // Додаємо новий товар до корзини
       const addedItem = action.payload
