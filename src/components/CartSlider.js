@@ -3,15 +3,39 @@ import Cart from './Cart'
 import fetch from 'cross-fetch'
 import { useSelector, useDispatch } from 'react-redux'
 import { clearCart } from '../redux/cart'
+import DeliveryForm from './DeliveryForm'
+import DeliveryTime from './DeliveryTime'
+import Accessories from './Accessories'
 
 const CartSlider = ({ isOpen, onClose }) => {
   const [isOrdering, setIsOrdering] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const [nameError, setNameError] = useState(false)
+  const [emailError, setEmailError] = useState(false)
+  const [addressError, setAddressError] = useState(false)
+
+  const handleDeliveryFormData = (data) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      deliveryFormData: data,
+    }))
+  }
+
+  const handleTimeFormData = (data) => {
+    console.log('data time!!!!', data)
+    setFormData((prevData) => ({
+      ...prevData,
+      timeFormData: data,
+    }))
+  }
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: '',
+    deliveryFormData: {},
+    timeFormData: {},
     cartData: [],
   })
 
@@ -30,6 +54,18 @@ const CartSlider = ({ isOpen, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    // Перевірка коректності заповнення полів
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.deliveryFormData.pickupAddress
+    ) {
+      setNameError(!formData.name)
+      setEmailError(!formData.email)
+      setAddressError(true)
+      return
+    }
+
     setIsOrdering(true)
 
     try {
@@ -42,6 +78,8 @@ const CartSlider = ({ isOpen, onClose }) => {
           name: formData.name,
           age: formData.message,
           email: formData.email,
+          deliveryFormData: formData.deliveryFormData,
+          timeFormData: formData.timeFormData,
           cartData: formData.cartData,
         }),
       }
@@ -62,6 +100,8 @@ const CartSlider = ({ isOpen, onClose }) => {
         name: '',
         email: '',
         message: '',
+        deliveryFormData: {},
+        timeFormData: {},
         cartData: [],
       })
       dispatch(clearCart())
@@ -84,6 +124,8 @@ const CartSlider = ({ isOpen, onClose }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
+    if (name === 'name') setNameError(!value)
+    if (name === 'email') setEmailError(!value)
   }
 
   return (
@@ -94,37 +136,60 @@ const CartSlider = ({ isOpen, onClose }) => {
       </div>
       <Cart />
       {cartItems && cartItems.length === 0 ? null : (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor='name'>Name:</label>
+        <form onSubmit={handleSubmit} className='form-checkoutBlock'>
+          <h3 className='form-field'>Оформити замовлення</h3>
+          <div className={`form-field ${nameError ? 'error' : ''}`}>
             <input
               type='text'
               id='name'
               name='name'
               value={formData.name}
               onChange={handleInputChange}
+              placeholder='Ваше імя'
             />
           </div>
-          <div>
-            <label htmlFor='email'>Email:</label>
+          {nameError ? (
+            <p className='errorMessage'>заповніить правильно імя!</p>
+          ) : null}
+          <div className={`form-field ${emailError ? 'error' : ''}`}>
             <input
-              type='email'
+              type='phone'
               id='email'
               name='email'
               value={formData.email}
               onChange={handleInputChange}
+              placeholder='Ваш номер телефону'
+              // pattern='[0-9]{3}-[0-9]{2}-[0-9]{3}'
             />
           </div>
-          <div>
-            <label htmlFor='message'>Message:</label>
+          {emailError ? (
+            <p className='errorMessage'>заповніить правильно номер телефону!</p>
+          ) : null}
+          <DeliveryForm
+            handleDeliveryFormData={handleDeliveryFormData}
+            addressError={addressError}
+          />
+          <DeliveryTime handleTimeFormData={handleTimeFormData} />
+          <Accessories />
+
+          <div className='form-field'>
             <textarea
+              type='text'
               id='message'
               name='message'
               value={formData.message}
               onChange={handleInputChange}
+              placeholder='Напишіть ваші побажання або зауваження (необовязково)'
             />
           </div>
-          <button type='submit' disabled={isOrdering}>
+          {/* {ErrorFormDatasMessage && (
+            <p style={{ color: 'red' }}>{ErrorFormDatasMessage}</p>
+          )} */}
+          <button
+            className='item-buttom_button  button_submit'
+            type='submit'
+            disabled={isOrdering}
+          >
             Замовити
           </button>
         </form>
