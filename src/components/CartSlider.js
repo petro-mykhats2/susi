@@ -12,11 +12,11 @@ const CartSlider = ({ isOpen, onClose }) => {
   const [successMessage, setSuccessMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [nameError, setNameError] = useState(false)
-  const [emailError, setEmailError] = useState(false)
+  const [phoneError, setPhoneError] = useState(false)
   const [addressError, setAddressError] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
+    phone: '',
     message: '',
     deliveryFormData: {},
     timeFormData: {},
@@ -42,11 +42,11 @@ const CartSlider = ({ isOpen, onClose }) => {
 
     if (
       !formData.name ||
-      !formData.email ||
+      !formData.phone ||
       !formData.deliveryFormData.pickupAddress
     ) {
       setNameError(!formData.name)
-      setEmailError(!formData.email)
+      setPhoneError(!formData.phone)
       setAddressError(true)
       return
     }
@@ -61,8 +61,8 @@ const CartSlider = ({ isOpen, onClose }) => {
         },
         body: JSON.stringify({
           name: formData.name,
-          age: formData.message,
-          email: formData.email,
+          message: formData.message,
+          phone: formData.phone,
           deliveryFormData: formData.deliveryFormData,
           timeFormData: formData.timeFormData,
           accessoriesData: formData.accessoriesData,
@@ -83,7 +83,7 @@ const CartSlider = ({ isOpen, onClose }) => {
 
       setFormData({
         name: '',
-        email: '',
+        phone: '',
         message: '',
         deliveryFormData: {},
         timeFormData: {},
@@ -111,7 +111,7 @@ const CartSlider = ({ isOpen, onClose }) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
     if (name === 'name') setNameError(!value)
-    if (name === 'email') setEmailError(!value)
+    if (name === 'phone') setPhoneError(!value)
   }
 
   const handleDeliveryFormData = (data) => {
@@ -158,17 +158,17 @@ const CartSlider = ({ isOpen, onClose }) => {
           {nameError ? (
             <p className='errorMessage'>заповніить правильно імя!</p>
           ) : null}
-          <div className={`form-field ${emailError ? 'error' : ''}`}>
+          <div className={`form-field ${phoneError ? 'error' : ''}`}>
             <input
               type='phone'
-              id='email'
-              name='email'
-              value={formData.email}
+              id='phone'
+              name='phone'
+              value={formData.phone}
               onChange={handleInputChange}
               placeholder='Ваш номер телефону'
             />
           </div>
-          {emailError ? (
+          {phoneError ? (
             <p className='errorMessage'>заповніить правильно номер телефону!</p>
           ) : null}
           <DeliveryForm
