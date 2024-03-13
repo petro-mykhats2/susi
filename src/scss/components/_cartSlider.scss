@@ -153,3 +153,229 @@
     color: $orange;
     font-size: 22px;
 }
+
+.form-checkoutBlock{
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+padding: 10px;
+
+}
+.form-field {
+  margin-bottom: 15px;
+  
+  &.error {
+    border: 2px solid #de0a0a;
+  }
+  input, textarea {
+    font-size: 10px;
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 1px;
+
+  }
+}
+
+// -----
+
+.delivery-form, .delivery-time {
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-bottom: 15px;
+
+  p {
+    font-size: 16px;
+    margin: 10px 0px;
+  }
+  label {justify-content: center;
+  }
+
+  &-selected {
+    margin: 5px 0 20px 0;
+
+    p {
+      font-size: 14px; /* збільшимо розмір шрифту */
+      color: #333; /* змінимо колір тексту */
+      margin-bottom: 5px; /* зменшимо відступ від тексту до верхньої межі */
+
+    }
+
+    .selected-address {
+      font-size: 18px; /* збільшимо розмір шрифту вибраної адреси */
+      color: $orange; /* змінимо колір тексту вибраної адреси на синій */
+      font-weight: bold; /* збільшимо жирність шрифту */
+    }
+  }
+
+
+input[type="radio"] {
+  display: none; /* приховуємо стандартні радіокнопки */
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 10px;
+  cursor: pointer;
+  position: relative;
+  
+}
+
+label::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  margin-right: 10px;
+}
+
+input[type="radio"]:checked + label::before {
+  background-color: $orange; /* колір вибраної кнопки */
+}
+
+.pickup-options {
+  // display: none;
+  margin-top: 10px;
+}
+
+.pickup-options p {
+  font-weight: bold;
+}
+
+.pickup-options-list, .time-options {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.pickup-options-list div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.pickup-options-list div:hover {
+  background-color: #f0f0f0;
+}
+
+/* тінь для списку */
+.pickup-options-list {
+  margin: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+}
+
+.delivery-time-selected span {
+  font-size: 18px; 
+  color: $orange; 
+  font-weight: bold;
+}
+
+// Accessories
+
+.accessories-container {
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.quantity-control {
+  margin-top: 10px;
+}
+
+.control-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  cursor: pointer;
+  background-color: $orange;
+}
+
+.control-button:hover {
+
+  border: 4px solid $grey;
+}
+
+.control-button::before {
+  content: '+';
+  color: $white;
+}
+
+.control-button.minus::before {
+  content: '-';
+}
+
+
+.quantity-input {
+  border: 1px solid #d1d1d1;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 0px 10px;
+  width: 15px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.educational-checkbox {
+  margin: 15px 0px;
+}
+
+input[type='checkbox'] {
+  display: none;
+}
+
+input[type='checkbox'] + label {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+}
+
+input[type='checkbox'] + label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}
+
+input[type='checkbox']:checked + label:before {
+  background-color: orange;
+  border-color: orange;
+}
+
+input[type='checkbox'] + label:after {
+  content: '\2713';
+  position: absolute;
+  left: 6px;
+  top: 4px;
+  font-size: 16px;
+  color: #fff;
+  display: none;
+}
+
+input[type='checkbox']:checked + label:after {
+  display: block;
+}
+
+.button_submit {
+  margin-bottom: 20px;
+  width: 100%;
+  font-size: 18px;
+  border-radius: 4px;
+}
+
+.errorMessage {
+  font-size: 10px;
+  color: $red;
+  margin-top: -10px;
+  padding-bottom: 5px;
+}

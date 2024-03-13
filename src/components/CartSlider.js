@@ -3,23 +3,33 @@ import Cart from './Cart'
 import fetch from 'cross-fetch'
 import { useSelector, useDispatch } from 'react-redux'
 import { clearCart } from '../redux/cart'
+import DeliveryForm from './DeliveryForm'
+import DeliveryTime from './DeliveryTime'
+import Accessories from './Accessories'
 
 const CartSlider = ({ isOpen, onClose }) => {
   const [isOrdering, setIsOrdering] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const [nameError, setNameError] = useState(false)
+  const [phoneError, setPhoneError] = useState(false)
+  const [addressError, setAddressError] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
+    phone: '',
     message: '',
+    deliveryFormData: {},
+    timeFormData: {},
     cartData: [],
+    accessoriesData: {
+      quantity: 2,
+      educational: false,
+    },
   })
 
   const dispatch = useDispatch()
-  // Отримання даних з Redux state
   const cartItems = useSelector((state) => state.cart.cartItems)
 
-  // Оновлення cartData при зміні cartItems у Redux state
   useEffect(() => {
     setFormData((prevData) => ({
       ...prevData,
@@ -29,6 +39,17 @@ const CartSlider = ({ isOpen, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    if (
+      !formData.name ||
+      !formData.phone ||
+      !formData.deliveryFormData.pickupAddress
+    ) {
+      setNameError(!formData.name)
+      setPhoneError(!formData.phone)
+      setAddressError(true)
+      return
+    }
 
     setIsOrdering(true)
 
@@ -40,8 +61,11 @@ const CartSlider = ({ isOpen, onClose }) => {
         },
         body: JSON.stringify({
           name: formData.name,
-          age: formData.message,
-          email: formData.email,
+          message: formData.message,
+          phone: formData.phone,
+          deliveryFormData: formData.deliveryFormData,
+          timeFormData: formData.timeFormData,
+          accessoriesData: formData.accessoriesData,
           cartData: formData.cartData,
         }),
       }
@@ -53,37 +77,62 @@ const CartSlider = ({ isOpen, onClose }) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`)
       }
-      // Оновлення станів при успішному виконанні
+
       setSuccessMessage('Ваше замовлення успішно виконано!')
       setErrorMessage('')
 
-      // Очищення форми
       setFormData({
         name: '',
-        email: '',
+        phone: '',
         message: '',
+        deliveryFormData: {},
+        timeFormData: {},
         cartData: [],
+        accessoriesData: {
+          quantity: 2,
+          educational: false,
+        },
       })
       dispatch(clearCart())
     } catch (error) {
       console.error('Error sending the message:', error)
-      // У випадку помилки також прибрати повідомлення через 2 секунди
       setTimeout(() => {
         setErrorMessage('')
       }, 2000)
     } finally {
-      // Через 2 секунди прибрати повідомлення про успіх
       setTimeout(() => {
         setSuccessMessage('')
       }, 4000)
     }
-    // Змінити стан для приховання форми після відправки
     setIsOrdering(false)
   }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
+    if (name === 'name') setNameError(!value)
+    if (name === 'phone') setPhoneError(!value)
+  }
+
+  const handleDeliveryFormData = (data) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      deliveryFormData: data,
+    }))
+  }
+
+  const handleTimeFormData = (data) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      timeFormData: data,
+    }))
+  }
+
+  const handleAccessoriesChange = (accessoriesData) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      accessoriesData: accessoriesData,
+    }))
   }
 
   return (
@@ -94,42 +143,59 @@ const CartSlider = ({ isOpen, onClose }) => {
       </div>
       <Cart />
       {cartItems && cartItems.length === 0 ? null : (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor='name'>Name:</label>
+        <form onSubmit={handleSubmit} className='form-checkoutBlock'>
+          <h3 className='form-field'>Оформити замовлення</h3>
+          <div className={`form-field ${nameError ? 'error' : ''}`}>
             <input
               type='text'
               id='name'
               name='name'
               value={formData.name}
               onChange={handleInputChange}
+              placeholder='Ваше імя'
             />
           </div>
-          <div>
-            <label htmlFor='email'>Email:</label>
+          {nameError ? (
+            <p className='errorMessage'>заповніить правильно імя!</p>
+          ) : null}
+          <div className={`form-field ${phoneError ? 'error' : ''}`}>
             <input
-              type='email'
-              id='email'
-              name='email'
-              value={formData.email}
+              type='phone'
+              id='phone'
+              name='phone'
+              value={formData.phone}
               onChange={handleInputChange}
+              placeholder='Ваш номер телефону'
             />
           </div>
-          <div>
-            <label htmlFor='message'>Message:</label>
+          {phoneError ? (
+            <p className='errorMessage'>заповніить правильно номер телефону!</p>
+          ) : null}
+          <DeliveryForm
+            handleDeliveryFormData={handleDeliveryFormData}
+            addressError={addressError}
+          />
+          <DeliveryTime handleTimeFormData={handleTimeFormData} />
+          <Accessories onChange={handleAccessoriesChange} />
+          <div className='form-field'>
             <textarea
+              type='text'
               id='message'
               name='message'
               value={formData.message}
               onChange={handleInputChange}
+              placeholder='Напишіть ваші побажання або зауваження (необовязково)'
             />
           </div>
-          <button type='submit' disabled={isOrdering}>
+          <button
+            className='item-buttom_button  button_submit'
+            type='submit'
+            disabled={isOrdering}
+          >
             Замовити
           </button>
         </form>
       )}
-      {/* Повідомлення про успіх або помилку */}
       {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
     </div>
