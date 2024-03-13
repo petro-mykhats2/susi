@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
 
+const workStartTime = 11 // Початок робочого часу (11:00)
+const workEndTime = 22 // Кінець робочого часу (22:00)
+const defaultDeliveryTime = 60 // За замовчуванням 1 година в хвилинах
+const deliveryTimeRounding = 10 // Заокруглення до +10 хвилин
+
 function DeliveryTime({ handleTimeFormData }) {
   const [deliveryTimeOption, setDeliveryTimeOption] = useState('nearest')
   const [selectedTime, setSelectedTime] = useState('')
@@ -28,19 +33,21 @@ function DeliveryTime({ handleTimeFormData }) {
 
     // Set selected time
     const now = new Date()
-    const nextHour = new Date(now.getTime() + 60 * 60 * 1000) // Додаємо 1 годину
-    const roundedMinutes = Math.ceil(nextHour.getMinutes() / 10) * 10 // Заокруглюємо до +10 хвилин
+    const nextHour = new Date(now.getTime() + defaultDeliveryTime * 60 * 1000) // Додаємо 1 годину
+    const roundedMinutes =
+      Math.ceil(nextHour.getMinutes() / deliveryTimeRounding) *
+      deliveryTimeRounding // Заокруглюємо до +10 хвилин
     nextHour.setMinutes(roundedMinutes)
     setSelectedTime(nextHour)
 
     // Set minimum delivery time
     const currentHour = now.getHours()
-    if (currentHour >= 11 && currentHour < 22) {
-      // Якщо поточний час між 11:00 і 21:59, можна приймати замовлення до 22:50
+    if (currentHour >= workStartTime && currentHour < workEndTime) {
+      // Якщо поточний час між робочим часом, можна приймати замовлення до кінця робочого часу
       setMinDeliveryTime({ hours: currentHour + 1, minutes: 0 })
     } else {
-      // В іншому випадку, можна приймати замовлення до 22:50 на наступний день
-      setMinDeliveryTime({ hours: 11, minutes: 0 })
+      // В іншому випадку, можна приймати замовлення наступного дня
+      setMinDeliveryTime({ hours: workStartTime, minutes: 0 })
     }
     handleTimeFormData({ deliveryTimeOption, nextHour })
     console.log('deliveryTimeOption-=-=-=', deliveryTimeOption, nextHour)
@@ -61,11 +68,13 @@ function DeliveryTime({ handleTimeFormData }) {
   }
 
   const handleTimeChange = (time, dayIndex) => {
+    console.log('time-----', time)
+    console.log('dayIndex-----', dayIndex)
     setSelectedTime(time.toDate())
     setShowTimePicker(true)
     handleTimeFormData({
       deliveryTimeOption,
-      selectedTime: time.toDate(),
+      selectedTime: time.toDate() + 1,
       selectedDate: daysList[dayIndex],
     })
   }
@@ -175,7 +184,6 @@ function DeliveryTime({ handleTimeFormData }) {
             </select>
           </div>
           <Datetime
-            // onChange={handleTimeChange}
             onChange={(time) => handleTimeChange(time, selectedDayIndex)}
             input={false}
             dateFormat={false}

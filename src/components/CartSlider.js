@@ -14,22 +14,6 @@ const CartSlider = ({ isOpen, onClose }) => {
   const [nameError, setNameError] = useState(false)
   const [emailError, setEmailError] = useState(false)
   const [addressError, setAddressError] = useState(false)
-
-  const handleDeliveryFormData = (data) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      deliveryFormData: data,
-    }))
-  }
-
-  const handleTimeFormData = (data) => {
-    console.log('data time!!!!', data)
-    setFormData((prevData) => ({
-      ...prevData,
-      timeFormData: data,
-    }))
-  }
-
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -37,13 +21,15 @@ const CartSlider = ({ isOpen, onClose }) => {
     deliveryFormData: {},
     timeFormData: {},
     cartData: [],
+    accessoriesData: {
+      quantity: 2,
+      educational: false,
+    },
   })
 
   const dispatch = useDispatch()
-  // Отримання даних з Redux state
   const cartItems = useSelector((state) => state.cart.cartItems)
 
-  // Оновлення cartData при зміні cartItems у Redux state
   useEffect(() => {
     setFormData((prevData) => ({
       ...prevData,
@@ -54,7 +40,6 @@ const CartSlider = ({ isOpen, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    // Перевірка коректності заповнення полів
     if (
       !formData.name ||
       !formData.email ||
@@ -80,6 +65,7 @@ const CartSlider = ({ isOpen, onClose }) => {
           email: formData.email,
           deliveryFormData: formData.deliveryFormData,
           timeFormData: formData.timeFormData,
+          accessoriesData: formData.accessoriesData,
           cartData: formData.cartData,
         }),
       }
@@ -91,11 +77,10 @@ const CartSlider = ({ isOpen, onClose }) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`)
       }
-      // Оновлення станів при успішному виконанні
+
       setSuccessMessage('Ваше замовлення успішно виконано!')
       setErrorMessage('')
 
-      // Очищення форми
       setFormData({
         name: '',
         email: '',
@@ -103,21 +88,22 @@ const CartSlider = ({ isOpen, onClose }) => {
         deliveryFormData: {},
         timeFormData: {},
         cartData: [],
+        accessoriesData: {
+          quantity: 2,
+          educational: false,
+        },
       })
       dispatch(clearCart())
     } catch (error) {
       console.error('Error sending the message:', error)
-      // У випадку помилки також прибрати повідомлення через 2 секунди
       setTimeout(() => {
         setErrorMessage('')
       }, 2000)
     } finally {
-      // Через 2 секунди прибрати повідомлення про успіх
       setTimeout(() => {
         setSuccessMessage('')
       }, 4000)
     }
-    // Змінити стан для приховання форми після відправки
     setIsOrdering(false)
   }
 
@@ -126,6 +112,27 @@ const CartSlider = ({ isOpen, onClose }) => {
     setFormData({ ...formData, [name]: value })
     if (name === 'name') setNameError(!value)
     if (name === 'email') setEmailError(!value)
+  }
+
+  const handleDeliveryFormData = (data) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      deliveryFormData: data,
+    }))
+  }
+
+  const handleTimeFormData = (data) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      timeFormData: data,
+    }))
+  }
+
+  const handleAccessoriesChange = (accessoriesData) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      accessoriesData: accessoriesData,
+    }))
   }
 
   return (
@@ -159,7 +166,6 @@ const CartSlider = ({ isOpen, onClose }) => {
               value={formData.email}
               onChange={handleInputChange}
               placeholder='Ваш номер телефону'
-              // pattern='[0-9]{3}-[0-9]{2}-[0-9]{3}'
             />
           </div>
           {emailError ? (
@@ -170,8 +176,7 @@ const CartSlider = ({ isOpen, onClose }) => {
             addressError={addressError}
           />
           <DeliveryTime handleTimeFormData={handleTimeFormData} />
-          <Accessories />
-
+          <Accessories onChange={handleAccessoriesChange} />
           <div className='form-field'>
             <textarea
               type='text'
@@ -182,9 +187,6 @@ const CartSlider = ({ isOpen, onClose }) => {
               placeholder='Напишіть ваші побажання або зауваження (необовязково)'
             />
           </div>
-          {/* {ErrorFormDatasMessage && (
-            <p style={{ color: 'red' }}>{ErrorFormDatasMessage}</p>
-          )} */}
           <button
             className='item-buttom_button  button_submit'
             type='submit'
@@ -194,7 +196,6 @@ const CartSlider = ({ isOpen, onClose }) => {
           </button>
         </form>
       )}
-      {/* Повідомлення про успіх або помилку */}
       {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
     </div>
