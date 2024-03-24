@@ -34,6 +34,14 @@ collections:
         search_fields: ['title'] # Поле для пошуку за назвою типу продукту
         value_field: '{{slug}}'
         display_fields: ['title']
+      - label: Add ingredients # Тип продукту (вибір з колекції "typesProducts")
+        name: product_composition
+        widget: relation
+        multiple: true
+        collection: Ingredients # Вибір колекції "typesProducts"
+        search_fields: ['title'] # Поле для пошуку за назвою типу продукту
+        value_field: '{{slug}}'
+        display_fields: ['title']
       - label: Image
         name: image
         widget: image
@@ -49,7 +57,7 @@ collections:
         name: 'templateKey'
         widget: 'hidden'
         default: 'typesProducts'
-      - label: Title (small eng sympols for path) # Назва типу продукту (наприклад, "одяг," "авто," "електроніка")
+      - label: Title (small eng sympols for path) # Назва типу продукту (наприклад, "alkogol," "sushi," "pizza")
         name: title
         widget: string
         required: true
@@ -61,6 +69,25 @@ collections:
         name: name
         widget: string
         required: true
+
+  - name: Ingredients # Назва вашої нової колекції
+    label: Ingredients # Заголовок колекції, який буде відображатися в адмін-панелі
+    folder: content/ingredients # Шлях до папки, де буде зберігатися контент типів продуктів
+    create: true # Дозволити створення нових записів
+    slug: '{{slug}}'
+    fields:
+      - label: Назва інгредієнту # Назва типу продукту (наприклад, "alkogol," "sushi," "pizza")
+        name: title
+        widget: string
+        required: true
+      - label: 'Template Key'
+        name: 'templateKey'
+        widget: 'hidden'
+        default: 'ingredients'
+      - label: Image
+        name: image
+        widget: image
+        required: false
 
   - name: landing
     label: Landing

@@ -1,17 +1,36 @@
 import React, { useState } from 'react'
 import Layout from '../layout'
 import { Link } from 'gatsby'
-
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../redux/cart'
 
 function Product({ pageContext }) {
-  // console.log('pageContext/////////', pageContext.forCart)
+  const ingredients = pageContext.ingredients
+  const productComposition = pageContext.product_composition
+
+  // Функція для перевірки наявності інгредієнта
+  const isIngredientAvailable = (ingredientName) => {
+    return ingredients.some(
+      (ingredient) =>
+        ingredient.node.frontmatter.title.toLowerCase() ===
+        ingredientName.toLowerCase()
+    )
+  }
+
+  // Функція для отримання зображення інгредієнта
+  const getIngredientImage = (ingredientName) => {
+    const ingredient = ingredients.find(
+      (ingredient) =>
+        ingredient.node.frontmatter.title.toLowerCase() ===
+        ingredientName.toLowerCase()
+    )
+    return ingredient ? ingredient.node.frontmatter.image : null
+  }
+
   const categories = pageContext.categories
   const dispatch = useDispatch()
   const [showAddedToCartMessage, setShowAddedToCartMessage] = useState(false)
 
-  console.log('showAddedToCartMessage', showAddedToCartMessage)
   const handleAddToCart = (product) => {
     dispatch(addToCart(product))
     setShowAddedToCartMessage(true)
@@ -21,11 +40,6 @@ function Product({ pageContext }) {
     }, 3000)
   }
 
-  // Шукаємо категорію, яка відповідає `categoryProduct` поточного товару
-  // const currentCategory = categories.find(
-  //   (category) => category.node.fields.slug === pageContext.categoryProduct
-  // )
-  console.log('categories-test:', categories)
   const currentCategory =
     categories &&
     categories.find(
@@ -68,29 +82,29 @@ function Product({ pageContext }) {
             <div className='product-label_under'>8 шт</div>
             <div className='product-label'>Вага:</div>
             <div className='product-label_under'>{pageContext.weight}</div>
-            <div className='product-label'>
-              Склад: {pageContext.product_composition}
+            <div className='slider-container'>
+              {productComposition && (
+                <div className='product-label_under product-slider'>
+                  {productComposition.map((ingredientName, index) => (
+                    <div key={index} className='product-slider-item'>
+                      {/* Перевірка наявності інгредієнта */}
+                      {isIngredientAvailable(ingredientName) ? (
+                        <div className='product-slider-item-img'>
+                          <img
+                            src={getIngredientImage(ingredientName)}
+                            alt='imagee'
+                          />
+                        </div>
+                      ) : null}
+                      <div className='product-slider-item-title'>
+                        {ingredientName}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-            <div className='product-label_under product-slider'>
-              <div className='product-slider-item'>
-                <div className='product-slider-item-img'>
-                  <img src='/img/sety.png' alt='imagee' />
-                </div>
-                <div className='product-slider-item-title'>Продукт 1</div>
-              </div>
-              <div className='product-slider-item'>
-                <div className='product-slider-item-img'>
-                  <img src='/img/sety.png' alt='imagee' />
-                </div>
-                <div className='product-slider-item-title'>Продукт 2</div>
-              </div>
-              <div className='product-slider-item'>
-                <div className='product-slider-item-img'>
-                  <img src='/img/sety.png' alt='imagee' />
-                </div>
-                <div className='product-slider-item-title'>Продукт 3</div>
-              </div>
-            </div>
+
             <div className='product-right_bottom'>
               <div className='product-right_bottom_left'>
                 <div className='product-price'>{pageContext.price}</div>

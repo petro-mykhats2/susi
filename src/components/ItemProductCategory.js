@@ -45,7 +45,11 @@ const ItemProductCategory = ({ orderdata }) => {
           <div className='item-title'>{orderdata.frontmatter.title}</div>
           <div className='item-text'>{orderdata.frontmatter.description}</div>
           <div className='item-text'>
-            {orderdata.frontmatter.product_composition}
+            {' '}
+            Склад:{' '}
+            {orderdata.frontmatter.product_composition
+              ? orderdata.frontmatter.product_composition.join(', ')
+              : ''}
           </div>
           <div className='item-text'>Вага: {orderdata.frontmatter.weight}</div>
         </div>
