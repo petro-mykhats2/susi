@@ -26,7 +26,7 @@ collections:
         widget: string
       - label: Price # Ціна продукту
         name: price
-        widget: string
+        widget: number
       - label: Type of Product # Тип продукту (вибір з колекції "typesProducts")
         name: categoryProduct
         widget: relation
@@ -42,6 +42,15 @@ collections:
         search_fields: ['title'] # Поле для пошуку за назвою типу продукту
         value_field: '{{slug}}'
         display_fields: ['title']
+        required: false
+      - lable: Weight (in gramm) (option)
+        name: weight
+        widget: number
+        required: false
+      - label: Description
+        name: description
+        widget: string
+        required: false
       - label: Image
         name: image
         widget: image
@@ -69,6 +78,10 @@ collections:
         name: name
         widget: string
         required: true
+      - label: Порядковий номен в списку
+        name: item_index
+        widget: number
+        # required: true
 
   - name: Ingredients # Назва вашої нової колекції
     label: Ingredients # Заголовок колекції, який буде відображатися в адмін-панелі

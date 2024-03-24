@@ -16,7 +16,7 @@ export const addToCart = (product) => {
       id: product.id,
       name: product.frontmatter.title,
       img: product.frontmatter.image,
-      price: parseFloat(product.frontmatter.price.replace(' грн', '')), // конвертуємо ціну в число
+      price: product.frontmatter.price,
 
       quantity: 1,
     },

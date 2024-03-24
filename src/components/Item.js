@@ -20,11 +20,13 @@ const Item = ({ orderdata }) => {
     <div className='item'>
       <Link to={`/menu/product/${orderdata.fields.slug}`}>
         <div>
-          <div className='item-top'>
-            <div className='order-top_weight'>
-              {orderdata.frontmatter.weight}
+          {orderdata.frontmatter.weight && (
+            <div className='item-top'>
+              <div className='order-top_weight'>
+                {orderdata.frontmatter.weight} г
+              </div>
             </div>
-          </div>
+          )}
           {orderdata.frontmatter.top ? (
             <div className='stiker-product-block-mini'>
               <img src='/img/top.png' alt='imagee' />
@@ -39,17 +41,26 @@ const Item = ({ orderdata }) => {
             <div className='added-to-cart-message'>Додано до корзини</div>
           )}{' '}
           <div className='item-text'>{orderdata.frontmatter.description}</div>
-          <div className='item-text'>
-            Склад:{' '}
-            {orderdata.frontmatter.product_composition
-              ? orderdata.frontmatter.product_composition.join(', ')
-              : ''}
-          </div>
-          <div className='item-text'>Вага: {orderdata.frontmatter.weight}</div>
+          {orderdata.frontmatter.product_composition && (
+            <div className='item-text'>
+              Склад:{' '}
+              {orderdata.frontmatter.product_composition
+                ? orderdata.frontmatter.product_composition.join(', ')
+                : ''}
+            </div>
+          )}
+          {orderdata.frontmatter.weight && (
+            <div className='item-text-bold'>
+              <span className='item-text-bold'>Вага: </span>{' '}
+              {orderdata.frontmatter.weight} г
+            </div>
+          )}
         </div>
       </Link>
       <div className='item-buttom'>
-        <div className='item-buttom_price'>{orderdata.frontmatter.price}</div>
+        <div className='item-buttom_price'>
+          {orderdata.frontmatter.price.toFixed(2)} грн
+        </div>
         <div
           className='item-buttom_button'
           onClick={() => handleAddToCart(orderdata)}

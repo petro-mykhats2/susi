@@ -95,6 +95,11 @@
     color: #676767;
     line-height: 1.1;
 
+    &-bold {
+        font-weight: 600;
+        
+    }
+
     @media (min-width: 768px) {
         font-size: 15px;
       }

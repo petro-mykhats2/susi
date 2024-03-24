@@ -80,8 +80,14 @@ function Product({ pageContext }) {
             )}
             <div className='product-label'>Кількість:</div>
             <div className='product-label_under'>8 шт</div>
-            <div className='product-label'>Вага:</div>
-            <div className='product-label_under'>{pageContext.weight}</div>
+            {pageContext.weight && (
+              <>
+                <div className='product-label'>Вага: </div>
+                <div className='product-label_under'>
+                  {pageContext.weight} г
+                </div>
+              </>
+            )}
             <div className='slider-container'>
               {productComposition && (
                 <div className='product-label_under product-slider'>
@@ -107,7 +113,9 @@ function Product({ pageContext }) {
 
             <div className='product-right_bottom'>
               <div className='product-right_bottom_left'>
-                <div className='product-price'>{pageContext.price}</div>
+                <div className='product-price'>
+                  {pageContext.price.toFixed(2)} грн
+                </div>
                 <div className='product-calc'>
                   <div className='product-calc_less'>-</div>
                   <div className='product-calc_counter'>1</div>

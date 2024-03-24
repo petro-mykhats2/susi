@@ -4,8 +4,8 @@ templateKey: products
 description: 'Класичний Рол Філадельфія з Лососем в Кунжуті'
 calories: '465,72 ккалл'
 sku: 'sku-2'
-weight: '295 г'
-price: '289.00 грн'
+weight: 295
+price: 289
 top: false
 categoryProduct: roly
 parameters: '5'

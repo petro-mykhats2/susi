@@ -2,13 +2,13 @@ import { Link } from 'gatsby'
 import React from 'react'
 
 function MenuTop({ data }) {
-  console.log('datawwwww', data)
-
-  const menuItems = data.edges
+  const sortedMenuItems = data.edges.sort((a, b) => {
+    return a.node.frontmatter.item_index - b.node.frontmatter.item_index
+  })
 
   return (
     <div className='menuTop'>
-      {menuItems.map(({ node }) => (
+      {sortedMenuItems.map(({ node }) => (
         <Link
           to={`/menu/${node.frontmatter.title}`}
           className='menuTop-item'
