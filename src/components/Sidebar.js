@@ -11,10 +11,14 @@ import {
 } from './SidebarStyles'
 import { useSelector } from 'react-redux'
 import CartSlider from './CartSlider'
+import { useDispatch } from 'react-redux'
 
 const Sidebar = ({ isOpen }) => {
   const [menuState, setMenuOpen] = useState({ menuOpen: false })
   const [isCartOpen, setIsCartOpen] = useState(false)
+
+  const favoriteItems = useSelector((state) => state.favorite.favoriteItems)
+  const totalFavoriteItems = favoriteItems.length
 
   const handleToggleCart = () => {
     setIsCartOpen(!isCartOpen)
@@ -80,6 +84,12 @@ const Sidebar = ({ isOpen }) => {
             </Link>
             <Link className='sparkle u-hover--sparkle' to='/'>
               Акції
+            </Link>
+            <Link className='sparkle u-hover--sparkle' to='/favorite/'>
+              Вибране
+              {totalFavoriteItems > 0 ? (
+                <div className='shopping-cart-count'>{totalFavoriteItems}</div>
+              ) : null}
             </Link>
             <span
               onClick={handleToggleCart}

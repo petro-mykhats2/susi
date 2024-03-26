@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import Layout from '../layout'
 import { Link } from 'gatsby'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../redux/cart'
+import { addToFavorite, removeFromFavorite } from '../redux/favorite'
 
 function Product({ pageContext }) {
   const ingredients = pageContext.ingredients
@@ -30,6 +31,15 @@ function Product({ pageContext }) {
   const categories = pageContext.categories
   const dispatch = useDispatch()
   const [showAddedToCartMessage, setShowAddedToCartMessage] = useState(false)
+  const [showAddedToFavoriteMessage, setShowAddedToFavoriteMessage] = useState(
+    false
+  )
+
+  const favoriteItems = useSelector((state) => state.favorite.favoriteItems)
+
+  const isFavorite = favoriteItems.some(
+    (item) => item.frontmatter && item.frontmatter.title === pageContext.title
+  )
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product))
@@ -37,6 +47,19 @@ function Product({ pageContext }) {
 
     setTimeout(() => {
       setShowAddedToCartMessage(false)
+    }, 3000)
+  }
+
+  const handleFavorites = (product) => {
+    if (isFavorite) {
+      dispatch(removeFromFavorite(product))
+    } else {
+      dispatch(addToFavorite(product))
+      setShowAddedToFavoriteMessage(true)
+    }
+
+    setTimeout(() => {
+      setShowAddedToFavoriteMessage(false)
     }, 3000)
   }
 
@@ -67,16 +90,28 @@ function Product({ pageContext }) {
       <div className='product'>
         <div className='product-top'>
           <div className='product-img'>
-            <div className='product-favorite'>
-              <img src='/img/favorite.png' alt='imagee' />
+            <div
+              className='product-favorite'
+              onClick={() => handleFavorites(pageContext.forCart)}
+            >
+              <img
+                src={isFavorite ? '/img/favorite_red.png' : '/img/favorite.png'}
+                alt='imagee'
+              />
             </div>
             <img src={pageContext.image} />
           </div>
+
           <div className='product-right'>
             <div className='product-name'>{pageContext.title}</div>
             {/* Додано до корзини повідомлення */}
             {showAddedToCartMessage && (
               <div className='added-to-cart-message'>Додано до корзини</div>
+            )}
+            {showAddedToFavoriteMessage && (
+              <div className='added-to-cart-message'>
+                Додано до улюблених товарів
+              </div>
             )}
             <div className='product-label'>Кількість:</div>
             <div className='product-label_under'>8 шт</div>
@@ -110,34 +145,34 @@ function Product({ pageContext }) {
                 </div>
               )}
             </div>
+          </div>
 
-            <div className='product-right_bottom'>
-              <div className='product-right_bottom_left'>
-                <div className='product-price'>
-                  {pageContext.price.toFixed(2)} грн
-                </div>
-                <div className='product-calc'>
-                  <div className='product-calc_less'>-</div>
-                  <div className='product-calc_counter'>1</div>
-                  <div className='product-calc_less'>+</div>
-                </div>
+          <div className='product-right_bottom'>
+            <div className='product-right_bottom_left'>
+              <div className='product-price'>
+                {pageContext.price.toFixed(2)} грн
               </div>
-              <div className='product-right_bottom_right'>
-                <div
-                  className='product_button'
-                  onClick={() => handleAddToCart(pageContext.forCart)}
-                >
-                  <div className='product_button_img'>
-                    <img src='/img/shopping-cart.png' alt='imagee' />
-                  </div>
-                  <div className='product_button_text'>В КОШИК</div>
+              <div className='product-calc'>
+                <div className='product-calc_less'>-</div>
+                <div className='product-calc_counter'>1</div>
+                <div className='product-calc_less'>+</div>
+              </div>
+            </div>
+            <div className='product-right_bottom_right'>
+              <div
+                className='product_button'
+                onClick={() => handleAddToCart(pageContext.forCart)}
+              >
+                <div className='product_button_img'>
+                  <img src='/img/shopping-cart.png' alt='imagee' />
                 </div>
+                <div className='product_button_text'>В КОШИК</div>
               </div>
             </div>
           </div>
         </div>
-        <div className='product-info'>{pageContext.description}</div>
       </div>
+      <div className='product-info'>{pageContext.description}</div>
     </Layout>
   )
 }

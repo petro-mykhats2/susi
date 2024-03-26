@@ -106,7 +106,7 @@ export const NavItems = styled.div`
   }
   .shopping-cart-count {
     position: absolute;
-    top: 7px;
+    top: 2px;
     right: 7px;
     background-color: white;
     color: orange;
