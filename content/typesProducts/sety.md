@@ -2,6 +2,7 @@
 templateKey: typesProducts
 title: sety
 path: setyPath
-name: Сети
 image: /img/sety.png
+name: Сети
+item_index: 3
 ---

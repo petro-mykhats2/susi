@@ -35,7 +35,7 @@ export const Logo = styled.div`
   img {
     height: 75%;
     padding-top 10px;
-    @media (min-width: 375px) {
+    @media (min-width: 395px) {
       height: 100%;
       padding-top 0px;
     }
@@ -64,19 +64,37 @@ export const Logo = styled.div`
 `
 
 export const MenuLink = styled.div`
+  /* Загальні стилі */
   font-size: 10px;
   padding: 3em 1em 0 1.7em;
   color: #fff;
+
   img {
     width: 20px;
     height: 20px;
   }
-  @media (min-width: 460px) {
-    padding: 2em 1em 0 1em;
+
+  /* Медіа-запит для екранів шириною більше 530px */
+  @media (min-width: 530px) {
+    padding: 2em 1em 0 0.8em;
+    // background-color: red;
     font-size: 16px;
+
     img {
       width: 25px;
       height: 25px;
+    }
+  }
+
+  /* Медіа-запит для екранів шириною менше 530px, але більше 430px */
+  @media (max-width: 530px) {
+    padding: 3em 0.6em 0 0.6em;
+    // background-color: green;
+    font-size: 10px;
+
+    img {
+      width: 20px;
+      height: 20px;
     }
   }
 `
@@ -106,7 +124,7 @@ export const NavItems = styled.div`
   }
   .shopping-cart-count {
     position: absolute;
-    top: 7px;
+    top: 2px;
     right: 7px;
     background-color: white;
     color: orange;

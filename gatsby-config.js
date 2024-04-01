@@ -45,6 +45,14 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
+        name: `ingredients`,
+        path: `${__dirname}/content/ingredients`,
+        ignore: [`**/\.*`], // ігнорувати файли, що починаються з крапки
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
         name: `landing`,
         path: `${__dirname}/content/landing/`,
         ignore: [`**/\.*`], // ігнорувати файли, що починаються з крапки

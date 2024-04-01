@@ -1,8 +1,7 @@
 .product {
     min-height: 650px;
     margin: 20px 15px 0px 15px;
-
-
+    
     @media (min-width: 1250px) {
     margin: 0px 80px 
     }
@@ -44,9 +43,14 @@
 
  .product-favorite {
      position: absolute;
-     top: 17px;
-     right: 17px;
+     top: 4px;
+     right: 4px;
      cursor: pointer;
+
+     @include xsl {
+        top: 17px;
+        right: 17px;
+    }
  }
 
 .product-right {
@@ -88,27 +92,42 @@
     }
 }
 
+.slider-container {
+    overflow-x: auto; /* Додайте прокрутку по горизонталі */
+    white-space: nowrap; /* Забезпечте розміщення всіх елементів в одному рядку */
+    height: 110px; /* Фіксована висота для контейнера */
+    // padding: 10px 20px; /* Додайте відступи з боків */
+}
+  
 .product-slider {
     display: flex;
+    display: inline-flex;
     flex-direction: row;
-
+    align-items: stretch;
+    
     &-item {
-        min-width: 95px;
+        min-width: 65px;
         border: 1px solid #d2d2d2;
-        margin: 0px 7px;
-
+        margin: 0 7px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  
         &-img {
-            padding: 12px;
+            padding: 5px;
             img {
-                width: 100%;
+                max-width: 55px; 
                 height: auto;
+              
             }
         }
-
+  
         &-title {
             text-align: center;
-            padding: 10px;
+            font-size: 11px;
+            padding-bottom: 10px;
             font-weight: 400;
+            margin-top: auto;
         }
     }
 }
@@ -173,7 +192,7 @@
 .product-calc_less {
     width: 20px;
     height: 20px;
-    color: #f7922c;
+    color: $orange;
     font-size: 22px;
     text-align: center;
     line-height: 18px;
@@ -187,7 +206,6 @@
 
 
 .product_button_img {
-
     display: inline-block;
     padding: 0 20px;
     color: #fff!important;
@@ -195,7 +213,7 @@
     font-size: 12px;
     font-weight: 600;
     text-align: center;
-    background-color: #f7922c;
+    background-color: $orange;
     cursor: pointer;
     white-space: nowrap;
     -webkit-transition: background .23s;
@@ -212,7 +230,7 @@ img {
     flex-direction: row; 
     margin-left: 0px;
     width: 100%;
-    background-color: #f7922c;
+    background-color: $orange;
     justify-content: center;
     cursor: pointer;
 

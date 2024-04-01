@@ -2,6 +2,7 @@
 templateKey: typesProducts
 title: roly
 path: roly
-name: Роли
 image: /img/roly.png
+name: Роли
+item_index: 1
 ---

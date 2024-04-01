@@ -85,6 +85,7 @@ export const allProducts = graphql`
             name
             title
             image
+            item_index
           }
         }
       }

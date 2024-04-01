@@ -53,6 +53,24 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+
+      allIngredients: allMarkdownRemark(
+        filter: { frontmatter: { templateKey: { eq: "ingredients" } } }
+      ) {
+        edges {
+          node {
+            id
+            fields {
+              slug
+            }
+            frontmatter {
+              templateKey
+              title
+              image
+            }
+          }
+        }
+      }
     }
   `).then((res) => {
     if (res.errors) {
@@ -61,6 +79,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
     const products = res.data.allMarkdownRemark.edges
     const categories = res.data.allCategoryMenu_top.edges
+    const ingredients = res.data.allIngredients.edges
 
     products.forEach((edges) => {
       createPage({
@@ -79,6 +98,7 @@ exports.createPages = async ({ graphql, actions }) => {
           categoryProduct: edges.node.frontmatter.categoryProduct,
           categories,
           forCart: edges.node, // Додаємо список категорій до контексту
+          ingredients,
         },
       })
     })

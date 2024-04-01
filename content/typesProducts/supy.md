@@ -1,7 +1,7 @@
 ---
 templateKey: typesProducts
 title: supy
-# path: supyyy
+image: /img/soup.png
 name: Супи
-image: /img/set1.png
+item_index: 5
 ---

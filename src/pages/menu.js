@@ -4,12 +4,17 @@ import Layout from '../layout'
 import ItemMenu from '../components/ItemMenu'
 
 function Menu({ data }) {
-  const orders = data.allMarkdownRemark.edges
-  console.log('orders!!!!', orders)
+  const orders = data.allMarkdownRemark.edges.sort((a, b) => {
+    return a.node.frontmatter.item_index - b.node.frontmatter.item_index
+  })
+
   return (
     <Layout>
       <div className='breadcrumb'>
-        <Link to='/'>Головна</Link>
+        <Link to='/'>
+          <img src='/img/mainPage.png' alt='main Page' />
+          Головна
+        </Link>
         <span>{'>'}</span>
         <span>Меню</span>
       </div>
@@ -50,6 +55,7 @@ export const allCategoryMenu = graphql`
             name
             title
             image
+            item_index
           }
         }
       }
