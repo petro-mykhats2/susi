@@ -11,7 +11,7 @@ import {
 } from './SidebarStyles'
 import { useSelector } from 'react-redux'
 import CartSlider from './CartSlider'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 
 const Sidebar = ({ isOpen }) => {
   const [menuState, setMenuOpen] = useState({ menuOpen: false })
@@ -53,6 +53,21 @@ const Sidebar = ({ isOpen }) => {
               <img src='/img/menuIcon.png' alt='menu' />
               Меню
             </Link>
+            <Link to='/favorite/'>
+              <span className='sparkle u-hover--sparkle'>
+                <span className='shopping-cart-mob'>
+                  <img
+                    className='sidebar-shopping-cart-image'
+                    src='/img/favorite-white.png'
+                  />
+                  {totalFavoriteItems > 0 ? (
+                    <div className='shopping-cart-count-mob'>
+                      {totalFavoriteItems}
+                    </div>
+                  ) : null}
+                </span>
+              </span>
+            </Link>
             <span
               className='sparkle u-hover--sparkle'
               onClick={handleToggleCart}
@@ -86,7 +101,10 @@ const Sidebar = ({ isOpen }) => {
               Акції
             </Link>
             <Link className='sparkle u-hover--sparkle' to='/favorite/'>
-              Вибране
+              <img
+                className='sidebar-shopping-cart-image'
+                src='/img/favorite-white.png'
+              />
               {totalFavoriteItems > 0 ? (
                 <div className='shopping-cart-count'>{totalFavoriteItems}</div>
               ) : null}
@@ -118,8 +136,16 @@ const Sidebar = ({ isOpen }) => {
               >
                 Контакти
               </Link>
-              <Link className='menu-item' to='/' onClick={() => closeMenu()}>
-                Вибране
+              <Link
+                className='menu-item'
+                to='/favorite/'
+                onClick={() => closeMenu()}
+              >
+                {totalFavoriteItems > 0 ? (
+                  <div className='shopping-cart-count'>
+                    {totalFavoriteItems}
+                  </div>
+                ) : null}
               </Link>
               {/* <Link className='menu-item' to='/' onClick={() => closeMenu()}>
                 Корзина

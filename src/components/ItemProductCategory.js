@@ -44,7 +44,12 @@ const ItemProductCategory = ({ orderdata }) => {
             </div>
           )}
           <div className='item-title'>{orderdata.frontmatter.title}</div>
-          <div className='item-text'>{orderdata.frontmatter.description}</div>
+          <div className='item-text'>
+            {orderdata.frontmatter.description &&
+            orderdata.frontmatter.description.length > 145
+              ? `${orderdata.frontmatter.description.slice(0, 145)}...`
+              : orderdata.frontmatter.description}
+          </div>
           {orderdata.frontmatter.product_composition && (
             <div className='item-text'>
               {' '}

@@ -24,6 +24,10 @@ collections:
       - label: Title # Назва продукту
         name: title
         widget: string
+      - label: Top Product Label # Назва продукту
+        name: top
+        widget: boolean
+        required: false
       - label: Price # Ціна продукту
         name: price
         widget: number

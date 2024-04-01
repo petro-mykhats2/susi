@@ -11,7 +11,10 @@ function Menu({ data }) {
   return (
     <Layout>
       <div className='breadcrumb'>
-        <Link to='/'>Головна</Link>
+        <Link to='/'>
+          <img src='/img/mainPage.png' alt='main Page' />
+          Головна
+        </Link>
         <span>{'>'}</span>
         <span>Меню</span>
       </div>

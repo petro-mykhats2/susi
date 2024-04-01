@@ -7,7 +7,10 @@ function Favorite() {
   return (
     <Layout>
       <div className='breadcrumb'>
-        <Link to='/'>Головна</Link>
+        <Link to='/'>
+          <img src='/img/mainPage.png' alt='main Page' />
+          Головна
+        </Link>
         <span>{'>'}</span>
         <Link to={`/menu/`}>Меню</Link>
         <span>{'>'}</span>

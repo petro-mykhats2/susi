@@ -43,9 +43,14 @@
 
  .product-favorite {
      position: absolute;
-     top: 17px;
-     right: 17px;
+     top: 4px;
+     right: 4px;
      cursor: pointer;
+
+     @include xsl {
+        top: 17px;
+        right: 17px;
+    }
  }
 
 .product-right {
@@ -187,7 +192,7 @@
 .product-calc_less {
     width: 20px;
     height: 20px;
-    color: #f7922c;
+    color: $orange;
     font-size: 22px;
     text-align: center;
     line-height: 18px;
@@ -208,7 +213,7 @@
     font-size: 12px;
     font-weight: 600;
     text-align: center;
-    background-color: #f7922c;
+    background-color: $orange;
     cursor: pointer;
     white-space: nowrap;
     -webkit-transition: background .23s;
@@ -225,7 +230,7 @@ img {
     flex-direction: row; 
     margin-left: 0px;
     width: 100%;
-    background-color: #f7922c;
+    background-color: $orange;
     justify-content: center;
     cursor: pointer;
 
