@@ -1,0 +1,726 @@
+backend:
+  name: git-gateway
+  branch: netlify
+
+local_backend: true
+media_folder: static/img
+public_folder: /img
+
+publish_mode: editorial_workflow
+
+collections:
+  - name: products # Назва вашої нової колекції продуктів
+    label: Products # Заголовок колекції, який буде відображатися в адмін-панелі
+    folder: content/products # Шлях до папки, де буде зберігатися контент продуктів
+    create: true # Дозволити створення нових записів
+    slug: '{{slug}}' # Генерація слагу для кожного продукту
+    fields:
+      - {
+          label: 'Template Key',
+          name: 'templateKey',
+          widget: 'hidden',
+          default: 'products',
+        }
+      - label: Title # Назва продукту
+        name: title
+        widget: string
+      - label: Top Product Label # Назва продукту
+        name: top
+        widget: boolean
+        required: false
+      - label: Price # Ціна продукту
+        name: price
+        widget: number
+      - label: Type of Product # Тип продукту (вибір з колекції "typesProducts")
+        name: categoryProduct
+        widget: relation
+        collection: typesProducts # Вибір колекції "typesProducts"
+        search_fields: ['title'] # Поле для пошуку за назвою типу продукту
+        value_field: '{{slug}}'
+        display_fields: ['title']
+      - label: Add ingredients # Тип продукту (вибір з колекції "typesProducts")
+        name: product_composition
+        widget: relation
+        multiple: true
+        collection: Ingredients # Вибір колекції "typesProducts"
+        search_fields: ['title'] # Поле для пошуку за назвою типу продукту
+        value_field: '{{slug}}'
+        display_fields: ['title']
+        required: false
+      - lable: Weight (in gramm) (option)
+        name: weight
+        widget: number
+        required: false
+      - label: Description
+        name: description
+        widget: string
+        required: false
+      - label: Image
+        name: image
+        widget: image
+        required: false
+
+  - name: typesProducts # Назва вашої нової колекції
+    label: Types of Products # Заголовок колекції, який буде відображатися в адмін-панелі
+    folder: content/typesProducts # Шлях до папки, де буде зберігатися контент типів продуктів
+    create: true # Дозволити створення нових записів
+    slug: '{{slug}}' # Генерація слагу для кожного запису
+    fields:
+      - label: 'Template Key'
+        name: 'templateKey'
+        widget: 'hidden'
+        default: 'typesProducts'
+      - label: Title (small eng sympols for path) # Назва типу продукту (наприклад, "alkogol," "sushi," "pizza")
+        name: title
+        widget: string
+        required: true
+      - label: Image
+        name: image
+        widget: image
+        required: false
+      - label: Name products
+        name: name
+        widget: string
+        required: true
+      - label: Порядковий номен в списку
+        name: item_index
+        widget: number
+        # required: true
+
+  - name: Ingredients # Назва вашої нової колекції
+    label: Ingredients # Заголовок колекції, який буде відображатися в адмін-панелі
+    folder: content/ingredients # Шлях до папки, де буде зберігатися контент типів продуктів
+    create: true # Дозволити створення нових записів
+    slug: '{{slug}}'
+    fields:
+      - label: Назва інгредієнту # Назва типу продукту (наприклад, "alkogol," "sushi," "pizza")
+        name: title
+        widget: string
+        required: true
+      - label: 'Template Key'
+        name: 'templateKey'
+        widget: 'hidden'
+        default: 'ingredients'
+      - label: Image
+        name: image
+        widget: image
+        required: false
+
+  - name: landing
+    label: Landing
+    label_singular: 'Landing'
+    folder: content/landing
+    create: true
+    slug: '{{slug}}'
+    fields:
+      - {
+          label: 'Template Key',
+          name: 'templateKey',
+          widget: 'hidden',
+          default: 'landing',
+        }
+      - label: Preview
+        name: preview
+        widget: boolean
+        required: true
+      - { label: Title, name: title, widget: string }
+      - {
+          label: Section,
+          name: sections,
+          widget: list,
+          fields:
+            [
+              {
+                label: 'Block',
+                name: 'block',
+                widget: 'relation',
+                collection: 'typesProducts',
+                search_fields: ['slug'],
+                value_field: '{{slug}}',
+                display_fields: ['name'],
+                multiple: false,
+                min: 1,
+                max: 1,
+              },
+            ],
+        }
+
+  - name: projects
+    identifier_field: title
+    label: 'Projects'
+    folder: content/projects
+    create: true
+    slug: '{{slug}}'
+    fields:
+      - {
+          label: 'Template Key',
+          name: 'templateKey',
+          widget: 'hidden',
+          default: 'projects',
+        }
+      - name: seo
+        label: SEO
+        widget: 'object'
+        fields:
+          - { label: Title, name: title, widget: string, required: true }
+          - {
+              label: Description,
+              name: description,
+              widget: string,
+              required: true,
+            }
+          - { label: Cover, name: seoCover, widget: image, required: false }
+
+      - label: Title
+        name: title
+        widget: markdown
+        required: true
+      - label: Title color
+        name: titleColor
+        widget: color
+        default: '#000000'
+        required: true
+      - label: Preview
+        name: preview
+        widget: boolean
+        required: true
+      - label: Text
+        name: text
+        widget: markdown
+        required: false
+      - label: Text color
+        name: textColor
+        widget: color
+        default: '#000000'
+        required: true
+      - label: Preview background color
+        name: bgColor
+        widget: color
+        default: '#ffffff'
+        required: true
+      - label: hashtag
+        name: hashtag
+        widget: string
+        required: false
+      - label: Hashtag color
+        name: hashtagColor
+        widget: color
+        default: '#000000'
+        required: true
+
+      - label: Image position
+        name: wrapBoxBgPositionStyle
+        widget: select
+        options: ['CENTER', 'LEFT', 'WIDTHCOVER', 'REGULAR']
+        default: 'WIDTHCOVER'
+        required: false
+
+      - label: Image Style Type
+        name: imageStyleType
+        widget: select
+        options: ['icon', 'high', 'cover']
+        required: false
+
+      - label: Img
+        name: img
+        widget: image
+        required: false
+
+      - label: imgTabPro
+        name: imgTabPro
+        widget: image
+        required: false
+
+      - label: imgTab
+        name: imgTab
+        widget: image
+        required: false
+
+      - label: imgTabMob
+        name: imgTabMob
+        widget: image
+        required: false
+
+      - label: imgMob
+        name: imgMob
+        widget: image
+        required: false
+
+      - name: header
+        label: Header
+        widget: 'object'
+        fields:
+          - { label: Title, name: title, widget: string, required: true }
+          - {
+              label: Image Background,
+              name: imageBackground,
+              widget: 'color',
+              default: '#ffffff',
+              required: false,
+            }
+          - {
+              label: Image Header Mobile,
+              name: imgHeaderMob,
+              widget: image,
+              required: false,
+            }
+          - {
+              label: Image Header Tablet,
+              name: imgHeaderTablet,
+              widget: image,
+              required: false,
+            }
+          - {
+              label: Image Header Laptop,
+              name: imgHeaderLaptop,
+              widget: image,
+              required: false,
+            }
+          - {
+              label: Logo Color,
+              name: imgColor,
+              widget: 'select',
+              options: ['BLACK', 'WHITE'],
+              required: true,
+              default: 'BLACK',
+            }
+          - { label: Location, name: location, widget: string, required: false }
+          - { label: Industry, name: industry, widget: string, required: false }
+
+      - name: content
+        label: Section
+        collapsed: false
+        create: true
+        slug: '{{slug}}'
+        widget: 'list'
+        fields:
+          - { label: Title, name: title, widget: string, required: false }
+          - {
+              label: Description,
+              name: description,
+              widget: string,
+              required: false,
+            }
+          - {
+              label: Background Color,
+              name: backgroundColor,
+              widget: 'color',
+              default: '#ffffff',
+              required: true,
+            }
+          - {
+              label: Text Color,
+              name: textColor,
+              widget: color,
+              default: '#000000',
+              required: true,
+            }
+          - label: 'Image Section'
+            name: imageSection
+            widget: 'object'
+            fields:
+              - label: Paddings
+                name: paddings
+                widget: boolean
+                default: false
+
+              - label: Image categoryProduct
+                name: categoryProduct
+                widget: select
+                options: ['FULL', 'CENTERED', 'FIXED']
+                required: false
+
+              - label: Image Mobile
+                name: imgMob
+                widget: image
+                required: false
+
+              - label: Image Tablet
+                name: imgTab
+                widget: image
+                required: false
+
+              - label: Image Laptop
+                name: imgLaptop
+                widget: image
+                required: false
+
+          - name: multipleImageSection
+            label: Multiple Image Section
+            collapsed: false
+            create: true
+            slug: '{{slug}}'
+            widget: 'list'
+            fields:
+              - label: Image Mobile
+                name: imgMob
+                widget: image
+                required: false
+              - label: Image Tablet
+                name: imgTab
+                widget: image
+                required: false
+              - label: Image Laptop
+                name: imgLaptop
+                widget: image
+                required: false
+              - label: Background color Image
+                name: imgBackground
+                widget: color
+                default: '#ffffff'
+                required: true
+
+  - name: capability_page
+    label: Capability page
+    identifier_field: types
+    folder: content/capability-Page
+    create: true
+    slug: '{{slug}}'
+    fields:
+      - label: 'Template Key'
+        name: 'templateKey'
+        widget: 'hidden'
+        default: 'capability_page_new'
+
+      - label: Preview
+        name: preview
+        widget: boolean
+        required: true
+      - { label: Title, name: title, widget: string }
+
+      - label: 'Sections'
+        name: 'sections'
+        widget: 'list'
+        types:
+          - label: 'WEDO'
+            name: 'WEDO'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Main Title',
+                  name: 'mainText',
+                  widget: 'markdown',
+                  buttons: [bold, heading-two, bulleted-list, numbered-list],
+                  required: true,
+                }
+              - {
+                  label: 'Main Title Color',
+                  name: 'mainTextColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#fffff',
+                }
+              - {
+                  label: 'Title Left Block (Large)',
+                  name: 'title',
+                  widget: 'markdown',
+                  buttons: [bold, heading-two, bulleted-list, numbered-list],
+                  required: true,
+                }
+              - {
+                  label: 'titleColor',
+                  name: 'titleColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Right Block. Top-Left Title',
+                  name: 'title2',
+                  widget: 'markdown',
+                  buttons: [bold, heading-two, bulleted-list, numbered-list],
+                  required: true,
+                }
+              - {
+                  label: 'Top-Left title color',
+                  name: 'titleColor2',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Right Block. Top-Right Title',
+                  name: 'title3',
+                  widget: 'markdown',
+                  buttons: [bold, heading-two, bulleted-list, numbered-list],
+                  required: true,
+                }
+              - {
+                  label: 'Top-Right title color',
+                  name: 'titleColor3',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Right Block. Bottom-Right Title',
+                  name: 'title4',
+                  widget: 'markdown',
+                  buttons: [bold, heading-two, bulleted-list, numbered-list],
+                  required: true,
+                }
+              - {
+                  label: 'Bottom-Right title color',
+                  name: 'titleColor4',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Right Block. Bottom-Left Title',
+                  name: 'title5',
+                  widget: 'markdown',
+                  buttons: [bold, heading-two, bulleted-list, numbered-list],
+                  required: true,
+                }
+              - {
+                  label: 'Bottom-Left title color',
+                  name: 'titleColor5',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+
+          - label: 'VERTICALS'
+            name: 'VERTICALS'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Title Left',
+                  name: 'title',
+                  widget: 'string',
+                  required: true,
+                }
+              - {
+                  label: 'Title Color',
+                  name: 'titleColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Background Color',
+                  name: 'bgColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#FFFFFF',
+                }
+              - {
+                  label: 'Text',
+                  name: 'text',
+                  widget: 'string',
+                  required: true,
+                }
+              - {
+                  label: 'Text Color',
+                  name: 'textColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#FFFFFF',
+                }
+              - label: 'Item Text'
+                name: 'itemText'
+                widget: 'list'
+                fields:
+                  - { label: 'Item Title', name: 'itemTitle', widget: 'string' }
+                  - {
+                      label: 'ID',
+                      name: 'id',
+                      widget: 'number',
+                      valueType: 'int',
+                      required: true,
+                    }
+
+          - label: 'COOPERATION'
+            name: 'COOPERATION'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Title',
+                  name: 'title',
+                  widget: 'string',
+                  required: true,
+                }
+              - {
+                  label: 'Title Color',
+                  name: 'titleColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Background Color',
+                  name: 'bgColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#FFFFFF',
+                }
+              - {
+                  label: 'Text',
+                  name: 'text',
+                  widget: 'string',
+                  required: true,
+                }
+              - {
+                  label: 'Text Color',
+                  name: 'textColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - label: 'Item Text'
+                name: 'itemText'
+                required: true
+                widget: 'list'
+                fields:
+                  - {
+                      label: 'Item Title',
+                      name: 'itemTitle',
+                      widget: 'string',
+                      required: true,
+                    }
+                  - {
+                      label: 'Item Text',
+                      name: 'item_Text',
+                      widget: 'string',
+                      required: true,
+                    }
+                  - {
+                      label: 'Item Text Ramaining',
+                      name: 'item_Remaining',
+                      widget: 'string',
+                      required: false,
+                    }
+                  - {
+                      label: 'Item Background Color',
+                      name: 'bgColor',
+                      widget: 'color',
+                      required: true,
+                      default: '#000',
+                    }
+                  - {
+                      label: 'Item all Text Color',
+                      name: 'textColor',
+                      widget: 'color',
+                      required: true,
+                      default: '#fff',
+                    }
+                  - {
+                      label: 'ID',
+                      name: 'id',
+                      widget: 'number',
+                      valueType: 'int',
+                      required: true,
+                    }
+
+          - label: 'DELIVERABLES'
+            name: 'DELIVERABLES'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Title',
+                  name: 'title',
+                  widget: 'string',
+                  required: true,
+                }
+              - {
+                  label: 'Title Color',
+                  name: 'titleColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Background Color',
+                  name: 'bgColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#FFFFFF',
+                }
+              - label: 'Item Text'
+                name: 'itemText'
+                required: true
+                widget: 'list'
+                fields:
+                  - {
+                      label: 'Item Title',
+                      name: 'itemTitle',
+                      widget: 'string',
+                      required: true,
+                    }
+                  - {
+                      label: 'Item Text',
+                      name: 'item_Text',
+                      widget: 'string',
+                      required: true,
+                    }
+                  - {
+                      label: 'ID',
+                      name: 'id',
+                      widget: 'number',
+                      valueType: 'int',
+                      required: true,
+                    }
+          - label: 'FEEDBACK'
+            name: 'FEEDBACK'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Title',
+                  name: 'title',
+                  widget: 'string',
+                  required: true,
+                }
+              - {
+                  label: 'Title Color',
+                  name: 'titleColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Background Color',
+                  name: 'bgColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#FFFFFF',
+                }
+              - {
+                  label: 'Title Small',
+                  name: 'title_small',
+                  widget: 'string',
+                  required: true,
+                }
+              - {
+                  label: 'Title Small Color',
+                  name: 'title_smallColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Text',
+                  name: 'text',
+                  widget: 'string',
+                  required: true,
+                }
+              - {
+                  label: 'Text Color',
+                  name: 'textColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }
+              - {
+                  label: 'Text Bottom',
+                  name: 'text_bottom',
+                  widget: 'string',
+                  required: true,
+                }
+              - {
+                  label: 'Text Bottom Color',
+                  name: 'text_bottomColor',
+                  widget: 'color',
+                  required: true,
+                  default: '#000',
+                }

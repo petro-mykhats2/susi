@@ -1,0 +1,133 @@
+.menu-top {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    margin-bottom: 0px;
+
+    @include sm {
+        margin-top: 60px;
+        margin-bottom: 50px;
+    }
+}
+
+.menu-top__img {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 7px;
+    -o-object-fit: contain;
+    object-fit: contain;
+    -o-object-position: center;
+    object-position: center;
+    font-style: normal;
+    line-height: 1.15;
+
+    @include sm {
+        width: 36px;
+        height: 36px;
+        margin-right: 17px;
+    }
+}
+
+.menu-top__title {
+    font-size: 16px;
+
+    @include sm {
+        font-size: 34px;
+      }
+}
+
+.menuContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    
+    &-item {
+        min-width: 70%;
+        padding: 20px;
+        margin: 10px;
+        flex-basis: calc(19% - 0px);
+        flex-wrap: nowrap;
+        border: #7e7e7e 2px solid;
+
+        @include xss {
+            min-width: 100px;
+            
+            
+        }
+
+        @include sm {
+            min-width: 218px;
+            padding: 20px;
+            margin: 10px;
+            flex-basis: calc(19% - 0px);
+            flex-wrap: wrap;
+            border: #7e7e7e 2px solid;
+        }
+    }
+
+    .item-img {
+        height: 50px;
+
+        @include sm {
+            height: 150px;
+        }
+    }
+
+    &-item:hover {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        transition:  .23s;
+        
+    }
+
+    &-title {
+        margin-top: 40px;
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+        transition: color .23s;
+
+        // @include sm {
+        //     font-size: 18px;
+        //     margin-bottom: 20px;
+        //     height: 2rem;
+        //   }
+    }
+}
+
+.menu-item__img {
+    background-color: #ec6969;
+}
+
+.shopping-cart-count {
+
+    &-mob {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        background-color: $white;
+        color: orange;
+        font-size: 12px;
+        font-weight: 800;
+        padding: 2px 5px;
+        border-radius: 50%;
+
+        @include xsxs {
+            top: 8px;
+            right: 8px;
+        }
+
+        @include sm {
+            display: none;
+        }
+       
+    }
+    
+}
+.shopping-cart-mob {
+    
+    @include sm {
+        display: none;
+    }
+}

@@ -1,0 +1,383 @@
+/* CartSlider.scss */
+.cart-slider {
+    position: fixed;
+    z-index: 1000;
+    top: 80px;
+    right: -320px; 
+    width: 300px;
+    background-color: $white;
+    box-shadow: -4px 0 29px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s ease;
+    padding: 10px;
+    overflow-y: auto;
+    max-height: calc(100% - 80px); 
+    min-height: 500px;
+    z-index: 99999;
+    
+  
+    &.open {
+      right: 0; 
+    }
+  
+    .cart-header {
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      border-bottom: 1px solid #ccc;
+  
+      h2 {
+        margin: 0;
+      }
+  
+      button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+      }
+    }
+  
+  }
+  
+  .cart-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .cart-item {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    padding: 10px;
+    margin: 5px 5px 12px 5px;
+    border: 1px solid $grey;
+    border-radius: 2px;
+  }
+
+  .card-item__img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 270px;
+    height: 100px;
+  }
+
+  .Cart__imgSmall {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    
+}    
+
+  .cart-name {
+    color: $grey;
+  }
+  .cart-item__buttom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 10px;
+  }
+  .cart-totalPrice {
+    color: $black;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .cart-button {
+    position: absolute;
+    top:7px;
+    right: 7px;
+    background-color: #ccc;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .cart-button:before {
+    content: "X";
+    font-size: 10px;
+    color: #fff;
+
+    :hover {
+        color: red;
+    }
+  }
+
+  .cart-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cart-button-quantity {
+    display: flex;
+    flex-direction: row;
+    border: $orange;
+    border-radius: 50%;
+    color: $orange;
+    width: 20px;
+    height: 20px;
+    margin: 0px 7px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .cart-button-quantity:hover {
+    color: red;
+  }
+  .total-price {
+    font-size: 20px;
+    font-weight: 700;
+    
+    &-title {
+        color: $grey;
+        font-weight: 400;  
+    }
+  }
+  .cart-order {
+    display: flex;
+    justify-content: center;
+    padding: 8px 0px 30px 0px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.cart-order:hover {
+    color: $orange;
+    font-size: 22px;
+}
+
+.form-checkoutBlock{
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+padding: 10px;
+
+}
+.form-field {
+  margin-bottom: 15px;
+  
+  &.error {
+    border: 2px solid #de0a0a;
+  }
+  input, textarea {
+    font-size: 10px;
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 1px;
+  }
+  textarea {
+    height: 70px;
+  }
+}
+
+// -----
+
+.delivery-form, .delivery-time {
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-bottom: 15px;
+
+  p {
+    font-size: 16px;
+    margin: 10px 0px;
+  }
+  label {justify-content: center;
+  }
+
+  &-selected {
+    margin: 5px 0 20px 0;
+
+    p {
+      font-size: 14px; /* збільшимо розмір шрифту */
+      color: #333; /* змінимо колір тексту */
+      margin-bottom: 5px; /* зменшимо відступ від тексту до верхньої межі */
+
+    }
+
+    .selected-address {
+      font-size: 18px; /* збільшимо розмір шрифту вибраної адреси */
+      color: $orange; /* змінимо колір тексту вибраної адреси на синій */
+      font-weight: bold; /* збільшимо жирність шрифту */
+    }
+  }
+
+
+input[type="radio"] {
+  display: none; /* приховуємо стандартні радіокнопки */
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 10px;
+  cursor: pointer;
+  position: relative;
+  
+}
+
+label::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  margin-right: 10px;
+}
+
+input[type="radio"]:checked + label::before {
+  background-color: $orange; /* колір вибраної кнопки */
+}
+
+.pickup-options {
+  // display: none;
+  margin-top: 10px;
+}
+
+.pickup-options p {
+  font-weight: bold;
+}
+
+.pickup-options-list, .time-options {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.pickup-options-list div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.pickup-options-list div:hover {
+  background-color: #f0f0f0;
+}
+
+/* тінь для списку */
+.pickup-options-list {
+  margin: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+}
+
+.delivery-time-selected span {
+  font-size: 18px; 
+  color: $orange; 
+  font-weight: bold;
+}
+
+// Accessories
+
+.accessories-container {
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.quantity-control {
+  margin-top: 10px;
+}
+
+.control-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  cursor: pointer;
+  background-color: $orange;
+}
+
+.control-button:hover {
+
+  border: 4px solid $grey;
+}
+
+.control-button::before {
+  content: '+';
+  color: $white;
+}
+
+.control-button.minus::before {
+  content: '-';
+}
+
+
+.quantity-input {
+  border: 1px solid #d1d1d1;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 0px 10px;
+  width: 15px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.educational-checkbox {
+  margin: 15px 0px;
+}
+
+input[type='checkbox'] {
+  display: none;
+}
+
+input[type='checkbox'] + label {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+}
+
+input[type='checkbox'] + label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}
+
+input[type='checkbox']:checked + label:before {
+  background-color: orange;
+  border-color: orange;
+}
+
+input[type='checkbox'] + label:after {
+  content: '\2713';
+  position: absolute;
+  left: 6px;
+  top: 4px;
+  font-size: 16px;
+  color: #fff;
+  display: none;
+}
+
+input[type='checkbox']:checked + label:after {
+  display: block;
+}
+
+.button_submit {
+  margin-bottom: 20px;
+  width: 100%;
+  font-size: 18px;
+  border-radius: 4px;
+}
+
+.errorMessage {
+  font-size: 10px;
+  color: $red;
+  margin-top: -10px;
+  padding-bottom: 5px;
+}

@@ -22,13 +22,47 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: `${__dirname}/src/data/`,
+        name: `images`,
+        path: `${__dirname}/static/img/`,
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: `data`,
+        path: `${__dirname}/content/products/`,
         ignore: [`**/\.*`], // ignore files starting with a dot
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: `typesProducts`,
+        path: `${__dirname}/content/typesProducts/`,
+        ignore: [`**/\.*`], // ігнорувати файли, що починаються з крапки
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: `ingredients`,
+        path: `${__dirname}/content/ingredients`,
+        ignore: [`**/\.*`], // ігнорувати файли, що починаються з крапки
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: `landing`,
+        path: `${__dirname}/content/landing/`,
+        ignore: [`**/\.*`], // ігнорувати файли, що починаються з крапки
       },
     },
     'gatsby-transformer-json',
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     'gatsby-plugin-sass',
+    'gatsby-transformer-remark',
+    `gatsby-plugin-netlify-cms`,
   ],
 }

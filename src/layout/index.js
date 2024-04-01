@@ -2,9 +2,11 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 import useSiteMetaQuery from '../hooks/useSiteMetaQuery'
+import Sidebar from '../components/Sidebar'
 
 const Layout = ({ children }) => {
   const siteMetadata = useSiteMetaQuery()
+
   return (
     <>
       <Helmet
@@ -22,22 +24,8 @@ const Layout = ({ children }) => {
       >
         <html lang='en' />
       </Helmet>
-      <div className='header'>
-        <div className='header container'>
-          <div className='header-logo'>Logo</div>
-          <div className='header-menu'>
-            <div className='header-menu_image'>
-              <img src='/img/basket_icon.png' alt='dark theme' />
-            </div>
-            <div className='header-menu_text'>Меню</div>
-          </div>
-          <div className='header-cart'>
-            <img src='/img/basket_icon.png' alt='dark theme' />
-          </div>
-          <div className='header-burger'>=</div>
-        </div>
-      </div>
-      <main className='container'>{children}</main>
+      <Sidebar />
+      <main className='container top-margin'>{children}</main>
     </>
   )
 }

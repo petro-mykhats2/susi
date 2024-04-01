@@ -1,0 +1,52 @@
+.menuCategory {
+
+    &-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    &-item:hover {
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1)
+    }
+
+    &-item {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        min-height: 440px;
+        box-shadow: 0 0 0 transparent; 
+        transition: box-shadow 0.3s ease;
+        flex: 0 0 calc(90% - 10px); 
+        margin: 4px; 
+        padding: 30px;
+        flex-wrap: nowrap;
+
+
+
+         @include xsl {
+            flex: 0 0 calc(38% - 10px);
+          } 
+
+        @include sm {
+            flex: 0 0 calc(25% - 10px);
+          }
+
+          @include lg {
+            flex: 0 0 calc(18% - 10px);
+          }
+
+        &-top {
+            position: absolute;
+            right: 0;
+            top: 0;
+            left: auto;
+            height: 45%;
+            display: block;
+            z-index: 9999;
+            width: 30%;
+        }
+    }
+}

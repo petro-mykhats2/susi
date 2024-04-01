@@ -1,0 +1,76 @@
+$xss: 320px;
+$xs: 375px;
+$xsxs: 460px;
+$xsl: 574px;
+$xsll: 650px;
+$sm: 768px;
+$smd: 1024px;
+$md: 1250px;
+$lg: 1440px;
+$xl: 1920px;
+$ll: 2750px;
+
+@mixin xss {
+  @media only screen and (min-width: $xss) {
+    @content;
+  }
+}
+
+@mixin xs {
+  @media only screen and (min-width: $xs) {
+    @content;
+  }
+}
+@mixin xsxs {
+  @media only screen and (min-width: $xsxs) {
+    @content;
+  }
+}
+
+@mixin xsl {
+  @media only screen and (min-width: $xsl) {
+    @content;
+  }
+}
+
+@mixin xsll {
+  @media only screen and (min-width: $xsll) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media only screen and (min-width: $sm) {
+    @content;
+  }
+}
+
+@mixin smd {
+  @media only screen and (min-width: $smd) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media only screen and (min-width: $md) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media only screen and (min-width: $lg) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media only screen and (min-width: $xl) {
+    @content;
+  }
+}
+
+@mixin ll {
+  @media only screen and (min-width: $ll) {
+    @content;
+  }
+}
