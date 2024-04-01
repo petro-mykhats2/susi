@@ -17,7 +17,11 @@ const FavoriteItems = () => {
 
   return (
     <div>
-      <h4>Загальна кількість товарів в улюблених: {totalFavoriteItems}</h4>
+      {totalFavoriteItems > 0 ? (
+        <h4>Загальна кількість товарів в улюблених: {totalFavoriteItems}</h4>
+      ) : (
+        <h4>Поки що у вас немає товарів в цьому списку</h4>
+      )}
 
       <div className='menuCategory-container'>
         {favoriteItems.map((product) => (
