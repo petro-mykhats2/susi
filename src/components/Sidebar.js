@@ -46,16 +46,18 @@ const Sidebar = ({ isOpen }) => {
             </Link>
           </Logo>
           <MenuLink>
-            <Link
-              className='slidebar-logo sparkle u-hover--sparkle'
-              to={`/menu`}
-            >
-              <img src='/img/menuIcon.png' alt='menu' />
-              Меню
+            <Link to={`/menu`}>
+              <div className='sparkle u-hover--sparkle'>
+                <img
+                  className='shopping-cart-mob'
+                  src='/img/menuIcon.png'
+                  alt='menu'
+                />
+              </div>
             </Link>
             <Link to='/favorite/'>
-              <span className='sparkle u-hover--sparkle'>
-                <span className='shopping-cart-mob'>
+              <div className='sparkle u-hover--sparkle'>
+                <div className='shopping-cart-mob'>
                   <img
                     className='sidebar-shopping-cart-image'
                     src='/img/favorite-white.png'
@@ -65,23 +67,27 @@ const Sidebar = ({ isOpen }) => {
                       {totalFavoriteItems}
                     </div>
                   ) : null}
-                </span>
-              </span>
+                </div>
+              </div>
             </Link>
-            <span
-              className='sparkle u-hover--sparkle'
-              onClick={handleToggleCart}
-            >
-              <span className='shopping-cart-mob'>
-                <img
-                  className='sidebar-shopping-cart-image'
-                  src='/img/shopping-cart.png'
-                />
-                {totalQuantity > 0 ? (
-                  <div className='shopping-cart-count-mob'>{totalQuantity}</div>
-                ) : null}
-              </span>
-            </span>
+            <Link>
+              <div
+                className='sparkle u-hover--sparkle'
+                onClick={handleToggleCart}
+              >
+                <div className='shopping-cart-mob'>
+                  <img
+                    className='sidebar-shopping-cart-image'
+                    src='/img/shopping-cart.png'
+                  />
+                  {totalQuantity > 0 ? (
+                    <div className='shopping-cart-count-mob'>
+                      {totalQuantity}
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+            </Link>
 
             {/* <div>
               <h1 class='sparkle u-hover--sparkle'>Sparkle Hover</h1>
