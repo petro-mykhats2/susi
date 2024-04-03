@@ -13,18 +13,23 @@ function Product({ pageContext }) {
   const isIngredientAvailable = (ingredientName) => {
     return ingredients.some(
       (ingredient) =>
-        ingredient.node.frontmatter.title.toLowerCase() ===
+        ingredient.node.frontmatter.title.toLowerCase().replace(/\s/g, '-') ===
         ingredientName.toLowerCase()
     )
   }
 
   // Функція для отримання зображення інгредієнта
   const getIngredientImage = (ingredientName) => {
+    const formattedIngredientName = ingredientName
+      .toLowerCase()
+      .replace(/\s/g, '-') // Замінюємо всі пробіли на дефіси для форматування
+
     const ingredient = ingredients.find(
       (ingredient) =>
-        ingredient.node.frontmatter.title.toLowerCase() ===
-        ingredientName.toLowerCase()
+        ingredient.node.frontmatter.title.toLowerCase().replace(/\s/g, '-') ===
+        formattedIngredientName
     )
+
     return ingredient ? ingredient.node.frontmatter.image : null
   }
 
@@ -141,7 +146,7 @@ function Product({ pageContext }) {
                         </div>
                       ) : null}
                       <div className='product-slider-item-title'>
-                        {ingredientName}
+                        {ingredientName.replace(/-/g, ' ')}
                       </div>
                     </div>
                   ))}
