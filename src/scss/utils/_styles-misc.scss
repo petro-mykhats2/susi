@@ -10,9 +10,12 @@
    
     box-sizing: border-box;
     position: relative;
-    padding: 0.9em;
-    // background-color: red;
-    // width: 150px;
+    padding: 0.7em;
+
+    @include xsxs {
+      padding: 0.9em;
+    }
+    
     &::before,
     &::after {
       content: '';
