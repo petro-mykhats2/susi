@@ -21,7 +21,7 @@ export const ContainerNav = styled.div`
   flex-direction: row;
   justify-content: space-between;
 
-  @media (max-width: 345px) {
+  @media (max-width: 445px) {
     justify-content: start;
   }
 
@@ -31,7 +31,7 @@ export const ContainerNav = styled.div`
 `
 
 export const Logo = styled.div`
-  padding: 0em 0em 0 0em;
+  padding: 0em 10px 0 0em;
   img {
     height: 75%;
     padding-top 10px;
