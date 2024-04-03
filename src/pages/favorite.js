@@ -16,14 +16,9 @@ function Favorite() {
         <span>{'>'}</span>
         <span>Вибрані товари</span>
       </div>
-      <br></br>
+      <br />
       <h1>Вибрані товари</h1>
-      {/* <div className='menuCategory-container'>
-        {filteredProducts.map(({ node }) => (
-          <ItemProductCategory key={node.id} orderdata={node} />
-        ))}
-      </div> */}
-
+      <hr />
       <FavoriteItems />
     </Layout>
   )

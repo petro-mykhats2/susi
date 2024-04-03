@@ -65,19 +65,18 @@ export const Logo = styled.div`
 
 export const MenuLink = styled.div`
   /* Загальні стилі */
-  font-size: 10px;
-  padding: 3em 1em 0 1.7em;
+  font-size: 9px;
+  padding: 3em 0.4em 0 0.4em;
   color: #fff;
 
   img {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
   }
 
   /* Медіа-запит для екранів шириною більше 530px */
   @media (min-width: 530px) {
     padding: 2em 1em 0 0.8em;
-    // background-color: red;
     font-size: 16px;
 
     img {
@@ -87,9 +86,8 @@ export const MenuLink = styled.div`
   }
 
   /* Медіа-запит для екранів шириною менше 530px, але більше 430px */
-  @media (max-width: 530px) {
+  @media (max-width: 530px) and (min-width: 345px) {
     padding: 3em 0.6em 0 0.6em;
-    // background-color: green;
     font-size: 10px;
 
     img {

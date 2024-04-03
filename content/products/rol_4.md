@@ -1,13 +1,20 @@
 ---
-title: 'Рол Філадельфія з Тунцем'
 templateKey: products
-description: 'Класичний Рол Філадельфія'
-calories: '520,67 ккал'
-sku: 'sku-4'
-weight: 320
-price: 379.00
+calories: 520,67 ккал
+title: Рол Філадельфія з Тунцем
 top: true
-parameters: '5'
+price: 379
+parameters: "5"
 categoryProduct: roly
-image: '/img/philadelphia_z_tuncem.jpeg'
+product_composition:
+  - тунець-справжній
+  - авокадо
+  - рис
+  - норі
+  - крем-сир
+  - огірок
+weight: 320
+description: Класичний Рол Філадельфія
+image: /img/philadelphia_z_tuncem.jpeg
+sku: sku-4
 ---

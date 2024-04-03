@@ -50,6 +50,7 @@ const Cart = () => {
                       alt={item.name}
                     />
                   </div>
+                  <br />
                   <div className='cart-name'>{item.name}</div>
                   <div className='cart-item__buttom'>
                     <div className='cart-totalPrice'>

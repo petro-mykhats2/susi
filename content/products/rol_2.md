@@ -1,13 +1,21 @@
 ---
-title: 'Філадельфія в Кунжуті'
 templateKey: products
-description: 'Класичний Рол Філадельфія з Лососем в Кунжуті'
-calories: '465,72 ккалл'
-sku: 'sku-2'
-weight: 295
-price: 289
+calories: 465,72 ккалл
+title: Філадельфія в Кунжуті
 top: false
+price: 289
+parameters: "5"
 categoryProduct: roly
-parameters: '5'
-image: '/img/philadelphia_v_kunzhuti.jpeg'
+product_composition:
+  - рис
+  - норі
+  - крем-сир
+  - лосось
+  - огірок
+  - кунжут
+  - унагі-соус
+weight: 295
+description: Класичний Рол Філадельфія з Лососем в Кунжуті
+image: /img/philadelphia_v_kunzhuti.jpeg
+sku: sku-2
 ---
