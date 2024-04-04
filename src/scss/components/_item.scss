@@ -8,6 +8,12 @@
     min-height: 440px;
     box-shadow: 0 0 0 transparent; 
     transition: box-shadow 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+
+    @include xsxs {
+        box-shadow: none
+      } 
+
 }
 
 .item:hover {

@@ -19,7 +19,7 @@ export const TopNav = styled.div`
 export const ContainerNav = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: flex-start;
 
   @media (min-width: 460px) {
     justify-content: space-between;
