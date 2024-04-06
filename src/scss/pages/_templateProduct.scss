@@ -68,7 +68,7 @@
 }
 
 .product-label {
-    margin-top: 40px;
+    margin-top: 30px;
     font-weight: 400;
 }
 .product-label_under {
@@ -140,12 +140,13 @@
    display: flex;
    flex-direction: column;
    justify-content: center;
-   margin-top: 40px;
+   margin-top: 20px;
 
     @include xsll {
         display: flex;
         flex-direction: row;
         align-items: center;
+        margin-top: 40px;
     }
 
     @include md {
@@ -175,14 +176,14 @@
     margin-right: 70px;
     font-size: 28px;
     font-weight: 700;
-    min-width: 173px;
 
     @include xsll {
         margin-right: 40px;
+        min-width: 173px;
     }
 
     @include md {
-        margin-right: 0px
+        margin-right: 0px;
     }
 }
 
@@ -193,6 +194,10 @@
     justify-content: space-between;
     width: 80px;
 }
+.product-calc_counter {
+    font-size:  20px;
+
+}
 .product-calc_less {
     width: 20px;
     height: 20px;
@@ -200,14 +205,21 @@
     font-size: 22px;
     text-align: center;
     line-height: 18px;
-    border: 1px solid #000;
+    border: 2px solid #929292;
     border-radius: 50%;
     cursor: pointer;
     align-items: center;
-    -webkit-transition: all .23s;
-    transition: all .23s;
+    // -webkit-transition: all .13s;
+    // transition: all .13s;
 }
 
+.product-calc_less:hover {
+    border: 3px solid #929292;
+}
+
+.product-calc_less:hover {
+    border: 3px solid $orange;
+}
 
 .product_button_img {
     display: inline-block;

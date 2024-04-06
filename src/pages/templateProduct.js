@@ -8,6 +8,7 @@ import { addToFavorite, removeFromFavorite } from '../redux/favorite'
 function Product({ pageContext }) {
   const ingredients = pageContext.ingredients
   const productComposition = pageContext.product_composition
+  const [counter, setCounter] = useState(1)
 
   // Функція для перевірки наявності інгредієнта
   const isIngredientAvailable = (ingredientName) => {
@@ -47,7 +48,7 @@ function Product({ pageContext }) {
   )
 
   const handleAddToCart = (product) => {
-    dispatch(addToCart(product))
+    dispatch(addToCart(product, counter))
     setShowAddedToCartMessage(true)
 
     setTimeout(() => {
@@ -66,6 +67,16 @@ function Product({ pageContext }) {
     setTimeout(() => {
       setShowAddedToFavoriteMessage(false)
     }, 3000)
+  }
+
+  const incrementCounter = () => {
+    setCounter(counter + 1)
+  }
+
+  const decrementCounter = () => {
+    if (counter > 1) {
+      setCounter(counter - 1)
+    }
   }
 
   const currentCategory =
@@ -158,18 +169,24 @@ function Product({ pageContext }) {
           <div className='product-right_bottom'>
             <div className='product-right_bottom_left'>
               <div className='product-price'>
-                {pageContext.price.toFixed(2)} грн
+                {pageContext.price.toFixed(2) * counter} грн
               </div>
               <div className='product-calc'>
-                <div className='product-calc_less'>-</div>
-                <div className='product-calc_counter'>1</div>
-                <div className='product-calc_less'>+</div>
+                <div className='product-calc_less' onClick={decrementCounter}>
+                  -
+                </div>
+                <div className='product-calc_counter'>{counter}</div>
+                <div className='product-calc_less' onClick={incrementCounter}>
+                  +
+                </div>
               </div>
             </div>
             <div className='product-right_bottom_right'>
               <div
                 className='product_button'
-                onClick={() => handleAddToCart(pageContext.forCart)}
+                onClick={() => {
+                  handleAddToCart(pageContext.forCart, counter)
+                }}
               >
                 <div className='product_button_img'>
                   <img src='/img/shopping-cart.png' alt='imagee' />
