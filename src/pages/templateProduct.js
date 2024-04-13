@@ -40,6 +40,10 @@ function Product({ pageContext }) {
   const [showAddedToFavoriteMessage, setShowAddedToFavoriteMessage] = useState(
     false
   )
+  const [
+    showRemoveFromFavoriteMessage,
+    setShowRemoveFromFavoriteMessage,
+  ] = useState(false)
 
   const favoriteItems = useSelector((state) => state.favorite.favoriteItems)
 
@@ -59,6 +63,10 @@ function Product({ pageContext }) {
   const handleFavorites = (product) => {
     if (isFavorite) {
       dispatch(removeFromFavorite(product))
+      setShowRemoveFromFavoriteMessage(true)
+      setTimeout(() => {
+        setShowRemoveFromFavoriteMessage(false)
+      }, 3000)
     } else {
       dispatch(addToFavorite(product))
       setShowAddedToFavoriteMessage(true)
@@ -119,6 +127,16 @@ function Product({ pageContext }) {
               />
             </div>
             <img src={pageContext.image} />
+            {showAddedToFavoriteMessage && (
+              <div className='added-to-cart-message'>
+                Додано до улюблених товарів
+              </div>
+            )}
+            {showRemoveFromFavoriteMessage && (
+              <div className='added-to-cart-message'>
+                Видалено улюблених товарів
+              </div>
+            )}{' '}
           </div>
 
           <div className='product-right'>
@@ -127,11 +145,7 @@ function Product({ pageContext }) {
             {showAddedToCartMessage && (
               <div className='added-to-cart-message'>Додано до корзини</div>
             )}
-            {showAddedToFavoriteMessage && (
-              <div className='added-to-cart-message'>
-                Додано до улюблених товарів
-              </div>
-            )}
+
             <div className='product-label'>Кількість:</div>
             <div className='product-label_under'>8 шт</div>
             {pageContext.weight && (
