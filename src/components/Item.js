@@ -12,6 +12,10 @@ const Item = ({ orderdata }) => {
   const [showAddedToFavoriteMessage, setShowAddedToFavoriteMessage] = useState(
     false
   )
+  const [
+    showRemoveFromFavoriteMessage,
+    setShowRemoveFromFavoriteMessage,
+  ] = useState(false)
 
   // Встановлюємо значення isFavorite при завантаженні компоненту або зміні favoriteItems
   useEffect(() => {
@@ -33,6 +37,10 @@ const Item = ({ orderdata }) => {
     if (isFavorite) {
       console.log('Removing from favorites:', orderdata)
       dispatch(removeFromFavorite(orderdata)) // Видаляємо з обраних
+      setShowRemoveFromFavoriteMessage(true)
+      setTimeout(() => {
+        setShowRemoveFromFavoriteMessage(false)
+      }, 3000)
     } else {
       dispatch(addToFavorite(orderdata))
       setShowAddedToFavoriteMessage(true)
@@ -86,6 +94,9 @@ const Item = ({ orderdata }) => {
           <div className='added-to-cart-message'>
             Додано до улюблених товарів
           </div>
+        )}
+        {showRemoveFromFavoriteMessage && (
+          <div className='added-to-cart-message'>Видалено</div>
         )}
         <div className='item-text'>
           {orderdata.frontmatter.description &&

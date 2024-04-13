@@ -161,7 +161,6 @@ const CartSlider = ({ isOpen, onClose }) => {
       {cartItems && cartItems.length === 0 ? null : (
         <form onSubmit={handleSubmit} className='form-checkoutBlock'>
           <h3 className='form-field'>Оформити замовлення</h3>
-
           <div
             ref={errorBlockRef}
             tabIndex={-1}
@@ -196,6 +195,16 @@ const CartSlider = ({ isOpen, onClose }) => {
           <DeliveryForm handleDeliveryFormData={handleDeliveryFormData} />
           <DeliveryTime handleTimeFormData={handleTimeFormData} />
           <Accessories onChange={handleAccessoriesChange} />
+          {isOrdering && (
+            <div className='loader-overlay'>
+              <div className='loader'></div>
+              <div className='loader-title'>
+                Виконується обробка замовлення...
+              </div>
+              )
+            </div>
+          )}
+
           <div className='form-field'>
             <textarea
               type='text'
@@ -207,7 +216,9 @@ const CartSlider = ({ isOpen, onClose }) => {
             />
           </div>
           <button
-            className='item-buttom_button button_submit'
+            className={`item-buttom_button button_submit ${
+              isOrdering ? 'loading' : ''
+            }`}
             type='submit'
             disabled={isOrdering}
           >

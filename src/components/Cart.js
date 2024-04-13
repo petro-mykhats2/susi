@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { removeFromCart, changeQuantity } from '../redux/cart'
+import CartEmptyMenu from './CartEmptyMenu'
 
 const Cart = () => {
   const dispatch = useDispatch()
@@ -30,7 +31,7 @@ const Cart = () => {
   return (
     <div>
       {cartItems && cartItems.length === 0 ? (
-        <div>Корзина пуста</div>
+        <CartEmptyMenu />
       ) : (
         <div className='cart-container'>
           <div onSubmit={handleSubmit}>
