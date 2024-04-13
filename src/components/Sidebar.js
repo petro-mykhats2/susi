@@ -40,13 +40,13 @@ const Sidebar = ({ isOpen }) => {
       <TopNav className='sticky-top'>
         <ContainerNav className='container'>
           <Logo>
-            <Link className='slidebar-logo' to={`/`}>
+            <Link className='slidebar-logo' to='/'>
               <img src='/img/logosushi.png' alt='logo' />
               <span className='sidebar-title'>Sushi & Rolls</span>
             </Link>
           </Logo>
           <MenuLink>
-            <Link to={`/menu`}>
+            <Link to='/menu'>
               <div className='sparkle u-hover--sparkle'>
                 <img
                   className='shopping-cart-mob'
@@ -60,7 +60,7 @@ const Sidebar = ({ isOpen }) => {
                 <div className='shopping-cart-mob'>
                   <img
                     className='sidebar-shopping-cart-image'
-                    src='/img/favorite-white.png'
+                    src='/img/favorite-white.svg'
                   />
                   {totalFavoriteItems > 0 ? (
                     <div className='shopping-cart-count-mob'>
@@ -70,7 +70,7 @@ const Sidebar = ({ isOpen }) => {
                 </div>
               </div>
             </Link>
-            <Link>
+            <div>
               <div
                 className='sparkle u-hover--sparkle'
                 onClick={handleToggleCart}
@@ -87,7 +87,7 @@ const Sidebar = ({ isOpen }) => {
                   ) : null}
                 </div>
               </div>
-            </Link>
+            </div>
 
             {/* <div>
               <h1 class='sparkle u-hover--sparkle'>Sparkle Hover</h1>
@@ -109,7 +109,7 @@ const Sidebar = ({ isOpen }) => {
             <Link className='sparkle u-hover--sparkle' to='/favorite/'>
               <img
                 className='sidebar-shopping-cart-image'
-                src='/img/favorite-white.png'
+                src='/img/favorite-white.svg'
               />
               {totalFavoriteItems > 0 ? (
                 <div className='shopping-cart-count'>{totalFavoriteItems}</div>

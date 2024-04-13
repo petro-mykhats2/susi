@@ -114,7 +114,7 @@ function Product({ pageContext }) {
               onClick={() => handleFavorites(pageContext.forCart)}
             >
               <img
-                src={isFavorite ? '/img/favorite_red.png' : '/img/favorite.png'}
+                src={isFavorite ? '/img/favorite_red.svg' : '/img/favorite.svg'}
                 alt='imagee'
               />
             </div>
@@ -173,11 +173,11 @@ function Product({ pageContext }) {
               </div>
               <div className='product-calc'>
                 <div className='product-calc_less' onClick={decrementCounter}>
-                  -
+                  <img src='/img/minus.svg' alt='minus' />
                 </div>
                 <div className='product-calc_counter'>{counter}</div>
                 <div className='product-calc_less' onClick={incrementCounter}>
-                  +
+                  <img src='/img/plus.svg' alt='minus' />
                 </div>
               </div>
             </div>
