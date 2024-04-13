@@ -25,16 +25,15 @@ const FavoriteItems = () => {
 
       <div className='menuCategory-container'>
         {favoriteItems.map((product) => (
-          <>
+          <div className='menuCategory-favorite' key={product.id}>
             <ItemProductCategory
-              key={product.id}
               orderdata={product}
               handleRemoveFromFavorite={handleRemoveFromFavorite}
             />
-            {/* <button onClick={() => handleRemoveFromFavorite(product)}>
+            <button onClick={() => handleRemoveFromFavorite(product)}>
               Видалити з улюблених{' '}
-            </button>{' '} */}
-          </>
+            </button>{' '}
+          </div>
         ))}
       </div>
     </div>
