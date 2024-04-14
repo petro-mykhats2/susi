@@ -171,7 +171,8 @@ padding: 10px;
     border: 2px solid #de0a0a;
   }
   input, textarea {
-    font-size: 10px;
+    font-size: 16px;
+    font-weight: 600;
     width: 90%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -179,6 +180,10 @@ padding: 10px;
   }
   textarea {
     height: 70px;
+  }
+  input::placeholder, textarea::placeholder {
+    font-size: 13px;
+    font-weight: normal;
   }
 }
 

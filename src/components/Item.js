@@ -127,7 +127,10 @@ const Item = ({ orderdata }) => {
           className='item-buttom_button'
           onClick={() => handleAddToCart(orderdata)}
         >
-          В кошик
+          <div className='item-buttom_img'>
+            <img src='/img/shopping-cart.png' alt='imagee' />
+          </div>
+          <div className='item_button_text'>В кошик</div>
         </div>
       </div>
     </div>
