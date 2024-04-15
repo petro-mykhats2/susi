@@ -46,6 +46,13 @@
      top: 4px;
      right: 4px;
      cursor: pointer;
+     z-index:  1;
+     img {
+        width:  28px;
+     height:  28px;
+     z-index:   2;
+     }
+     
 
      @include xsl {
         top: 17px;
@@ -68,7 +75,7 @@
 }
 
 .product-label {
-    margin-top: 40px;
+    margin-top: 30px;
     font-weight: 400;
 }
 .product-label_under {
@@ -108,11 +115,11 @@
     &-item {
         min-width: 65px;
         border: 1px solid #d2d2d2;
-        margin: 0 7px;
+        margin: 0 5px;
         display: flex;
         flex-direction: column;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  
+
         &-img {
             padding: 5px;
             img {
@@ -128,6 +135,10 @@
             padding-bottom: 10px;
             font-weight: 400;
             margin-top: auto;
+            max-width: 65px;
+            white-space:  normal;
+ 
+           
         }
     }
 }
@@ -136,12 +147,13 @@
    display: flex;
    flex-direction: column;
    justify-content: center;
-   margin-top: 40px;
+   margin-top: 20px;
 
     @include xsll {
         display: flex;
         flex-direction: row;
         align-items: center;
+        margin-top: 40px;
     }
 
     @include md {
@@ -171,14 +183,14 @@
     margin-right: 70px;
     font-size: 28px;
     font-weight: 700;
-    min-width: 173px;
 
     @include xsll {
         margin-right: 40px;
+        min-width: 173px;
     }
 
     @include md {
-        margin-right: 0px
+        margin-right: 0px;
     }
 }
 
@@ -189,6 +201,10 @@
     justify-content: space-between;
     width: 80px;
 }
+.product-calc_counter {
+    font-size:  20px;
+
+}
 .product-calc_less {
     width: 20px;
     height: 20px;
@@ -196,14 +212,21 @@
     font-size: 22px;
     text-align: center;
     line-height: 18px;
-    border: 1px solid #000;
+    border: 2px solid #929292;
     border-radius: 50%;
     cursor: pointer;
     align-items: center;
-    -webkit-transition: all .23s;
-    transition: all .23s;
+    // -webkit-transition: all .13s;
+    // transition: all .13s;
 }
 
+.product-calc_less:hover {
+    border: 3px solid #929292;
+}
+
+.product-calc_less:hover {
+    border: 3px solid $orange;
+}
 
 .product_button_img {
     display: inline-block;

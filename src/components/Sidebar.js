@@ -40,48 +40,54 @@ const Sidebar = ({ isOpen }) => {
       <TopNav className='sticky-top'>
         <ContainerNav className='container'>
           <Logo>
-            <Link className='slidebar-logo' to={`/`}>
+            <Link className='slidebar-logo' to='/'>
               <img src='/img/logosushi.png' alt='logo' />
               <span className='sidebar-title'>Sushi & Rolls</span>
             </Link>
           </Logo>
           <MenuLink>
-            <Link
-              className='slidebar-logo sparkle u-hover--sparkle'
-              to={`/menu`}
-            >
-              <img src='/img/menuIcon.png' alt='menu' />
-              Меню
+            <Link to='/menu'>
+              <div className='sparkle u-hover--sparkle'>
+                <img
+                  className='shopping-cart-mob'
+                  src='/img/menuIcon.png'
+                  alt='menu'
+                />
+              </div>
             </Link>
             <Link to='/favorite/'>
-              <span className='sparkle u-hover--sparkle'>
-                <span className='shopping-cart-mob'>
+              <div className='sparkle u-hover--sparkle'>
+                <div className='shopping-cart-mob'>
                   <img
                     className='sidebar-shopping-cart-image'
-                    src='/img/favorite-white.png'
+                    src='/img/favorite-white.svg'
                   />
                   {totalFavoriteItems > 0 ? (
                     <div className='shopping-cart-count-mob'>
                       {totalFavoriteItems}
                     </div>
                   ) : null}
-                </span>
-              </span>
+                </div>
+              </div>
             </Link>
-            <span
-              className='sparkle u-hover--sparkle'
-              onClick={handleToggleCart}
-            >
-              <span className='shopping-cart-mob'>
-                <img
-                  className='sidebar-shopping-cart-image'
-                  src='/img/shopping-cart.png'
-                />
-                {totalQuantity > 0 ? (
-                  <div className='shopping-cart-count-mob'>{totalQuantity}</div>
-                ) : null}
-              </span>
-            </span>
+            <div>
+              <div
+                className='sparkle u-hover--sparkle'
+                onClick={handleToggleCart}
+              >
+                <div className='shopping-cart-mob'>
+                  <img
+                    className='sidebar-shopping-cart-image'
+                    src='/img/shopping-cart.png'
+                  />
+                  {totalQuantity > 0 ? (
+                    <div className='shopping-cart-count-mob'>
+                      {totalQuantity}
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+            </div>
 
             {/* <div>
               <h1 class='sparkle u-hover--sparkle'>Sparkle Hover</h1>
@@ -103,7 +109,7 @@ const Sidebar = ({ isOpen }) => {
             <Link className='sparkle u-hover--sparkle' to='/favorite/'>
               <img
                 className='sidebar-shopping-cart-image'
-                src='/img/favorite-white.png'
+                src='/img/favorite-white.svg'
               />
               {totalFavoriteItems > 0 ? (
                 <div className='shopping-cart-count'>{totalFavoriteItems}</div>

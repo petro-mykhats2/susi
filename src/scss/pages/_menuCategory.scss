@@ -6,8 +6,37 @@
         justify-content: flex-start;
     }
 
+    &-favorite {
+      display: flex;
+        position: relative;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        min-height: 440px;
+        box-shadow: 0 0 0 transparent; 
+        transition: box-shadow 0.3s ease;
+        flex: 0 0 calc(90% - 35px); 
+        margin: 4px; 
+        padding: 30px;
+        flex-wrap: nowrap;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+
+        @include xsl {
+          flex: 0 0 calc(38% - 10px);
+          box-shadow: none;
+        } 
+
+      @include sm {
+          flex: 0 0 calc(25% - 10px);
+        }
+
+        @include lg {
+          flex: 0 0 calc(18% - 10px);
+        }
+    }
+
     &-item:hover {
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1)
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3)
     }
 
     &-item {
@@ -19,15 +48,17 @@
         min-height: 440px;
         box-shadow: 0 0 0 transparent; 
         transition: box-shadow 0.3s ease;
-        flex: 0 0 calc(90% - 10px); 
+        flex: 0 0 calc(90% - 35px); 
         margin: 4px; 
         padding: 30px;
         flex-wrap: nowrap;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 
 
 
          @include xsl {
             flex: 0 0 calc(38% - 10px);
+            box-shadow: none;
           } 
 
         @include sm {

@@ -8,23 +8,29 @@ import { addToFavorite, removeFromFavorite } from '../redux/favorite'
 function Product({ pageContext }) {
   const ingredients = pageContext.ingredients
   const productComposition = pageContext.product_composition
+  const [counter, setCounter] = useState(1)
 
   // Функція для перевірки наявності інгредієнта
   const isIngredientAvailable = (ingredientName) => {
     return ingredients.some(
       (ingredient) =>
-        ingredient.node.frontmatter.title.toLowerCase() ===
+        ingredient.node.frontmatter.title.toLowerCase().replace(/\s/g, '-') ===
         ingredientName.toLowerCase()
     )
   }
 
   // Функція для отримання зображення інгредієнта
   const getIngredientImage = (ingredientName) => {
+    const formattedIngredientName = ingredientName
+      .toLowerCase()
+      .replace(/\s/g, '-') // Замінюємо всі пробіли на дефіси для форматування
+
     const ingredient = ingredients.find(
       (ingredient) =>
-        ingredient.node.frontmatter.title.toLowerCase() ===
-        ingredientName.toLowerCase()
+        ingredient.node.frontmatter.title.toLowerCase().replace(/\s/g, '-') ===
+        formattedIngredientName
     )
+
     return ingredient ? ingredient.node.frontmatter.image : null
   }
 
@@ -34,6 +40,10 @@ function Product({ pageContext }) {
   const [showAddedToFavoriteMessage, setShowAddedToFavoriteMessage] = useState(
     false
   )
+  const [
+    showRemoveFromFavoriteMessage,
+    setShowRemoveFromFavoriteMessage,
+  ] = useState(false)
 
   const favoriteItems = useSelector((state) => state.favorite.favoriteItems)
 
@@ -42,7 +52,7 @@ function Product({ pageContext }) {
   )
 
   const handleAddToCart = (product) => {
-    dispatch(addToCart(product))
+    dispatch(addToCart(product, counter))
     setShowAddedToCartMessage(true)
 
     setTimeout(() => {
@@ -53,6 +63,10 @@ function Product({ pageContext }) {
   const handleFavorites = (product) => {
     if (isFavorite) {
       dispatch(removeFromFavorite(product))
+      setShowRemoveFromFavoriteMessage(true)
+      setTimeout(() => {
+        setShowRemoveFromFavoriteMessage(false)
+      }, 3000)
     } else {
       dispatch(addToFavorite(product))
       setShowAddedToFavoriteMessage(true)
@@ -61,6 +75,16 @@ function Product({ pageContext }) {
     setTimeout(() => {
       setShowAddedToFavoriteMessage(false)
     }, 3000)
+  }
+
+  const incrementCounter = () => {
+    setCounter(counter + 1)
+  }
+
+  const decrementCounter = () => {
+    if (counter > 1) {
+      setCounter(counter - 1)
+    }
   }
 
   const currentCategory =
@@ -98,11 +122,21 @@ function Product({ pageContext }) {
               onClick={() => handleFavorites(pageContext.forCart)}
             >
               <img
-                src={isFavorite ? '/img/favorite_red.png' : '/img/favorite.png'}
+                src={isFavorite ? '/img/favorite_red.svg' : '/img/favorite.svg'}
                 alt='imagee'
               />
             </div>
             <img src={pageContext.image} />
+            {showAddedToFavoriteMessage && (
+              <div className='added-to-cart-message'>
+                Додано до улюблених товарів
+              </div>
+            )}
+            {showRemoveFromFavoriteMessage && (
+              <div className='added-to-cart-message'>
+                Видалено улюблених товарів
+              </div>
+            )}{' '}
           </div>
 
           <div className='product-right'>
@@ -111,11 +145,7 @@ function Product({ pageContext }) {
             {showAddedToCartMessage && (
               <div className='added-to-cart-message'>Додано до корзини</div>
             )}
-            {showAddedToFavoriteMessage && (
-              <div className='added-to-cart-message'>
-                Додано до улюблених товарів
-              </div>
-            )}
+
             <div className='product-label'>Кількість:</div>
             <div className='product-label_under'>8 шт</div>
             {pageContext.weight && (
@@ -141,7 +171,7 @@ function Product({ pageContext }) {
                         </div>
                       ) : null}
                       <div className='product-slider-item-title'>
-                        {ingredientName}
+                        {ingredientName.replace(/-/g, ' ')}
                       </div>
                     </div>
                   ))}
@@ -153,18 +183,24 @@ function Product({ pageContext }) {
           <div className='product-right_bottom'>
             <div className='product-right_bottom_left'>
               <div className='product-price'>
-                {pageContext.price.toFixed(2)} грн
+                {pageContext.price.toFixed(2) * counter} грн
               </div>
               <div className='product-calc'>
-                <div className='product-calc_less'>-</div>
-                <div className='product-calc_counter'>1</div>
-                <div className='product-calc_less'>+</div>
+                <div className='product-calc_less' onClick={decrementCounter}>
+                  <img src='/img/minus.svg' alt='minus' />
+                </div>
+                <div className='product-calc_counter'>{counter}</div>
+                <div className='product-calc_less' onClick={incrementCounter}>
+                  <img src='/img/plus.svg' alt='minus' />
+                </div>
               </div>
             </div>
             <div className='product-right_bottom_right'>
               <div
                 className='product_button'
-                onClick={() => handleAddToCart(pageContext.forCart)}
+                onClick={() => {
+                  handleAddToCart(pageContext.forCart, counter)
+                }}
               >
                 <div className='product_button_img'>
                   <img src='/img/shopping-cart.png' alt='imagee' />

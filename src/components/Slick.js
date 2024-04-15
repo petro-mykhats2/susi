@@ -16,7 +16,7 @@ function SimpleSlider({ products, customKey }) {
     slidesToScroll: 1,
     arrows: true,
     className: 'slides',
-    dots: false,
+    dots: true,
     responsive: [
       {
         breakpoint: 1400,

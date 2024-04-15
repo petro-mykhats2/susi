@@ -19,11 +19,7 @@ export const TopNav = styled.div`
 export const ContainerNav = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: start;
-
-  @media (min-width: 375px) {
-    justify-content: start;
-  }
+  justify-content: flex-start;
 
   @media (min-width: 460px) {
     justify-content: space-between;
@@ -31,7 +27,7 @@ export const ContainerNav = styled.div`
 `
 
 export const Logo = styled.div`
-  padding: 0em 0em 0 0em;
+  padding: 0em 10px 0 0em;
   img {
     height: 75%;
     padding-top 10px;
@@ -65,31 +61,40 @@ export const Logo = styled.div`
 
 export const MenuLink = styled.div`
   /* Загальні стилі */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  margin-top: 1em;
   font-size: 9px;
-  padding: 3em 0.4em 0 0.4em;
   color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1em;
+
+  &:hover {
+    font-weight: 600;
+  }
 
   img {
-    width: 16px;
-    height: 16px;
+    width: 17px;
+    height: 17px;
+  }
+
+  @media (min-width: 767px) {
+    display: none;
   }
 
   /* Медіа-запит для екранів шириною більше 530px */
   @media (min-width: 530px) {
-    padding: 2em 1em 0 0.8em;
-    font-size: 16px;
-
     img {
       width: 25px;
       height: 25px;
     }
   }
 
-  /* Медіа-запит для екранів шириною менше 530px, але більше 430px */
-  @media (max-width: 530px) and (min-width: 345px) {
-    padding: 3em 0.6em 0 0.6em;
-    font-size: 10px;
-
+  /* Медіа-запит для екранів шириною менше 530px, але більше 345px */
+  @media (max-width: 530px) and (min-width: 400px) {
     img {
       width: 20px;
       height: 20px;

@@ -6,6 +6,7 @@ import Sidebar from '../components/Sidebar'
 
 const Layout = ({ children }) => {
   const siteMetadata = useSiteMetaQuery()
+  console.log('siteMetadata', siteMetadata)
 
   return (
     <>
@@ -16,9 +17,14 @@ const Layout = ({ children }) => {
             name: 'description',
             content: 'Add your website description...',
           },
+
           {
             name: 'keywords',
             content: 'SiteName, bestsite, ..',
+          },
+          {
+            name: 'viewport',
+            content: 'width=device-width, initial-scale=1, maximum-scale=1',
           },
         ]}
       >

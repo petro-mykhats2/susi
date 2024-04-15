@@ -8,8 +8,8 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 export const CHANGE_QUANTITY = 'CHANGE_QUANTITY'
 export const CLEAR_CART = 'CLEAR_CART'
 
-export const addToCart = (product) => {
-  console.log('product який додався до корзини', product)
+export const addToCart = (product, counter) => {
+  const quantity = counter ? counter : 1
   return {
     type: ADD_TO_CART,
     payload: {
@@ -17,8 +17,7 @@ export const addToCart = (product) => {
       name: product.frontmatter.title,
       img: product.frontmatter.image,
       price: product.frontmatter.price,
-
-      quantity: 1,
+      quantity: quantity,
     },
   }
 }
@@ -68,7 +67,7 @@ const cartReducer = (state = initialState, action) => {
         // Якщо товар вже є у корзині, збільшуємо його кількість на 1
         const updatedCartItems = state.cartItems.map((item) => {
           if (item.id === addedItem.id) {
-            return { ...item, quantity: item.quantity + 1 }
+            return { ...item, quantity: item.quantity + addedItem.quantity } // Збільшуємо кількість на ту, яку вибрав користувач
           }
           return item
         })
@@ -76,16 +75,16 @@ const cartReducer = (state = initialState, action) => {
         return {
           ...state,
           cartItems: updatedCartItems,
-          total: state.total + addedItem.price,
+          total: state.total + addedItem.price * addedItem.quantity, // Додаємо ціну, помножену на кількість
         }
       } else {
         // Якщо товару немає у корзині, додаємо його в список товарів
-        const newCartItems = [...state.cartItems, { ...addedItem, quantity: 1 }]
+        const newCartItems = [...state.cartItems, addedItem]
 
         return {
           ...state,
           cartItems: newCartItems,
-          total: state.total + addedItem.price,
+          total: state.total + addedItem.price * addedItem.quantity, // Додаємо ціну, помножену на кількість
         }
       }
     case 'REMOVE_FROM_CART':
@@ -104,10 +103,8 @@ const cartReducer = (state = initialState, action) => {
       const { id, quantity } = action.payload
       const updatedCartItems = state.cartItems.map((item) => {
         if (item.id === id) {
-          // Зменшуємо кількість товару
           const updatedItem = { ...item, quantity: quantity }
           if (quantity <= 0) {
-            // Якщо кількість стала менше або дорівнює 0, видаляємо товар з корзини
             return null
           } else {
             return updatedItem
