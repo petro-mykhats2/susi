@@ -31,11 +31,7 @@ const Item = ({ orderdata }) => {
 
   // Функція для додавання або видалення з улюблених
   const handleFavorites = () => {
-    console.log('Current isFavorite state:', isFavorite)
-    console.log('Current orderdata:', orderdata)
-
     if (isFavorite) {
-      console.log('Removing from favorites:', orderdata)
       dispatch(removeFromFavorite(orderdata)) // Видаляємо з обраних
       setShowRemoveFromFavoriteMessage(true)
       setTimeout(() => {

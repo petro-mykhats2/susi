@@ -25,7 +25,6 @@ const Sidebar = ({ isOpen }) => {
   }
 
   const cartItems = useSelector((state) => state.cart.cartItems)
-  console.log('cartItems', cartItems)
   const totalQuantity = cartItems.reduce(
     (total, item) => total + item.quantity,
     0

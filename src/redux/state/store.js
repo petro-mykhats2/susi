@@ -8,7 +8,6 @@ const persistConfig = {
   key: 'root',
   storage: storage,
 }
-console.log('persistConfig', persistConfig)
 
 const rootReducer = combineReducers({
   cart: persistReducer(persistConfig, cartReducer),

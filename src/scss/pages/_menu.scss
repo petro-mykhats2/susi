@@ -131,3 +131,45 @@
         display: none;
     }
 }
+
+
+// // ---- тут стилі до таблиці замовлень
+
+// /* Styles.css */
+// .orders-table {
+//     width: 100%;
+//     border-collapse: collapse;
+//     margin-top: 20px;
+//   }
+  
+//   .orders-table th,
+//   .orders-table td {
+//     border: 1px solid #ddd;
+//     padding: 8px;
+//     text-align: left;
+//   }
+  
+//   .orders-table th {
+//     background-color: #f2f2f2;
+//     color: black;
+//   }
+  
+//   .order-item {
+//     border-bottom: 1px solid #ddd;
+//   }
+  
+//   .order-item:last-child {
+//     border-bottom: none;
+//   }
+  
+//   .order-header {
+//     background-color: #4CAF50;
+//     color: white;
+//     padding: 10px;
+//   }
+  
+//   .order-details {
+//     padding: 10px;
+//     background-color: #f9f9f9;
+//   }
+  
