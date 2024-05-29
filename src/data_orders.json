@@ -1,0 +1,273 @@
+[
+    {
+        "_id": {
+            "$oid": "662fe29b8927eb330a53a73a"
+        },
+        "name": "вибір дати і часу",
+        "message": "завтра 20-10",
+        "phone": "888",
+        "deliveryFormData": {
+            "deliveryOption": "pickup",
+            "pickupAddress": "Адреса 3"
+        },
+        "timeFormData": {
+            "deliveryTimeOption": "selected",
+            "selectedTime": "2024-05-07T11:20:39.983Z",
+            "selectedDate": "Завтра"
+        },
+        "accessoriesData": {
+            "quantity": 2,
+            "educational": false
+        },
+        "cartData": [
+            {
+                "id": "ee801d14-eaae-50cd-9e85-07ccb7eea390",
+                "name": " Рол веганський",
+                "img": "/img/rol-vegan.webp",
+                "price": 70,
+                "quantity": 2
+            }
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "662fbbd1eeda198113c3afe3"
+        },
+        "name": "tesr",
+        "message": "",
+        "phone": "tesro",
+        "deliveryFormData": {
+            "deliveryOption": "pickup",
+            "pickupAddress": "Адреса 2"
+        },
+        "timeFormData": {
+            "deliveryTimeOption": "nearest",
+            "nextHour": "2024-05-10T19:00:39.983Z"
+        },
+        "accessoriesData": {
+            "quantity": 2,
+            "educational": false
+        },
+        "cartData": [
+            {
+                "id": "ee801d14-eaae-50cd-9e85-07ccb7eea390",
+                "name": " Рол веганський",
+                "img": "/img/rol-vegan.webp",
+                "price": 70,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "_id": "661eb62632711437ec364fcb",
+        "name": "pit",
+        "message": "message",
+        "phone": "999000999000",
+        "deliveryFormData": {
+            "deliveryOption": "pickup",
+            "pickupAddress": "Адреса 1"
+        },
+        "timeFormData": {
+            "deliveryTimeOption": "nearest",
+            "nextHour": "2024-05-10T18:03:49.983Z"
+        },
+        "accessoriesData": {
+            "quantity": 2,
+            "educational": false
+        },
+        "cartData": [
+            {
+                "id": "375aff20-b4cb-5060-9d90-6cfc18d51c5b",
+                "name": "Карамельна Філадельфія",
+                "img": "/img/karamelna_philadelphia.jpeg",
+                "price": 319,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "_id": "6620164e2657ec1cc660c9ba",
+        "name": "dva",
+        "message": "2222",
+        "phone": "888",
+        "deliveryFormData": {
+            "deliveryOption": "pickup",
+            "pickupAddress": "Адреса 1"
+        },
+        "timeFormData": {
+            "deliveryTimeOption": "nearest",
+            "nextHour": "2024-05-07T19:35:39.983Z"
+        },
+        "accessoriesData": {
+            "quantity": 2,
+            "educational": false
+        },
+        "cartData": [
+            {
+                "id": "48d34590-c22b-5fb4-b91b-ba6e10e0977c",
+                "name": "Філадельфія з лососем та авокадо",
+                "img": "/img/philadelphia_z_lososem_i_avokado.jpeg",
+                "price": 319,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "_id": "662288e5dd782978969ff9ce",
+        "name": "Yurii Mykhats",
+        "message": "привіт",
+        "phone": "898987777",
+        "deliveryFormData": {
+            "deliveryOption": "address",
+            "pickupAddress": "Rybářská 3033/26"
+        },
+        "timeFormData": {
+            "deliveryTimeOption": "nearest",
+            "nextHour": "2024-04-19T16:10:35.691Z"
+        },
+        "accessoriesData": {
+            "quantity": 4,
+            "educational": true
+        },
+        "cartData": [
+            {
+                "id": "9c1c8241-b759-5d62-851a-f8e476e50ffe",
+                "name": "Сет 1",
+                "img": "/img/set1.png",
+                "price": 950,
+                "quantity": 1
+            },
+            {
+                "id": "934af7a9-7e91-58d0-846f-0656f98e6c0b",
+                "name": "Сет 3",
+                "img": "/img/set-2.png",
+                "price": 1200,
+                "quantity": 1
+            },
+            {
+                "id": "986e5e46-0b0d-563f-9523-6428335b011d",
+                "name": "Сет 2",
+                "img": "/img/set-2.png",
+                "price": 1200,
+                "quantity": 1
+            },
+            {
+                "id": "2f5c458f-ff93-5cef-ba49-3d41b236b30b",
+                "name": "Кока-Кола",
+                "img": "https://www.coca-cola.com/content/dam/onexp/by/be/brands/coca-cola/by_coca-cola_prod_classic_750x750_v2.jpg/width2674.jpg",
+                "price": 23,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "_id": "6622af0dfc94e5a2a026ff38",
+        "name": "петрусь",
+        "message": "Коментар",
+        "phone": "777",
+        "deliveryFormData": {
+            "deliveryOption": "pickup",
+            "pickupAddress": "Адреса 1"
+        },
+        "timeFormData": {
+            "deliveryTimeOption": "nearest",
+            "nextHour": "2024-04-19T18:50:39.315Z"
+        },
+        "accessoriesData": {
+            "quantity": 2,
+            "educational": false
+        },
+        "cartData": [
+            {
+                "id": "2f5c458f-ff93-5cef-ba49-3d41b236b30b",
+                "name": "Кока-Кола",
+                "img": "https://www.coca-cola.com/content/dam/onexp/by/be/brands/coca-cola/by_coca-cola_prod_classic_750x750_v2.jpg/width2674.jpg",
+                "price": 23,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "_id": "6623c01de7004bdc84bff959",
+        "name": "Тио",
+        "message": "Нічого",
+        "phone": "Тит",
+        "deliveryFormData": {
+            "deliveryOption": "address",
+            "pickupAddress": "прага вул. тиха 55"
+        },
+        "timeFormData": {
+            "deliveryTimeOption": "selected",
+            "selectedTime": "Sat Apr 20 2024 12:00:00 GMT+0200 (за центральноєвропейським літнім часом)1",
+            "selectedDate": "Завтра"
+        },
+        "accessoriesData": {
+            "quantity": 3,
+            "educational": false
+        },
+        "cartData": [
+            {
+                "id": "9c1c8241-b759-5d62-851a-f8e476e50ffe",
+                "name": "Сет 1",
+                "img": "/img/set1.png",
+                "price": 950,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "_id": "6623d0417032cecf28245280",
+        "name": "тееееессстт",
+        "message": "",
+        "phone": "121212",
+        "deliveryFormData": {
+            "deliveryOption": "pickup",
+            "pickupAddress": "Адреса 1"
+        },
+        "timeFormData": {
+            "deliveryTimeOption": "nearest",
+            "nextHour": "2024-04-20T15:30:46.032Z"
+        },
+        "accessoriesData": {
+            "quantity": 2,
+            "educational": false
+        },
+        "cartData": [
+            {
+                "id": "ee801d14-eaae-50cd-9e85-07ccb7eea390",
+                "name": " Рол веганський",
+                "img": "/img/rol-vegan.webp",
+                "price": 70,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "_id": "66265da3dfd3fad611b63dcd",
+        "name": "Омми",
+        "message": "Ггг",
+        "phone": "Мирр",
+        "deliveryFormData": {
+            "deliveryOption": "pickup",
+            "pickupAddress": "Адреса 1"
+        },
+        "timeFormData": {
+            "deliveryTimeOption": "selected",
+            "selectedTime": "2024-04-22T09:00:00.000Z",
+            "selectedDate": "23.4.2024"
+        },
+        "accessoriesData": {
+            "quantity": 2,
+            "educational": false
+        },
+        "cartData": [
+            {
+                "id": "90ecf4fd-d00e-5efe-b966-f9d712caa023",
+                "name": "Карамельна Філадельфія2",
+                "img": "/img/karamelna_philadelphia.jpeg",
+                "price": 190,
+                "quantity": 1
+            }
+        ]
+    }
+]

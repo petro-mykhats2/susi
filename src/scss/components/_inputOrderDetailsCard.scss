@@ -1,12 +1,8 @@
 .inputOrderDetailsCard {
-    display: flex;
-    // flex-direction: column;
-    justify-content: space-between;
-    background-color: #c17474;
+    margin-bottom: 10px;
     font-size: 10px;
     &-order {
         flex-direction: row;
-        // color: #d81313;
         width: 50%;
         background-color: #dcdcdc;
         margin: 10px;
@@ -17,4 +13,162 @@
         display: inline-block;
 
     }
+}
+
+/* ProductCard.css */
+.product-card {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    // background-color: #e1e1e1; /* Сірий колір заливки */
+    padding: 5px;
+    font-family: 'Arial', sans-serif; /* Застосування шрифту Arial */
+  }
+  
+  .left-panel, .right-panel {
+    display: flex;
+    background-color: white;
+    flex: 1;
+    flex-direction: row;
+   
+    padding: 15px; /* Відступи всередині блоків */
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1); /* Тінь для блоків */
+
+    &-number {
+        padding-right: 10px;
+        text-align: center;
+        font-size: 20px;
+        
+
+    }
+  }
+  
+  .product-list {
+    padding-left: 20px; /* Відступ для списку продуктів */
+  }
+  
+  .address, .buttons {
+    margin-bottom: 10px; /* Відступи між блоками */
+    
+  }
+
+  .delivery-block-time {
+    color: #ff0000;
+  }
+  
+  // .delivery-time {
+    // color: #FF0000; /* Червоний колір тексту для привертання уваги */
+    // font-weight: bold;
+    // font-size: 1.2em; /* Збільшення розміру шрифту */
+  // }
+  
+  button.prepare, button.done {
+    padding: 10px 10px; /* Відступи всередині кнопок */
+    border: none;
+    cursor: pointer;
+    font-size: 0.5rem; /* Розмір шрифту для тексту всередині кнопок */
+    border-radius: 5px; /* Закруглення кутів кнопок */
+  }
+  
+  button.prepare {
+    background-color: #ADD8E6; /* Світло-блакитний колір кнопки "Йду готувати" */
+  }
+  
+  button.done {
+    background-color: #90EE90; /* Світло-зелений колір кнопки "Приготовлено" */
+  }
+
+  .order-details {
+    font-size: 18px;
+    background-color: #f9f9f9;
+
+    &-item {
+      display: flex;
+      justify-content: space-between;
+        padding: 6px;
+        margin-bottom: 5px;
+        border-radius: 2px;
+        border: #FF0000, solid, 1px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        background-color: #ffffff;
+    }
+  }
+  
+
+  /* Стилі для контейнера картки */
+.card-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  // background-color: #ca1616;
+  min-height: 50px;
+  border: solid 1px #000000;
+  margin-top: 5px;
+}
+
+/* Стилі для першого блоку (25%) */
+.block1 {
+  width: 30px;
+  background-color: #d9d9d9;
+  text-align: center;
+  font-size: 20px;
+}
+.block1-1 {
+  width: 35%;
+  // background-color: #808080;
+}
+
+/* Стилі для другого блоку (20%) */
+.block2 {
+  width: 20%;
+  // background-color: #00bfff;
+}
+
+/* Стилі для третього блоку (20%) */
+.block3 {
+  width: 5%;
+  // background-color: #b6b6b6;
+}
+
+/* Стилі для четвертого блоку (20%) */
+.block4 {
+  width: 15%;
+  background-color: #ffcccc;
+  color: $black;
+  font-weight: 800;
+  font-size: 18px;
+  text-align: center;
+  line-height: 50px;
+
+}
+
+/* Стилі для п'ятого блоку (15%) */
+.block5 {
+  width: 10%;
+  text-align:  right;
+  // background-color: #afafaf;
+}
+
+.delivery {
+  margin: 5px;
+  
+  &-title {
+    font-size: 10px;
+    padding: 5px 10px;
+    background-color: #c7cffc;
+
+    &__pickup {
+      background-color: #91ce9e;
+    }
+  }
+  &-text {
+    font-size: 14px;
+    padding: 5px 10px;
+    background-color: #54add7;
+
+    &__pickup {
+      background-color: #c5ff9b;
+    }
+  }
 }

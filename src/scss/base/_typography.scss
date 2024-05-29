@@ -16,47 +16,34 @@
   font-family: $font;
   font-size: 30px;
   line-height: 110%;
-  @include sm {
-    font-size: 52px;
-  }
-  @include md {
-    font-size: 64px;
-  }
-  @include lg {
-    font-size: 72px;
-  }
-  @include xl {
-    font-size: 96px;
-  }
+  @include sm { font-size: 52px; }
+  @include md { font-size: 64px; }
+  @include lg { font-size: 72px; }
+  @include xl { font-size: 96px; }
+}
+.h1New {
+  font-family: $font;
+  font-size: 36px;
+  line-height: 100%;
+  @include sm { font-size: 64px;}
+  @include lg { font-size: 72px;}
 }
 .h2 {
   font-family: $font;
   font-size: 28px;
   line-height: 110%;
-  @include sm {
-    font-size: 48px;
-  }
-  @include lg {
-    font-size: 64px;
-  }
-  @include xl {
-    font-size: 72px;
-  }
+  @include sm { font-size: 48px; }
+  @include lg { font-size: 64px; }
+  @include xl { font-size: 72px; }
 }
 .h3 {
   font-family: $font;
   font-size: 18px;
   line-height: 1;
   color: $black;
-  @include sm {
-    font-size: 40px;
-  }
-  @include lg {
-    font-size: 48px;
-  }
-  @include xl {
-    font-size: 64px;
-  }
+  @include sm { font-size: 40px; }
+  @include lg { font-size: 48px; }
+  @include xl { font-size: 64px; }
 }
 .h4 {
   font-family: $font;
@@ -66,56 +53,32 @@
   position: relative;
   z-index: 2;
 }
-.h4-update {
-  font-size: 18px;
-}
+.h4-update { font-size: 18px; }
 .h4,
 .h4-update {
-  @include sm {
-    font-size: 28px;
-  }
-  @include md {
-    font-size: 32px;
-  }
-  @include lg {
-    font-size: 36px;
-  }
-  @include xl {
-    font-size: 48px;
-  }
-  span {
-    color: $greyText;
-  }
+  @include sm { font-size: 28px; }
+  @include md { font-size: 32px; }
+  @include lg { font-size: 36px; }
+  @include xl { font-size: 48px; }
+  span { color: $greyText; }
 }
 .h5 {
   font-family: $font;
   font-size: 18px;
   line-height: 1;
   color: $black;
-  @include sm {
-    font-size: 28px;
-  }
-  @include md {
-    font-size: 20px;
-  }
-  @include lg {
-    font-size: 24px;
-  }
-  @include xl {
-    font-size: 32px;
-  }
+  @include sm { font-size: 28px; }
+  @include md { font-size: 20px; }
+  @include lg { font-size: 24px; }
+  @include xl { font-size: 32px; }
 }
 .h6 {
   font-family: $font;
   font-size: 16px;
   line-height: 120%;
   color: $black;
-  @include lg {
-    font-size: 18px;
-  }
-  @include xl {
-    font-size: 24px;
-  }
+  @include lg { font-size: 18px; }
+  @include xl { font-size: 24px; }
 }
 .p1,
 .p2 {
@@ -125,25 +88,19 @@
 }
 .p1 {
   font-size: 14px;
-  @include sm {
-    font-size: 18px;
-  }
-  @include lg {
-    font-size: 20px;
-  }
-  @include xl {
-    font-size: 24px;
-  }
+  @include sm { font-size: 18px; }
+  @include lg { font-size: 20px; }
+  @include xl { font-size: 24px; }
 }
 .p2 {
   font-size: 12px;
-  @include lg {
-    font-size: 16px;
-  }
-  @include xl {
-    font-size: 18px;
-  }
+  @include lg { font-size: 16px; }
+  @include xl { font-size: 18px; }
 }
+
+.text { font-family: $font2; }
+.textb { font-family: $font; }
+
 a {
   cursor: pointer;
   text-decoration: none;

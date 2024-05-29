@@ -1,22 +1,42 @@
-import React from 'react'
+// import React from 'react'
 
-const InputOrderDetailsCard = ({ order }) => {
-  console.log('order', order)
-  return (
-    <div className='inputOrderDetailsCard-order'>
-      <div className='inputOrderDetailsCard-left'>
-        <p>Ім'я: {order.name}</p>
-        <p>Телефон: {order.phone}</p>
+// const InputOrderDetailsCard = ({ order, index }) => {
+//   console.log('order', order)
+//   return (
+//     <div className='product-card'>
+//       <div className='left-panel'>
+//         <div className='left-panel-number'>{index + 1}</div>
+//         {order.cartData && order.cartData.length > 0 && (
+//           <tr className='order-details'>
+//             <td colSpan='2'>
+//               <strong>Замовлення:</strong>
+//               <ul>
+//                 {order.cartData.map((item) => (
+//                   <li className='order-details-item' key={item.id}>
+//                     {item.name || 'Невідомий продукт'} - Кількість:{' '}
+//                     {item.quantity || '0'}
+//                   </li>
+//                 ))}
+//               </ul>
+//             </td>
+//           </tr>
+//         )}
+//       </div>
+//       <div className='right-panel'>
+//         {/* <div className='address'>Адреса: Вулиця Приклад, 10</div> */}
+//         <div className='delivery-block-time'>
+//           {order.timeFormData.deliveryTimeOption === 'nearest'
+//             ? `Отправка о ${order.timeFormData.selectedTime}`
+//             : order.timeFormData.nextHour}
+//         </div>
 
-        {/* Додайте інші поля замовлення, які вам потрібні */}
-      </div>
-      <div className='inputOrderDetailsCard-left'>
-        <p>Повідомлення: {order.message}</p>
-        <p>Телефон: {order.phone}</p>
-        {/* Додайте інші поля замовлення, які вам потрібні */}
-      </div>
-    </div>
-  )
-}
+//         <div className='buttons'>
+//           <button className='prepare'>Йду готувати</button>
+//           <button className='done'>Приготовлено</button>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
 
-export default InputOrderDetailsCard
+// export default InputOrderDetailsCard

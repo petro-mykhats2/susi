@@ -4,6 +4,7 @@ import Layout from '../layout'
 import ItemMenu from '../components/ItemMenu'
 import Login from '../components/Login'
 import RegisterUser from '../components/RegisterUser'
+import GetDatasFromDatabase from '../components/GetDatasFromDatabase'
 
 function AdminPage({ data }) {
   const orders = data.allMarkdownRemark.edges.sort((a, b) => {
@@ -15,6 +16,7 @@ function AdminPage({ data }) {
       Admin page
       <RegisterUser />
       <Login />
+      <GetDatasFromDatabase loggedIn={true} />
     </Layout>
   )
 }
