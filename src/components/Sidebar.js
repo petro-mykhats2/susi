@@ -11,8 +11,13 @@ import {
 } from './SidebarStyles'
 import { useSelector } from 'react-redux'
 import CartSlider from './CartSlider'
+import LanguageSwitcher from './LanguageSwitcher'
+
+import { Trans, useTranslation } from 'gatsby-plugin-react-i18next'
 
 const Sidebar = ({ isOpen }) => {
+  const { t } = useTranslation()
+
   const [menuState, setMenuOpen] = useState({ menuOpen: false })
   const [isCartOpen, setIsCartOpen] = useState(false)
 
@@ -35,6 +40,9 @@ const Sidebar = ({ isOpen }) => {
     <>
       <TopNav className='sticky-top'>
         <ContainerNav className='container'>
+          <span>
+            <LanguageSwitcher />
+          </span>
           <Logo>
             <Link className='slidebar-logo' to={`/`}>
               <img src='/img/logosushi.png' alt='logo' />
@@ -47,7 +55,7 @@ const Sidebar = ({ isOpen }) => {
               to={`/menu`}
             >
               <img src='/img/menuIcon.png' alt='menu' />
-              Меню
+              {t('menu')}
             </Link>
             <span
               className='sparkle u-hover--sparkle'
@@ -70,17 +78,15 @@ const Sidebar = ({ isOpen }) => {
           </MenuLink>
           <NavItems>
             <Link className='sparkle u-hover--sparkle' to='/'>
-              Головна
+              {t('homepage')}
             </Link>
             <Link className='sparkle u-hover--sparkle' to='/contacts/'>
-              Контакти
+              {t('contacts')}
             </Link>
             <Link className='sparkle u-hover--sparkle' to='/'>
-              Доставка
+              {t('delivery')}
             </Link>
-            <Link className='sparkle u-hover--sparkle' to='/'>
-              Акції
-            </Link>
+
             <span
               onClick={handleToggleCart}
               className='sparkle u-hover--sparkle'
@@ -99,23 +105,23 @@ const Sidebar = ({ isOpen }) => {
           <SideMenu>
             <Menu right={true} isOpen={menuState.menuOpen}>
               <Link className='menu-item' to='/' onClick={() => closeMenu()}>
-                Головна
+                {t('homepage')}
               </Link>
               <Link
                 className='menu-item'
                 to='/contacts/'
                 onClick={() => closeMenu()}
               >
-                Контакти
+                {t('contacts')}
               </Link>
               <Link className='menu-item' to='/' onClick={() => closeMenu()}>
-                Вибране
+                {t('favorites')}
               </Link>
               {/* <Link className='menu-item' to='/' onClick={() => closeMenu()}>
                 Корзина
               </Link> */}
               <Link className='menu-item' to='/' onClick={() => closeMenu()}>
-                Доставка
+                {t('delivery')}
               </Link>
             </Menu>
           </SideMenu>
@@ -127,3 +133,35 @@ const Sidebar = ({ isOpen }) => {
 }
 
 export default Sidebar
+
+// import { Link, useI18next } from 'gatsby-plugin-react-i18next'
+// import React from 'react'
+
+// const Sidebar = ({ siteTitle }) => {
+//   const { languages, originalPath } = useI18next()
+//   return (
+//     <header className='main-header'>
+//       <h1 style={{ margin: 0 }}>
+//         <Link
+//           to='/'
+//           style={{
+//             color: `black`,
+//             textDecoration: `none`,
+//           }}
+//         >
+//           {siteTitle}
+//         </Link>
+//       </h1>
+//       <ul className='languages'>
+//         {languages.map((lng) => (
+//           <li key={lng}>
+//             <Link to={originalPath} language={lng}>
+//               {lng}
+//             </Link>
+//           </li>
+//         ))}
+//       </ul>
+//     </header>
+//   )
+// }
+// export default Sidebar

@@ -1,0 +1,14 @@
+{
+    "title": "Susi English",
+    "menu": "Menu",
+    "mostChosen": "Most Popular Choice",
+    "homepage": "Homepage",
+    "contacts": "Contacts",
+    "delivery": "Delivery",
+    "favorites": "Favorites",
+    "language": {
+        "en": "English",
+        "uk": "Українська",
+        "cz": "Čeština"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "title": "Susi cz",
+    "menu": "Menu",
+    "mostChosen": "Nejoblíbenější volba",
+    "homepage": "Hlavní stránka",
+    "contacts": "Kontakty",
+    "delivery": "Doprava",
+    "favorites": "Oblíbené",
+    "language": {
+        "en": "English",
+        "uk": "Українська",
+        "cz": "Čeština"
+    }
+}

@@ -6,14 +6,11 @@ import OrderLi from '../components/OrderLi'
 import MenuTop from '../components/MenuTop'
 
 const IndexPage = ({ data }) => {
-  const { section, allProducts, allTypesProducts } = data
+  const { section, allProducts, allTypesProducts, locales } = data
 
   const blockData = section.nodes[0].frontmatter.sections // Отримуємо дані блоків
 
-  // Створюємо об'єкт, де ключі - це значення з "block", а значення - товари відповідного типу
   const productsByBlock = {}
-
-  // Створюємо об'єкт, де ключі - це значення з "title", а значення - назви блоків з "name"
   const blockNames = {}
 
   allTypesProducts.edges.forEach(({ node }) => {
@@ -21,21 +18,19 @@ const IndexPage = ({ data }) => {
   })
 
   allProducts.edges.forEach(({ node }) => {
-    const productType = node.frontmatter.categoryProduct // Тип товару
+    const productType = node.frontmatter.categoryProduct
     if (productType) {
-      // Якщо тип існує
       if (!productsByBlock[productType]) {
-        productsByBlock[productType] = [] // Якщо цього типу товарів ще не маємо, створюємо пустий масив
+        productsByBlock[productType] = []
       }
-      productsByBlock[productType].push(node) // Додаємо товар до відповідного типу
+      productsByBlock[productType].push(node)
     }
   })
 
-  // Оновлюємо блоки в blockData з відповідними назвами
   const updatedBlockData = blockData.map((block) => {
     return {
       block: block.block,
-      name: blockNames[block.block] || '', // Додаємо назву блоку з allTypesProducts або залишаємо порожнім рядок
+      name: blockNames[block.block] || '',
     }
   })
 
@@ -51,7 +46,7 @@ const IndexPage = ({ data }) => {
         <OrderLi
           key={index}
           block={block.block}
-          name={block.name} // Передаємо назву блоку
+          name={block.name}
           products={productsByBlock[block.block]}
         />
       ))}
@@ -61,8 +56,17 @@ const IndexPage = ({ data }) => {
 
 export default IndexPage
 
-export const allProducts = graphql`
-  {
+export const query = graphql`
+  query IndexPageQuery($language: String!) {
+    locales: allLocale(filter: { language: { eq: $language } }) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
     section: allMarkdownRemark(
       filter: { frontmatter: { templateKey: { eq: "landing" } } }
     ) {

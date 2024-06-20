@@ -1,0 +1,14 @@
+{
+    "title": "Суші Юля",
+    "menu": "Меню",
+    "mostChosen": "Найчастіше обирають це",
+    "homepage": "Головна",
+    "contacts": "Контакти",
+    "delivery": "Доставка",
+    "favorites": "Вибране",
+    "language": {
+        "en": "English",
+        "uk": "Українська",
+        "cz": "Čeština"
+    }
+}

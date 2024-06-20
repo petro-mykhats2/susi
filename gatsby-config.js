@@ -4,6 +4,41 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/locales/`,
+        name: `locale`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-react-i18next`,
+      options: {
+        localeJsonSourceName: `locale`, // ім'я, яке вказане для плагіна `gatsby-source-filesystem`
+        languages: [`en`, `uk`, `cz`], // підтримувані мови
+        defaultLanguage: `uk`, // мова за замовчуванням
+        siteUrl: `https://example.com`, // замініть на свій сайт
+        trailingSlash: 'always', // налаштування для слеша в URL (якщо потрібно)
+        i18nextOptions: {
+          interpolation: {
+            escapeValue: false, // не потрібно для React, оскільки він автоматично ескейпить
+          },
+          keySeparator: false,
+          nsSeparator: false,
+        },
+        pages: [
+          {
+            matchPath: '/:lang?/blog/:uid',
+            getLanguageFromPath: true,
+            excludeLanguages: ['es'], // видалення мов, якщо потрібно
+          },
+          {
+            matchPath: '/preview',
+            languages: ['en'], // приклад сторінки, яка використовується тільки англійською
+          },
+        ],
+      },
+    },
+    {
       resolve: `gatsby-omni-font-loader`,
       options: {
         enableListener: true,
@@ -48,6 +83,13 @@ module.exports = {
         name: `landing`,
         path: `${__dirname}/content/landing/`,
         ignore: [`**/\.*`], // ігнорувати файли, що починаються з крапки
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `locales`,
+        path: `${__dirname}/locales/`,
       },
     },
     'gatsby-transformer-json',
