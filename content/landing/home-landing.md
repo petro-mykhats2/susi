@@ -5,5 +5,6 @@ title: Home landing
 sections:
   - block: roly
   - block: sety
+  - block: susi
   - block: napoji
 ---
