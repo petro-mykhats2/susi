@@ -1,5 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api')
-const token = process.env.SUSHI_TELEGRAM_TOKEN
+// const token = process.env.SUSHI_TELEGRAM_TOKEN
+const token = '6462249989:AAF3uURDfNwTQp3RDT_X-4vzWWiL36pOkUg'
+
 const bot = new TelegramBot(token, { polling: false })
 
 exports.handler = async function (event, context) {
@@ -21,7 +23,15 @@ exports.handler = async function (event, context) {
     timeFormData,
     accessoriesData,
     cartData,
+    totalPriceWithDiscount,
+    promoCodeDiscount,
   } = requestBody
+
+  // Розрахунок загальної суми без знижки
+  const totalPrice = cartData.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  )
 
   // Отримання даних про замовника
   const customerInfo = `Ім'я: ${name}\nТелефон: ${phone}\nПовідомлення: ${message}`
@@ -47,8 +57,13 @@ exports.handler = async function (event, context) {
     )
     .join('\n')
 
+  // Знижка і сума замовлення
+  const discountInfo = `Знижка: ${promoCodeDiscount}%\nЗагальна сума: ${totalPrice} грн\nСума зі знижкою: ${totalPriceWithDiscount.toFixed(
+    2
+  )} грн`
+
   // Складання всіх даних в один текстовий рядок
-  const messageToSend = `${customerInfo}\n\nДані доставки:\n${deliveryInfo}\n\nДані про час доставки:\n${timeInfo}\n\nДані про аксесуари:\n${accessoriesInfo}\n\nЗамовлення:\n${cartItemsInfo}`
+  const messageToSend = `${customerInfo}\n\nДані доставки:\n${deliveryInfo}\n\nДані про час доставки:\n${timeInfo}\n\nДані про аксесуари:\n${accessoriesInfo}\n\nЗамовлення:\n${cartItemsInfo}\n\n${discountInfo}`
 
   try {
     // Відправка повідомлення

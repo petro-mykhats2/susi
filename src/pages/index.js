@@ -4,6 +4,7 @@ import { graphql } from 'gatsby'
 import OrdersTitle from '../components/OrdersTitle'
 import OrderLi from '../components/OrderLi'
 import MenuTop from '../components/MenuTop'
+import PromoCodeChecker from '../components/PromoCodeChecker'
 
 const IndexPage = ({ data }) => {
   const { section, allProducts, allTypesProducts } = data
@@ -42,6 +43,7 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <MenuTop data={allTypesProducts} />
+      <PromoCodeChecker />
       <OrdersTitle />
       <div className='decorative-image'>
         <img src='/img/wassabi.png' alt='dark theme' />
