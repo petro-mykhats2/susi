@@ -6,6 +6,7 @@ import { clearCart } from '../redux/cart'
 import DeliveryForm from './DeliveryForm'
 import DeliveryTime from './DeliveryTime'
 import Accessories from './Accessories'
+import PromoCodeChecker from './PromoCodeChecker'
 
 const CartSlider = ({ isOpen, onClose }) => {
   const [isOrdering, setIsOrdering] = useState(false)
@@ -14,7 +15,10 @@ const CartSlider = ({ isOpen, onClose }) => {
   const [nameError, setNameError] = useState(false)
   const [phoneError, setPhoneError] = useState(false)
   const [addressError, setAddressError] = useState(false)
+  const [promoCodeDiscount, setPromoCodeDiscount] = useState(0) // Знижка з промокоду
+  const [totalPriceWithDiscount, setTotalPriceWithDiscount] = useState(0) // Загальна сума зі знижкою
   const errorBlockRef = useRef(null)
+
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -30,13 +34,30 @@ const CartSlider = ({ isOpen, onClose }) => {
 
   const dispatch = useDispatch()
   const cartItems = useSelector((state) => state.cart.cartItems)
+  const totalPrice = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  ) // Підрахунок суми без знижки
 
+  const priceWithDiscount = totalPrice - totalPriceWithDiscount
+
+  // Оновлення загальної суми з урахуванням знижки
+  useEffect(() => {
+    const discountAmount = (totalPrice * promoCodeDiscount) / 100
+    setTotalPriceWithDiscount(totalPrice - discountAmount)
+  }, [promoCodeDiscount, totalPrice])
+
+  // Оновлення cartData при зміні товарів у кошику
   useEffect(() => {
     setFormData((prevData) => ({
       ...prevData,
-      cartData: cartItems,
+      cartData: cartItems, // Оновлення даних товарів у формі
     }))
   }, [cartItems])
+
+  const handlePromoCodeResult = (discountValue) => {
+    setPromoCodeDiscount(discountValue) // Зберігаємо знижку з промокоду
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -71,11 +92,13 @@ const CartSlider = ({ isOpen, onClose }) => {
           deliveryFormData: formData.deliveryFormData,
           timeFormData: formData.timeFormData,
           accessoriesData: formData.accessoriesData,
-          cartData: formData.cartData,
+          cartData: formData.cartData, // Дані про товари
+          totalPriceWithDiscount,
+          promoCodeDiscount, // Сума зі знижкою
         }),
       }
 
-      // Send data to MongoDB
+      // Надсилаємо дані до MongoDB
       const response = await fetch(
         '/.netlify/functions/pushDataToDB',
         requestOptions
@@ -84,7 +107,7 @@ const CartSlider = ({ isOpen, onClose }) => {
         throw new Error(`HTTP error! Status: ${response.status}`)
       }
 
-      // Send data to Telegram
+      // Надсилаємо дані до Telegram
       const telegramResponse = await fetch(
         '/.netlify/functions/telegram',
         requestOptions
@@ -98,6 +121,7 @@ const CartSlider = ({ isOpen, onClose }) => {
       setSuccessMessage('Ваше замовлення успішно виконано!')
       setErrorMessage('')
 
+      // Очищення форми та кошика після успішного замовлення
       setFormData({
         name: '',
         phone: '',
@@ -173,11 +197,11 @@ const CartSlider = ({ isOpen, onClose }) => {
               name='name'
               value={formData.name}
               onChange={handleInputChange}
-              placeholder='Ваше імя'
+              placeholder='Ваше імʼя'
             />
           </div>
           {nameError && (
-            <p className='errorMessage'>Заповніть правильно ім'я!</p>
+            <p className='errorMessage'>Заповніть правильно імʼя!</p>
           )}
           <div className={`form-field ${phoneError ? 'error' : ''}`}>
             <input
@@ -201,10 +225,8 @@ const CartSlider = ({ isOpen, onClose }) => {
               <div className='loader-title'>
                 Виконується обробка замовлення...
               </div>
-              )
             </div>
           )}
-
           <div className='form-field'>
             <textarea
               type='text'
@@ -214,6 +236,31 @@ const CartSlider = ({ isOpen, onClose }) => {
               onChange={handleInputChange}
               placeholder='Напишіть ваші побажання або зауваження (необов’язково)'
             />
+          </div>
+          <PromoCodeChecker onApplyPromoCode={handlePromoCodeResult} />
+          {promoCodeDiscount > 0 ? (
+            <div className='total-price'>
+              <div className='total-price-title-small'>Загальна вартість:</div>
+              <div className='old-price'> {totalPrice.toFixed(2)} грн</div>
+              <div className='discount'>
+                <div className='discount-title'>Знижка:</div>
+                <div>
+                  {' '}
+                  -{promoCodeDiscount.toFixed(2)} % {'( '}
+                  {priceWithDiscount.toFixed(2)}
+                  {' грн)'}
+                </div>
+              </div>
+            </div>
+          ) : null}{' '}
+          <div className='total-price price-final'>
+            <div className='total-price-title'>
+              {promoCodeDiscount > 0
+                ? 'Загальна вартість зі знижкою:'
+                : 'Загальна вартість:'}
+            </div>
+
+            <div> {totalPriceWithDiscount.toFixed(2)} грн</div>
           </div>
           <button
             className={`item-buttom_button button_submit ${

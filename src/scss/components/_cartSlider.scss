@@ -137,12 +137,18 @@
     color: red;
   }
   .total-price {
-    font-size: 20px;
+    font-size: 21px;
     font-weight: 700;
     
     &-title {
-        color: $grey;
-        font-weight: 400;  
+        color: $black;
+        font-size: 19px;
+        font-weight: 500;  
+        line-height: normal;
+
+        &-small {
+          font-size: 16px;
+        }
     }
   }
   .cart-order {
