@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
+import Loader from './Loader'
 
 const PromoCodeChecker = ({ onApplyPromoCode }) => {
   const [code, setCode] = useState('')
   const [result, setResult] = useState(null)
   const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const handleCheckPromoCode = async () => {
+    setLoading(true)
     try {
       const response = await fetch('/.netlify/functions/promocodes', {
         method: 'POST',
@@ -36,6 +39,8 @@ const PromoCodeChecker = ({ onApplyPromoCode }) => {
       setError('An error occurred')
       setResult(null)
       onApplyPromoCode(0) // скидаємо знижку до 0 у разі помилки
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -52,7 +57,7 @@ const PromoCodeChecker = ({ onApplyPromoCode }) => {
           Перевірити
         </button>
       </div>
-
+      {loading && <Loader />}
       {result && (
         <div className='promocode-message'>
           {result.discountType && (
