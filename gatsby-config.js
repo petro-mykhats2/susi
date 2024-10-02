@@ -60,6 +60,14 @@ module.exports = {
         ignore: [`**/\.*`], // ігнорувати файли, що починаються з крапки
       },
     },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: `settings`,
+        path: `${__dirname}/content/settings/`,
+        ignore: [`**/\.*`], // ігнорувати файли, що починаються з крапки
+      },
+    },
     'gatsby-transformer-json',
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
