@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../redux/cart'
 import { addToFavorite, removeFromFavorite } from '../redux/favorite'
 
-const Item = ({ orderdata }) => {
+const Item = ({ orderdata, settings }) => {
+  console.log('securrency', settings)
+
   const dispatch = useDispatch()
   const [showAddedToCartMessage, setShowAddedToCartMessage] = useState(false)
   const favoriteItems = useSelector((state) => state.favorite.favoriteItems)
@@ -121,7 +123,7 @@ const Item = ({ orderdata }) => {
       </Link>
       <div className='item-buttom'>
         <div className='item-buttom_price'>
-          {orderdata.frontmatter.price.toFixed(2)} грн
+          {orderdata.frontmatter.price.toFixed(2)} {settings.currency}
         </div>
         <div
           className='item-buttom_button'

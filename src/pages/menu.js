@@ -3,17 +3,19 @@ import { Link, graphql } from 'gatsby'
 import Layout from '../layout'
 import ItemMenu from '../components/ItemMenu'
 
-function Menu({ data }) {
+function Menua({ data }) {
+  console.log('рпрпрпрпрпрпрпрпрпрпрпр', data)
+
   const orders = data.allMarkdownRemark.edges.sort((a, b) => {
     return a.node.frontmatter.item_index - b.node.frontmatter.item_index
   })
 
   return (
     <Layout>
-      <div className='breadcrumb'>
+      <div className='breadcrumba'>
         <Link to='/'>
           <img src='/img/mainPage.png' alt='main Page' />
-          Головна
+          Головнаjhhjhjh
         </Link>
         <span>{'>'}</span>
         <span>Меню</span>
@@ -37,9 +39,9 @@ function Menu({ data }) {
   )
 }
 
-export default Menu
+export default Menua
 
-export const allCategoryMenu = graphql`
+export const menuquery = graphql`
   {
     allMarkdownRemark(
       filter: { frontmatter: { templateKey: { eq: "typesProducts" } } }

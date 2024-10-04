@@ -4,7 +4,7 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Item from './Item'
 
-function SimpleSlider({ products, customKey }) {
+function SimpleSlider({ products, customKey, settingsData }) {
   if (!products || products.length === 0) {
     return <div>No products available.</div>
   }
@@ -47,7 +47,7 @@ function SimpleSlider({ products, customKey }) {
     <div>
       <Slider {...settings} slidesToShow={slidesToShow}>
         {products.map((product, index) => (
-          <Item key={index} orderdata={product} />
+          <Item key={index} orderdata={product} settings={settingsData} />
         ))}
       </Slider>
     </div>

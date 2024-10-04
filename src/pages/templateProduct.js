@@ -5,13 +5,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../redux/cart'
 import { addToFavorite, removeFromFavorite } from '../redux/favorite'
 import TabButtons from '../components/TabButtons'
-import TabContent from './TabContent'
+import TabContent from '../components/TabContent'
+import useSettings from '../hooks/useSettings'
 
 function Product({ pageContext }) {
   const ingredients = pageContext.ingredients
   const productComposition = pageContext.product_composition
   const [counter, setCounter] = useState(1)
   const [selectedOption, setSelectedOption] = useState('info')
+  const settings = useSettings()
 
   const handleChange = (event) => {
     setSelectedOption(event.target.value)
@@ -189,7 +191,7 @@ function Product({ pageContext }) {
           <div className='product-right_bottom'>
             <div className='product-right_bottom_left'>
               <div className='product-price'>
-                {pageContext.price.toFixed(2) * counter} грн
+                {pageContext.price.toFixed(2) * counter} {settings.currency}
               </div>
               <div className='product-calc'>
                 <div className='product-calc_less' onClick={decrementCounter}>

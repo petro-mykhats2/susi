@@ -6,8 +6,10 @@ import OrderLi from '../components/OrderLi'
 import MenuTop from '../components/MenuTop'
 
 const IndexPage = ({ data }) => {
-  const { section, allProducts, allTypesProducts } = data
- 
+  const { section, allProducts, allTypesProducts, settings } = data
+  const siteSettings = settings.nodes[0].frontmatter // Беремо перший елемент з масиву nodes
+  console.log('siteSettings', siteSettings)
+
   const blockData = section.nodes[0].frontmatter.sections // Отримуємо дані блоків
 
   // Створюємо об'єкт, де ключі - це значення з "block", а значення - товари відповідного типу
@@ -53,6 +55,7 @@ const IndexPage = ({ data }) => {
           block={block.block}
           name={block.name} // Передаємо назву блоку
           products={productsByBlock[block.block]}
+          settings={siteSettings}
         />
       ))}
     </Layout>
@@ -111,6 +114,22 @@ export const allProducts = graphql`
             categoryProduct
             top
           }
+        }
+      }
+    }
+    settings: allMarkdownRemark(
+      filter: { frontmatter: { templateKey: { eq: "settings" } } }
+    ) {
+      nodes {
+        frontmatter {
+          site_title
+          currency
+          language
+          pickup_locations {
+            location_name
+            address
+          }
+          contact_email
         }
       }
     }

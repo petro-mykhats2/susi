@@ -9,7 +9,7 @@ pickup_locations:
     address: вул. Зелена 5
   - location_name: ttt
     address: trrtrt
-currency: UAH
+currency: EUR
 language: uk
 site_title: Sushi & Rolls
 contact_email: info@myshop.com
