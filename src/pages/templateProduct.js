@@ -4,11 +4,18 @@ import { Link } from 'gatsby'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../redux/cart'
 import { addToFavorite, removeFromFavorite } from '../redux/favorite'
+import ProductTabSelector from '../components/ProductTabSelector'
+import ProductTabContent from '../components/ProductTabContent'
 
 function Product({ pageContext }) {
   const ingredients = pageContext.ingredients
   const productComposition = pageContext.product_composition
   const [counter, setCounter] = useState(1)
+  const [selectedOption, setSelectedOption] = useState('info')
+
+  const handleChange = (event) => {
+    setSelectedOption(event.target.value)
+  }
 
   // Функція для перевірки наявності інгредієнта
   const isIngredientAvailable = (ingredientName) => {
@@ -212,6 +219,14 @@ function Product({ pageContext }) {
         </div>
       </div>
       <div className='product-info'>{pageContext.description}</div>
+      <ProductTabSelector
+        selectedOption={selectedOption}
+        handleChange={handleChange}
+      />
+      <ProductTabContent
+        selectedOption={selectedOption}
+        pageContext={pageContext}
+      />
     </Layout>
   )
 }
