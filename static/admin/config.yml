@@ -770,3 +770,24 @@ collections:
       - label: Payment Information
         name: paymentInformation
         widget: markdown
+  - name: 'siteContent'
+    label: 'Site Content'
+    folder: 'content/siteContent'
+    create: true
+    slug: '{{slug}}'
+    fields:
+      - label: 'Template Key'
+        name: 'templateKey'
+        widget: 'hidden'
+        default: 'siteSettings'
+      - label: 'Page'
+        name: 'page'
+        widget: 'hidden'
+        default: 'siteContent'
+      - label: 'Title'
+        name: 'title'
+        widget: 'string'
+        required: true
+      - label: 'Body'
+        name: 'body'
+        widget: 'markdown'
