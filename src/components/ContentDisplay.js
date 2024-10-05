@@ -19,4 +19,7 @@ const ContentDisplay = ({ selectedTitle }) => {
   )
 }
 
+// Використання компонента ContentDisplay, де 'deliveryInformation' - це заголовок,
+// який ми передаємо як пропс selectedTitle, для відображення відповідного контенту
+
 export default ContentDisplay
