@@ -7,7 +7,7 @@ import MenuTop from '../components/MenuTop'
 
 const IndexPage = ({ data }) => {
   const { section, allProducts, allTypesProducts } = data
- 
+
   const blockData = section.nodes[0].frontmatter.sections // Отримуємо дані блоків
 
   // Створюємо об'єкт, де ключі - це значення з "block", а значення - товари відповідного типу

@@ -1,8 +1,7 @@
 import React from 'react'
-import useSiteSettings from '../hooks/useSiteSettings'
+import ContentDisplay from './ContentDisplay'
 
 const ProductTabContent = ({ selectedOption, pageContext }) => {
-  const data = useSiteSettings()
   return (
     <div className='container'>
       {selectedOption === 'info' && (
@@ -15,14 +14,18 @@ const ProductTabContent = ({ selectedOption, pageContext }) => {
       {selectedOption === 'delivery' && (
         <div className='product-info'>
           <h2>Доставка</h2>
-          <p>{data.deliveryInformation}</p>
+          <p>
+            <ContentDisplay selectedTitle='deliveryInformation' />
+          </p>
         </div>
       )}
 
       {selectedOption === 'payment' && (
         <div className='product-info'>
-          <h2>Оплата</h2>
-          <p>{data.paymentInformation}</p>
+          <h2>Способи оплати</h2>
+          <p>
+            <ContentDisplay selectedTitle='paymentInformation' />
+          </p>
         </div>
       )}
 

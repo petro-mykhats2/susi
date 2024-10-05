@@ -221,7 +221,6 @@ function Product({ pageContext }) {
           </div>
         </div>
       </div>
-      <div className='product-info'>{pageContext.description}</div>
       <ProductTabSelector
         selectedOption={selectedOption}
         handleChange={handleChange}
