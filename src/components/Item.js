@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../redux/cart'
 import { addToFavorite, removeFromFavorite } from '../redux/favorite'
+import useSiteSettings from '../hooks/useSiteSettings'
 
 const Item = ({ orderdata }) => {
   const dispatch = useDispatch()
@@ -12,6 +13,7 @@ const Item = ({ orderdata }) => {
   const [showAddedToFavoriteMessage, setShowAddedToFavoriteMessage] = useState(
     false
   )
+  const siteSetting = useSiteSettings()
   const [
     showRemoveFromFavoriteMessage,
     setShowRemoveFromFavoriteMessage,
@@ -121,7 +123,7 @@ const Item = ({ orderdata }) => {
       </Link>
       <div className='item-buttom'>
         <div className='item-buttom_price'>
-          {orderdata.frontmatter.price.toFixed(2)} грн
+          {orderdata.frontmatter.price.toFixed(2)} {siteSetting.currency}
         </div>
         <div
           className='item-buttom_button'
