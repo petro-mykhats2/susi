@@ -14,18 +14,18 @@ const ProductTabContent = ({ selectedOption, pageContext }) => {
       {selectedOption === 'delivery' && (
         <div className='product-info'>
           <h2>Доставка</h2>
-          <p>
+          <div>
             <ContentDisplay selectedTitle='deliveryInformation' />
-          </p>
+          </div>
         </div>
       )}
 
       {selectedOption === 'payment' && (
         <div className='product-info'>
           <h2>Способи оплати</h2>
-          <p>
+          <div>
             <ContentDisplay selectedTitle='paymentInformation' />
-          </p>
+          </div>
         </div>
       )}
 

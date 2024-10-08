@@ -157,12 +157,17 @@ function Product({ pageContext }) {
             )}
 
             <div className='product-label'>Кількість:</div>
-            <div className='product-label_under'>8 шт</div>
-            {pageContext.weight && (
+            {pageContext.quantity && pageContext.quantity_unit && (
+              <div className='product-label_under'>
+                {pageContext.quantity} {pageContext.quantity_unit}
+              </div>
+            )}
+
+            {pageContext.weight && pageContext.weight_unit && (
               <>
                 <div className='product-label'>Вага: </div>
                 <div className='product-label_under'>
-                  {pageContext.weight} г
+                  {pageContext.weight} {pageContext.weight_unit}
                 </div>
               </>
             )}

@@ -26,8 +26,6 @@ const useSiteSettings = () => {
               site_title
               contact_email
               title
-              deliveryInformation
-              paymentInformation
             }
           }
         }

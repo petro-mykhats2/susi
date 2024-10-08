@@ -31,6 +31,13 @@ collections:
       - label: Price # Ціна продукту
         name: price
         widget: number
+      - label: Price Unit # Одиниці виміру ціни
+        name: price_unit
+        widget: select
+        options:
+          - грн
+          - $
+          - €
       - label: Type of Product # Тип продукту (вибір з колекції "typesProducts")
         name: categoryProduct
         widget: relation
@@ -38,19 +45,54 @@ collections:
         search_fields: ['title'] # Поле для пошуку за назвою типу продукту
         value_field: '{{slug}}'
         display_fields: ['title']
-      - label: Add ingredients # Тип продукту (вибір з колекції "typesProducts")
+      - label: Add ingredients # Склад продукту (вибір з колекції "Ingredients")
         name: product_composition
         widget: relation
         multiple: true
-        collection: Ingredients # Вибір колекції "typesProducts"
-        search_fields: ['title'] # Поле для пошуку за назвою типу продукту
+        collection: Ingredients # Вибір колекції "Ingredients"
+        search_fields: ['title'] # Поле для пошуку за назвою інгредієнта
         value_field: '{{slug}}'
         display_fields: ['title']
         required: false
-      - lable: Weight (in gramm) (option)
+      - label: Weight (in gramm) (option) # Вага продукту
         name: weight
         widget: number
         required: false
+      - label: Weight Unit # Одиниці виміру ваги
+        name: weight_unit
+        widget: select
+        options:
+          - г
+          - кг
+          - мг
+      - label: Quantity # Кількість продукту
+        name: quantity
+        widget: number
+        required: false
+      - label: Quantity Unit # Одиниці виміру кількості
+        name: quantity_unit
+        widget: select
+        options:
+          - шт.
+          - упак.
+          - порц.
+          - наб.
+          - пл.
+          - бан.
+          - кор.
+          - л.
+          - мл.
+          - кг.
+          - г.
+          - пара.
+          - ск.
+          - шм.
+          - доз.
+          - пач.
+          - рул.
+          - бар.
+          - кан.
+          - од.
       - label: Description
         name: description
         widget: string
