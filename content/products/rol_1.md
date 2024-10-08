@@ -4,7 +4,7 @@ calories: 500 ккал
 title: Філадельфія з лососем та авокадо
 top: true
 price: 319
-parameters: "5"
+parameters: '5'
 categoryProduct: roly
 product_composition:
   - авокадо
@@ -13,6 +13,9 @@ product_composition:
   - норі
   - лосось
 weight: 320
+weight_unit: г
+quantity: 8
+quantity_unit: шт.
 description: Зануртесь у світ неперевершеного смаку з ролом Філадельфія!
   Соковитий лосось у поєднанні з кремовим авокадо створює ідеальну гармонію, яка
   тане в роті. Обгорнутий у ніжний рис і водорості норі, цей рол стане справжнім

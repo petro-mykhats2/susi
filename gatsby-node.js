@@ -30,6 +30,9 @@ exports.createPages = async ({ graphql, actions }) => {
               weight
               categoryProduct
               product_composition
+              quantity
+              quantity_unit
+              weight_unit
             }
           }
         }
@@ -97,6 +100,9 @@ exports.createPages = async ({ graphql, actions }) => {
           product_composition: edges.node.frontmatter.product_composition,
           categoryProduct: edges.node.frontmatter.categoryProduct,
           categories,
+          weight_unit: edges.node.frontmatter.weight_unit,
+          quantity: edges.node.frontmatter.quantity,
+          quantity_unit: edges.node.frontmatter.quantity_unit,
           forCart: edges.node, // Додаємо список категорій до контексту
           ingredients,
         },
