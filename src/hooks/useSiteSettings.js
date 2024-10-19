@@ -25,6 +25,7 @@ const useSiteSettings = () => {
               language
               site_title
               contact_email
+              contact_phone
               title
             }
           }

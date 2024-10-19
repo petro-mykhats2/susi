@@ -1,6 +1,10 @@
 import React from 'react'
+import useSiteSettings from '../hooks/useSiteSettings'
 
 const PhoneLink = () => {
+  const siteSetting = useSiteSettings()
+  const phone = siteSetting.contact_phone // Динамічний номер телефону
+
   // Функція для визначення операційної системи
   const getOperatingSystem = () => {
     const userAgent = window.navigator.userAgent
@@ -24,24 +28,24 @@ const PhoneLink = () => {
     switch (os) {
       case 'Windows':
         // Skype для Windows
-        return 'skype:+380501234567?call'
+        return `skype:${phone}?call`
       case 'MacOS':
         // FaceTime для macOS
-        return 'facetime:+380501234567'
+        return `facetime:${phone}`
       case 'Android':
       case 'iOS':
         // Стандартне телефонне посилання для мобільних пристроїв
-        return 'tel:+380501234567'
+        return `tel:${phone}`
       default:
         // Стандартне телефонне посилання для всіх інших випадків
-        return 'tel:+380501234567'
+        return `tel:${phone}`
     }
   }
 
   return (
     <p>
       <strong>Телефон:</strong>
-      <a href={getPhoneLink()}>+380 (50) 123-45-67</a>
+      <a href={getPhoneLink()}>{phone}</a>
     </p>
   )
 }
