@@ -1,6 +1,7 @@
 import React from 'react'
 import SocialLinks from './SocialLinks'
 import PhoneLink from './PhoneLink'
+import PickupLocations from './PickupLocations'
 
 const ContactPage = () => {
   return (
@@ -15,7 +16,7 @@ const ContactPage = () => {
               <a href='mailto:info@example.com'>info@example.com</a>
             </p>
             <p>
-              <strong>Адреса:</strong> Київ, вул. Незалежності, 1
+              <PickupLocations />
             </p>
             <p>
               <strong>Графік роботи:</strong> Пн-Пт, 9:00 - 18:00
