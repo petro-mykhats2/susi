@@ -23,8 +23,8 @@ const ContactPage = () => {
             </p>
           </div>
 
-          <div className='contact-page__info-social-media'>
-            <h2 className='contact-page__subtitle'>Ми в соцмережах:</h2>
+          <div className='contact-page__info-social-media p1'>
+            <div className='contact-page__subtitle'>Ми в соцмережах:</div>
             <SocialLinks />
           </div>
         </section>

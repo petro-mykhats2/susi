@@ -7,12 +7,10 @@ const PickupLocations = () => {
 
   return (
     <div>
-      <span className='p1'>Адреси пунктів самовивозу:</span>
+      <strong className='p1'>Адреси пунктів самовивозу:</strong>
       <ul>
         {locations.map((location, index) => (
-          <li key={index}>
-            <strong>{location.location_name}:</strong> {location.address}
-          </li>
+          <li key={index}>{location.address}</li>
         ))}
       </ul>
     </div>
