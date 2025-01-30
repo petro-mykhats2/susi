@@ -2,6 +2,7 @@ import React from 'react'
 import SocialLinks from './SocialLinks'
 import PhoneLink from './PhoneLink'
 import PickupLocations from './PickupLocations'
+import MyForm from './MyForm'
 
 const ContactPage = () => {
   return (
@@ -30,36 +31,7 @@ const ContactPage = () => {
         </section>
 
         <section className='contact-page__form'>
-          <div className='card'>
-            <span className='title'>Звяжіться з нами</span>
-            <form className='form'>
-              <div className='group'>
-                <input type='text' name='name' placeholder='‎' required />
-                <label htmlFor='name'>Імя</label>
-              </div>
-              <div className='group'>
-                <input
-                  type='email'
-                  id='email'
-                  name='email'
-                  placeholder='‎'
-                  required
-                />
-                <label htmlFor='email'>Email</label>
-              </div>
-              <div className='group'>
-                <textarea
-                  id='comment'
-                  name='comment'
-                  placeholder='‎'
-                  rows='5'
-                  required
-                />
-                <label htmlFor='comment'>Напишіть текст</label>
-              </div>
-              <button type='submit'>Відправити</button>
-            </form>
-          </div>
+          <MyForm />
         </section>
       </div>
 
