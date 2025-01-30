@@ -1,64 +1,44 @@
-import React, { useState, useRef } from 'react'
-import ReCAPTCHA from 'react-google-recaptcha'
+import React, { useState } from 'react'
 
 const MyForm = () => {
+  // Створюємо стани для полів форми
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     comment: '',
-    recaptchaToken: '',
   })
-  const [formError, setFormError] = useState(null)
-  const [recaptchaError, setRecaptchaError] = useState(null)
 
-  const recaptchaRef = useRef() // Додаємо реф для доступу до ReCAPTCHA
+  const [formError, setFormError] = useState(null) // Для відображення помилок
 
+  // Обробник зміни значення полів форми
   const handleInputChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value })
+    const { name, value } = event.target
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value, // Оновлюємо відповідне поле
+    }))
   }
 
-  const handleRecaptchaChange = (token) => {
-    setFormData({ ...formData, recaptchaToken: token })
-    setRecaptchaError(null) // Reset recaptcha error if token is received
-  }
-
-  const handleSubmit = async (event) => {
+  // Обробник відправки форми
+  const handleSubmit = (event) => {
     event.preventDefault()
-    setFormError(null) // Reset form error messages
+    setFormError(null) // Скидаємо попередні помилки
 
-    if (!formData.recaptchaToken) {
-      setRecaptchaError('reCAPTCHA is required')
+    // Перевірка, чи заповнені всі поля
+    if (!formData.name || !formData.email || !formData.comment) {
+      setFormError('Будь ласка, заповніть всі поля!')
       return
     }
 
-    try {
-      const response = await fetch('/.netlify/functions/recaptcha', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
+    // Логіка відправки форми (наприклад, до сервера)
+    alert('Форма відправлена!')
 
-      if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.error || 'Server error')
-      }
-
-      alert('Form submitted successfully!')
-      setFormData({
-        name: '',
-        email: '',
-        comment: '',
-        recaptchaToken: '',
-      })
-
-      // Очищаємо рекапчу після відправки
-      recaptchaRef.current.reset() // Викликаємо метод reset() для очищення рекапчі
-    } catch (error) {
-      console.error('Error submitting form:', error)
-      setFormError(error.message)
-    }
+    // Очищаємо форму після успішної відправки
+    setFormData({
+      name: '',
+      email: '',
+      comment: '',
+    })
   }
 
   return (
@@ -100,16 +80,12 @@ const MyForm = () => {
           />
           <label htmlFor='comment'>Напишіть текст</label>
         </div>
-        <ReCAPTCHA
-          sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
-          onChange={handleRecaptchaChange}
-          ref={recaptchaRef} // Передаємо реф в ReCAPTCHA
-        />
+
+        {/* Кнопка відправки */}
         <button type='submit'>Відправити</button>
       </form>
 
-      {recaptchaError && <div style={{ color: 'red' }}>{recaptchaError}</div>}
-
+      {/* Виведення помилок, якщо є */}
       {formError && <div style={{ color: 'red' }}>{formError}</div>}
     </div>
   )
