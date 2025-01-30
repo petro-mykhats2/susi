@@ -806,12 +806,9 @@ collections:
       - label: Contact Email
         name: contact_email
         widget: string
-      - label: Delivery Information
-        name: deliveryInformation
-        widget: markdown
-      - label: Payment Information
-        name: paymentInformation
-        widget: markdown
+      - label: Contact Phone
+        name: contact_phone
+        widget: string
   - name: 'siteContent'
     label: 'Site Content'
     folder: 'content/siteContent'

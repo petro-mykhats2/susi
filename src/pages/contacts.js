@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import Layout from '../layout'
+import ContactPage from '../components/ContactPage'
 
 function Contacts() {
   return (
@@ -11,10 +12,10 @@ function Contacts() {
           Головна
         </Link>
         <span>{'>'}</span>
-        <span>Меню</span>
+        <span>Контакти</span>
       </div>
       <hr />
-      <span>Контакти</span>
+      <ContactPage />
     </Layout>
   )
 }
