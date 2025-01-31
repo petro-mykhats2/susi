@@ -1,56 +1,19 @@
-import React, { useState } from 'react'
-import { Link, graphql } from 'gatsby'
+import React from 'react'
 import Layout from '../layout'
-import ItemMenu from '../components/ItemMenu'
 import Login from '../components/Login'
-import RegisterUser from '../components/RegisterUser'
-import GetDatasFromDatabase from '../components/GetDatasFromDatabase'
+import CheckAuth from '../components/CheckAuth'
+import { useAuth } from '../hooks/useAuth' // Якщо у вас кастомний хук
 
-function AdminPage({ data }) {
-  const [loggedIn, setLoggedIn] = useState(false) // Додаємо стан для авторизації
-
-  const orders = data.allMarkdownRemark.edges.sort((a, b) => {
-    return a.node.frontmatter.item_index - b.node.frontmatter.item_index
-  })
+function AdminPage() {
+  const { isAuthenticated } = useAuth() // Якщо у вас такий хук
 
   return (
     <Layout>
       <h1>Admin page</h1>
-      {!loggedIn ? (
-        <>
-          <RegisterUser />
-          <Login setLoggedIn={setLoggedIn} />{' '}
-          {/* Передаємо функцію для оновлення стану */}
-        </>
-      ) : (
-        <GetDatasFromDatabase />
-      )}
+      {!isAuthenticated ? <Login /> : <CheckAuth />}{' '}
+      {/* Показуємо CheckAuth після входу */}
     </Layout>
   )
 }
 
 export default AdminPage
-
-export const allCategoryMenu = graphql`
-  {
-    allMarkdownRemark(
-      filter: { frontmatter: { templateKey: { eq: "typesProducts" } } }
-    ) {
-      edges {
-        node {
-          id
-          fields {
-            slug
-          }
-          frontmatter {
-            templateKey
-            name
-            title
-            image
-            item_index
-          }
-        }
-      }
-    }
-  }
-`
