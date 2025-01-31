@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import InputOrderDetailsCard from './inputOrderDetailsCard'
+import React, { useState } from 'react'
+// import InputOrderDetailsCard from './inputOrderDetailsCard'
 import orderss from '../data_orders.json'
 import TestInputOrderDetailsCart from './TestInputOrderDetailsCart'
 
