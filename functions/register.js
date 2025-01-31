@@ -1,16 +1,20 @@
 const { MongoClient } = require('mongodb')
+const bcrypt = require('bcryptjs')
 
-const uri =
-  'mongodb+srv://petryxanko:12345@cluster-susi.zpj8h6x.mongodb.net/?retryWrites=true&w=majority'
-
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+const uri = process.env.URI_DATABASE_SUSI
+let client
+let collection
 
 const connectToDatabase = async () => {
-  await client.connect()
-  return client.db('Susi').collection('User')
+  if (!client) {
+    client = new MongoClient(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    await client.connect()
+    collection = client.db('Susi').collection('User')
+  }
+  return collection
 }
 
 exports.handler = async (event) => {
@@ -18,32 +22,39 @@ exports.handler = async (event) => {
     const collection = await connectToDatabase()
 
     if (event.httpMethod === 'POST') {
-      // Handle POST request (register user)
       const data = JSON.parse(event.body)
 
-      // Перевірка існування користувача за допомогою моделі користувача
+      // Валідація
+      if (!data.username || !data.password || data.password.length < 6) {
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ message: 'Некоректні дані' }),
+        }
+      }
+
       const existingUser = await collection.findOne({ username: data.username })
       if (existingUser) {
         return {
           statusCode: 400,
-          body: JSON.stringify({
-            message: "Користувач з таким ім'ям вже існує",
-          }),
+          body: JSON.stringify({ message: 'Користувач вже існує' }),
         }
       }
 
-      // Якщо користувач не існує, додаємо його до бази даних
-      await collection.insertOne(data)
+      // Хешування пароля перед збереженням
+      const hashedPassword = await bcrypt.hash(data.password, 10)
+      await collection.insertOne({
+        username: data.username,
+        password: hashedPassword,
+      })
 
       return {
         statusCode: 200,
-        body: JSON.stringify({ message: 'Користувач успішно зареєстрований' }),
+        body: JSON.stringify({ message: 'Реєстрація успішна' }),
       }
     } else {
-      // Handle other types of requests
       return {
-        statusCode: 400,
-        body: JSON.stringify({ message: 'Invalid request method' }),
+        statusCode: 405,
+        body: JSON.stringify({ message: 'Метод не дозволений' }),
       }
     }
   } catch (error) {
@@ -54,7 +65,5 @@ exports.handler = async (event) => {
         error: error.message,
       }),
     }
-  } finally {
-    await client.close()
   }
 }

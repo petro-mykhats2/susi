@@ -4,42 +4,46 @@ function RegisterUser() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
+  const [success, setSuccess] = useState(null)
 
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    // Створення об'єкта з даними для відправки на сервер
-    const formData = {
-      username: username,
-      password: password,
+    if (username.trim() === '' || password.length < 6) {
+      setError(
+        "Ім'я не може бути порожнім, а пароль повинен містити мінімум 6 символів"
+      )
+      return
     }
 
-    try {
-      console.log('Дані, які відправляються на сервер:', formData) // Додайте цей рядок
+    const formData = { username, password }
 
+    try {
       const response = await fetch('/.netlify/functions/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       })
 
+      const data = await response.json()
+
       if (!response.ok) {
-        throw new Error('Failed to register')
+        throw new Error(data.message || 'Помилка реєстрації')
       }
 
-      // Очищення полів вводу після успішної реєстрації
+      setSuccess('Реєстрація успішна!')
       setUsername('')
       setPassword('')
+      setError(null)
     } catch (error) {
       setError(error.message)
+      setSuccess(null)
     }
   }
 
   return (
     <div>
-      <span>Зараєструватись</span>
+      <h2>Реєстрація</h2>
       <form onSubmit={handleSubmit}>
         <input
           type='text'
@@ -55,7 +59,8 @@ function RegisterUser() {
         />
         <button type='submit'>Зареєструватися</button>
       </form>
-      {error && <p>{error}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {success && <p style={{ color: 'green' }}>{success}</p>}
     </div>
   )
 }

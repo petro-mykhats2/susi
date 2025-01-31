@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, graphql } from 'gatsby'
 import Layout from '../layout'
 import ItemMenu from '../components/ItemMenu'
@@ -7,16 +7,24 @@ import RegisterUser from '../components/RegisterUser'
 import GetDatasFromDatabase from '../components/GetDatasFromDatabase'
 
 function AdminPage({ data }) {
+  const [loggedIn, setLoggedIn] = useState(false) // Додаємо стан для авторизації
+
   const orders = data.allMarkdownRemark.edges.sort((a, b) => {
     return a.node.frontmatter.item_index - b.node.frontmatter.item_index
   })
 
   return (
     <Layout>
-      Admin page
-      <RegisterUser />
-      <Login />
-      <GetDatasFromDatabase loggedIn={true} />
+      <h1>Admin page</h1>
+      {!loggedIn ? (
+        <>
+          <RegisterUser />
+          <Login setLoggedIn={setLoggedIn} />{' '}
+          {/* Передаємо функцію для оновлення стану */}
+        </>
+      ) : (
+        <GetDatasFromDatabase />
+      )}
     </Layout>
   )
 }

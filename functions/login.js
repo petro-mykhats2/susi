@@ -1,8 +1,7 @@
 const { MongoClient } = require('mongodb')
+const bcrypt = require('bcryptjs')
 
-const uri =
-  'mongodb+srv://petryxanko:12345@cluster-susi.zpj8h6x.mongodb.net/?retryWrites=true&w=majority'
-
+const uri = process.env.URI_DATABASE_SUSI
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -15,42 +14,41 @@ const connectToDatabase = async () => {
 
 exports.handler = async (event) => {
   try {
-    const collection = await connectToDatabase()
-
-    if (event.httpMethod === 'POST') {
-      // Handle POST request (login)
-      const data = JSON.parse(event.body)
-
-      // Перевірка користувача за ім'ям і паролем
-      const user = await collection.findOne({
-        username: data.username,
-        password: data.password,
-      })
-
-      if (!user) {
-        return {
-          statusCode: 400,
-          body: JSON.stringify({ message: 'Invalid username or password' }),
-        }
-      }
-
-      // Якщо користувач знайдений, повертаємо успішний статус
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ message: 'Login successful' }),
-      }
-    } else {
-      // Handle other types of requests
+    if (event.httpMethod !== 'POST') {
       return {
         statusCode: 400,
-        body: JSON.stringify({ message: 'Invalid request method' }),
+        body: JSON.stringify({ message: 'Метод не дозволений' }),
       }
+    }
+
+    const { username, password } = JSON.parse(event.body)
+    const collection = await connectToDatabase()
+
+    const user = await collection.findOne({ username })
+    if (!user) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ message: 'Користувача не знайдено' }),
+      }
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password)
+    if (!isMatch) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ message: 'Невірний пароль' }),
+      }
+    }
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ success: true, message: 'Вхід успішний' }),
     }
   } catch (error) {
     return {
       statusCode: 500,
       body: JSON.stringify({
-        message: 'Server error',
+        message: 'Помилка сервера',
         error: error.message,
       }),
     }
