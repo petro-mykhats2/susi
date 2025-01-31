@@ -33,11 +33,7 @@ const Item = ({ orderdata }) => {
 
   // Функція для додавання або видалення з улюблених
   const handleFavorites = () => {
-    console.log('Current isFavorite state:', isFavorite)
-    console.log('Current orderdata:', orderdata)
-
     if (isFavorite) {
-      console.log('Removing from favorites:', orderdata)
       dispatch(removeFromFavorite(orderdata)) // Видаляємо з обраних
       setShowRemoveFromFavoriteMessage(true)
       setTimeout(() => {
@@ -129,7 +125,10 @@ const Item = ({ orderdata }) => {
           className='item-buttom_button'
           onClick={() => handleAddToCart(orderdata)}
         >
-          В кошик
+          <div className='item-buttom_img'>
+            <img src='/img/shopping-cart.png' alt='imagee' />
+          </div>
+          <div className='item_button_text'>В кошик</div>
         </div>
       </div>
     </div>

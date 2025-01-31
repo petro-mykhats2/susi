@@ -50,7 +50,6 @@ function DeliveryTime({ handleTimeFormData }) {
       setMinDeliveryTime({ hours: workStartTime, minutes: 0 })
     }
     handleTimeFormData({ deliveryTimeOption, nextHour })
-    console.log('deliveryTimeOption-=-=-=', deliveryTimeOption, nextHour)
   }, [])
 
   const handleTimeOptionChange = (option) => {
