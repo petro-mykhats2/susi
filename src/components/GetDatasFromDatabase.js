@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 // import InputOrderDetailsCard from './inputOrderDetailsCard'
 import orderss from '../data_orders.json'
 import TestInputOrderDetailsCart from './TestInputOrderDetailsCart'
@@ -8,29 +8,29 @@ function GetDatasFromDatabase({ loggedIn }) {
   const [orders, setOrders] = useState([])
   const [error, setError] = useState(null)
 
-  // useEffect(() => {
-  //   // console.log('orders', orders)
-  //   const fetchData = async () => {
-  //     // if (!loggedIn) return // Не виконувати запит, якщо не авторизовано
+  useEffect(() => {
+    // console.log('orders', orders)
+    const fetchData = async () => {
+      // if (!loggedIn) return // Не виконувати запит, якщо не авторизовано
 
-  //     try {
-  //       const response = await fetch('/.netlify/functions/loadOrders')
+      try {
+        const response = await fetch('/.netlify/functions/loadOrders')
 
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch orders')
-  //       }
+        if (!response.ok) {
+          throw new Error('Failed to fetch orders')
+        }
 
-  //       const data = await response.json()
-  //       setOrders(data)
-  //     } catch (error) {
-  //       setError(error.message)
-  //     }
-  //   }
+        const data = await response.json()
+        setOrders(data)
+      } catch (error) {
+        setError(error.message)
+      }
+    }
 
-  //   fetchData()
-  // }, [loggedIn])
+    fetchData()
+  }, [loggedIn])
 
-  const sortedOrders = orderss.sort((a, b) => {
+  const sortedOrders = orders.sort((a, b) => {
     const timeDiffA = new Date(a.timeFormData.nextHour) - new Date()
     const timeDiffB = new Date(b.timeFormData.nextHour) - new Date()
     return timeDiffA - timeDiffB
