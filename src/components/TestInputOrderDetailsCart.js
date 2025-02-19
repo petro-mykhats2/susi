@@ -7,7 +7,7 @@ const InputOrderDetailsCard = ({ order, index }) => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       const now = new Date()
-      const localHours = now.getUTCHours() + 2 // Додавання 2 годин для місцевого часу в Чехії
+      const localHours = now.getUTCHours() + 1 // Додавання 2 годин для місцевого часу в Чехії
       const localMinutes = now.getUTCMinutes().toString().padStart(2, '0')
       const localSeconds = now.getUTCSeconds().toString().padStart(2, '0')
       setLocalTime(`${localHours}:${localMinutes}:${localSeconds}`)
@@ -21,41 +21,43 @@ const InputOrderDetailsCard = ({ order, index }) => {
   }, [order])
 
   const remainingTime = () => {
-    const nextHour = new Date(order.timeFormData.nextHour)
+    let targetTime =
+      order.timeFormData.deliveryTimeOption === 'nearest'
+        ? new Date(order.timeFormData.nextHour)
+        : new Date(order.timeFormData.selectedTime)
+
     const now = new Date()
-    const timeDiff = nextHour - now
+    const timeDiff = targetTime - now
 
-    let sign = ''
-    if (timeDiff < 0) {
-      sign = '-'
-    }
+    const sign = timeDiff < 0 ? '-' : '' // Додаємо знак "мінус", якщо час уже минув
 
-    const hours = Math.abs(Math.floor(timeDiff / (1000 * 60 * 60)))
-    const minutes = Math.abs(
-      Math.floor((Math.abs(timeDiff) % (1000 * 60 * 60)) / (1000 * 60))
+    const hours = Math.floor(Math.abs(timeDiff) / (1000 * 60 * 60))
+    const minutes = Math.floor(
+      (Math.abs(timeDiff) % (1000 * 60 * 60)) / (1000 * 60)
     )
-    const seconds = Math.abs(
-      Math.floor((Math.abs(timeDiff) % (1000 * 60)) / 1000)
-    )
+    const seconds = Math.floor((Math.abs(timeDiff) % (1000 * 60)) / 1000)
 
-    const formattedHours = hours.toString().padStart(2, '0')
-    const formattedMinutes = minutes.toString().padStart(2, '0')
-    const formattedSeconds = seconds.toString().padStart(2, '0')
-
-    return `${sign}${formattedHours}:${formattedMinutes}:${formattedSeconds}`
+    return `${sign}${hours
+      .toString()
+      .padStart(2, '0')}:${minutes
+      .toString()
+      .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
   }
 
   const getTextColor = () => {
     const timeString = remainingTime()
     const timeParts = timeString.split(':')
-    const hours = parseInt(timeParts[0])
 
-    if (hours < 0) {
-      return 'red' // якщо час вже минув, колір червоний
-    } else if (hours <= 0 && parseInt(timeParts[1]) <= 20) {
+    const isNegative = timeString.startsWith('-') // Перевіряємо, чи є знак "-"
+    const hours = parseInt(timeParts[0]) // Години (може бути 00 або -00)
+    const minutes = parseInt(timeParts[1]) // Хвилини
+
+    if (isNegative) {
+      return 'red' // якщо час уже минув, колір червоний
+    } else if (hours === 0 && minutes <= 30) {
       return 'pink' // якщо менше 30 хвилин, колір рожевий
     } else {
-      return 'white' // в інших випадках колір чорний
+      return 'white' // в інших випадках колір білий
     }
   }
 
@@ -71,7 +73,7 @@ const InputOrderDetailsCard = ({ order, index }) => {
               <div>
                 <ul>
                   {order.cartData.map((item) => (
-                    <div className='order-details-item' key={item.id}>
+                    <div className='order-details-item p2' key={item.id}>
                       <div>{item.name || 'Невідомий продукт'}</div>
                       <div>{item.quantity || '0'}</div>
                     </div>
@@ -100,10 +102,22 @@ const InputOrderDetailsCard = ({ order, index }) => {
           )}
         </div>
         <div className='block3'>
-          {order.timeFormData.deliveryTimeOption === 'nearest'
-            ? `Якнайшвидше - ${order.timeFormData.nextHour}`
-            : `На дату - ${order.timeFormData.selectedDate} На таку годину - ${order.timeFormData.selectedTime}`}
+          {order.timeFormData.deliveryTimeOption === 'nearest' ? (
+            <div>
+              <p>Якнайшвидше:</p>
+              <p>{new Date(order.timeFormData.nextHour).toLocaleString()}</p>
+            </div>
+          ) : (
+            <div>
+              <p>На дату: {order.timeFormData.selectedDate}</p>
+              <p>
+                На таку годину:{' '}
+                {new Date(order.timeFormData.selectedTime).toLocaleTimeString()}
+              </p>
+            </div>
+          )}
         </div>
+
         <div className='block4' style={{ background: getTextColor() }}>
           {remainingTime()}
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 // import InputOrderDetailsCard from './inputOrderDetailsCard'
 import orderss from '../data_orders.json'
 import TestInputOrderDetailsCart from './TestInputOrderDetailsCart'
@@ -8,32 +8,37 @@ function GetDatasFromDatabase({ loggedIn }) {
   const [orders, setOrders] = useState([])
   const [error, setError] = useState(null)
 
-  // useEffect(() => {
-  //   // console.log('orders', orders)
-  //   const fetchData = async () => {
-  //     // if (!loggedIn) return // Не виконувати запит, якщо не авторизовано
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/.netlify/functions/loadOrders')
 
-  //     try {
-  //       const response = await fetch('/.netlify/functions/loadOrders')
+        if (!response.ok) {
+          throw new Error('Failed to fetch orders')
+        }
 
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch orders')
-  //       }
+        const data = await response.json()
+        setOrders(data)
+      } catch (error) {
+        setError(error.message)
+      }
+    }
 
-  //       const data = await response.json()
-  //       setOrders(data)
-  //     } catch (error) {
-  //       setError(error.message)
-  //     }
-  //   }
+    fetchData()
+  }, [loggedIn])
 
-  //   fetchData()
-  // }, [loggedIn])
+  // Сортуємо замовлення по часу на найближчий
+  const sortedOrders = [...orders].sort((a, b) => {
+    // Перевірка наявності часу у кожному замовленні
+    const timeA = new Date(a.timeFormData?.nextHour)
+    const timeB = new Date(b.timeFormData?.nextHour)
 
-  const sortedOrders = orderss.sort((a, b) => {
-    const timeDiffA = new Date(a.timeFormData.nextHour) - new Date()
-    const timeDiffB = new Date(b.timeFormData.nextHour) - new Date()
-    return timeDiffA - timeDiffB
+    // Перевірка, щоб уникнути порожніх значень
+    if (isNaN(timeA) || isNaN(timeB)) {
+      return 0 // Якщо час некоректний, не змінюємо порядок
+    }
+
+    return timeA - timeB // Сортуємо від найменшого до найбільшого
   })
 
   return (
