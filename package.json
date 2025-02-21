@@ -14,7 +14,9 @@
     "proxy": "npx netlify-cms-proxy-server"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.6",
     "@reduxjs/toolkit": "^1.9.7",
+    "@shadcn/ui": "^0.0.4",
     "axios": "^1.6.5",
     "bcryptjs": "^2.4.3",
     "cross-fetch": "^4.0.0",
@@ -31,6 +33,7 @@
     "gatsby-transformer-remark": "^6.1.0",
     "gatsby-transformer-sharp": "^5.0.0",
     "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.475.0",
     "mongodb": "^6.3.0",
     "mongoose": "^8.3.2",
     "netlify-cli": "^12.2.7",
