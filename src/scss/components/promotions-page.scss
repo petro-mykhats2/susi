@@ -1,0 +1,208 @@
+.promotions-page {
+    &__title {
+      font-size: 2rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+  
+    &__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+  
+      @media (min-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+  
+      @media (min-width: 1024px) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  
+    &__button {
+      position: relative;
+      width: 100%;
+      text-align: left;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+  
+      &--active {
+        cursor: pointer;
+        &:hover {
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+          transform: translateY(-4px);
+        }
+      }
+  
+      &--disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+  
+      &--hovered {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      }
+    }
+  
+    &__card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 1.5rem;
+      // background-color: #f9f9f9;
+  
+      &--active {
+        border: 5px solid #e85f04;
+      }
+    }
+  
+    &__badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #ff6600;
+      color: white;
+      font-size: 0.75rem;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+  
+    &__content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  
+    &__header {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+  
+    &__icon {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    &__icon-img {
+      width: 1.5rem;
+      height: 1.5rem;
+      &--active {
+        color: #ff6600;
+      }
+      &--inactive {
+        color: #ccc;
+      }
+    }
+  
+    &__text {
+      flex-grow: 1;
+    }
+  
+    &__subtitle {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #333;
+    }
+  
+    &__description {
+      font-size: 0.875rem;
+      color: #666;
+    }
+  
+    &__image {
+      position: relative;
+      height: 8rem;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 50px;
+  
+      &-content {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+  
+      &__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+    }
+  
+    &__modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    &__modal {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 800px;
+      width: 90%;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+  
+    &__modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+  
+    &__modal-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+  
+    &__modal-content {
+      font-size: 1rem;
+      color: #444;
+    }
+  
+    &__modal-prizes,
+    &__modal-how-it-works {
+      margin-top: 1rem;
+    }
+  
+    &__modal-prizes ul,
+    &__modal-how-it-works ul {
+      list-style-type: disc;
+      margin-left: 1.5rem;
+    }
+  
+    &__modal-prizes li,
+    &__modal-how-it-works li {
+      font-size: 0.875rem;
+      color: #666;
+    }
+  }
+  
