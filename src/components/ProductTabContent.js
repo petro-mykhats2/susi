@@ -1,5 +1,6 @@
 import React from 'react'
 import ContentDisplay from './ContentDisplay'
+import Reviews from './Rewiew'
 
 const ProductTabContent = ({ selectedOption, pageContext }) => {
   return (
@@ -32,7 +33,7 @@ const ProductTabContent = ({ selectedOption, pageContext }) => {
       {selectedOption === 'reviews' && (
         <div className='product-info'>
           <h2>Відгуки</h2>
-          <p>Тут будуть відгуки</p>
+          <Reviews />
         </div>
       )}
     </div>
