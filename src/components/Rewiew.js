@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import ReviewForm from './ReviewForm'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Reviews = () => {
   const [showReviewForm, setShowReviewForm] = useState(false)
@@ -13,27 +15,33 @@ const Reviews = () => {
   })
 
   // Fetch reviews from database
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const response = await fetch('/.netlify/functions/sendReview')
-        const data = await response.json()
+  const fetchReviews = async () => {
+    try {
+      const response = await fetch('/.netlify/functions/sendReview')
+      const data = await response.json()
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch reviews')
-        }
-
-        setReviews(data)
-        setLoading(false)
-      } catch (err) {
-        console.error('Error fetching reviews:', err)
-        setError('Помилка при завантаженні відгуків')
-        setLoading(false)
+      if (!response.ok) {
+        throw new Error('Failed to fetch reviews')
       }
-    }
 
+      setReviews(data)
+      setLoading(false)
+    } catch (err) {
+      console.error('Error fetching reviews:', err)
+      setError('Помилка при завантаженні відгуків')
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
     fetchReviews()
   }, [])
+
+  const handleReviewSuccess = () => {
+    fetchReviews() // Оновлюємо список відгуків
+    setShowReviewForm(false) // Закриваємо форму
+    // toast.success('Відгук успішно додано!') // Показуємо сповіщення
+  }
 
   // Calculate overall rating
   const overallRating =
@@ -52,6 +60,7 @@ const Reviews = () => {
 
   return (
     <div className='reviews-section'>
+      <ToastContainer position='top-right' autoClose={3000} />
       <div className='reviews-header'>
         <div className='reviews-title'>Відгуки про товар</div>
         <div className='overall-rating'>
@@ -74,13 +83,12 @@ const Reviews = () => {
       </div>
 
       {showReviewForm && (
-        <div className='review-form'>
-          <ReviewForm
-            newReview={newReview}
-            setNewReview={setNewReview}
-            onCancel={() => setShowReviewForm(false)}
-          />
-        </div>
+        <ReviewForm
+          newReview={newReview}
+          setNewReview={setNewReview}
+          onCancel={() => setShowReviewForm(false)}
+          onSuccess={handleReviewSuccess}
+        />
       )}
 
       {reviews.map((review, index) => (

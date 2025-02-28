@@ -4,7 +4,7 @@ import { graphql } from 'gatsby'
 import OrdersTitle from '../components/OrdersTitle'
 import OrderLi from '../components/OrderLi'
 import MenuTop from '../components/MenuTop'
-import Reviews from '../components/Rewiew'
+// import Reviews from '../components/Rewiew'
 
 const IndexPage = ({ data }) => {
   const { section, allProducts, allTypesProducts } = data
@@ -44,7 +44,7 @@ const IndexPage = ({ data }) => {
     <Layout>
       <MenuTop data={allTypesProducts} />
       <OrdersTitle />
-      <Reviews />
+      {/* <Reviews /> */}
       <div className='decorative-image'>
         <img src='/img/wassabi.png' alt='dark theme' />
       </div>

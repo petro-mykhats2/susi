@@ -1,7 +1,7 @@
 import React from 'react'
 import { toast } from 'react-toastify'
 
-const ReviewForm = ({ newReview, setNewReview, onSubmit, onCancel }) => {
+const ReviewForm = ({ newReview, setNewReview, onCancel, onSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault() // Prevent default form submission
 
@@ -42,13 +42,15 @@ const ReviewForm = ({ newReview, setNewReview, onSubmit, onCancel }) => {
 
       toast.success('Відгук успішно додано!')
 
-      // Reset form and close
+      // Reset form
       setNewReview({
         author: '',
         rating: 5,
         text: '',
       })
-      onCancel() // Close form instead of onSubmit which is causing the error
+
+      // Викликаємо callback успішного додавання
+      onSuccess()
     } catch (error) {
       toast.error('Помилка при відправці відгуку')
       console.error('Error:', error)
