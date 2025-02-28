@@ -26,7 +26,14 @@ const Reviews = () => {
         throw new Error('Failed to fetch reviews')
       }
 
-      setReviews(data)
+      // Сортуємо відгуки за датою (найновіші спочатку)
+      const sortedReviews = data.sort((a, b) => {
+        const dateA = new Date(a.date.split('.').reverse().join('-'))
+        const dateB = new Date(b.date.split('.').reverse().join('-'))
+        return dateB - dateA
+      })
+
+      setReviews(sortedReviews)
       setLoading(false)
     } catch (err) {
       console.error('Error fetching reviews:', err)
