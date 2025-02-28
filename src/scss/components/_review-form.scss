@@ -1,0 +1,91 @@
+.review-form {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+
+    .form-group {
+        margin-bottom: 15px;
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+
+            &:focus {
+                outline: none;
+                border-color: $orange;
+            }
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+    }
+
+    .rating-input {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+
+        .star {
+            cursor: pointer;
+            font-size: 24px;
+            color: #ccc;
+            padding: 0 2px;
+            transition: color 0.2s ease;
+
+            &:hover,
+            &:hover ~ .star,
+            &.active {
+                color: gold;
+            }
+        }
+    }
+
+    .form-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+
+        button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+
+            &[type="submit"] {
+                background-color: $orange;
+                color: white;
+                border: none;
+
+                &:hover {
+                    background-color: darken($orange, 10%);
+                }
+            }
+
+            &[type="button"] {
+                background-color: #fff;
+                color: #666;
+                border: 1px solid #ddd;
+
+                &:hover {
+                    background-color: #f5f5f5;
+                }
+            }
+        }
+    }
+}

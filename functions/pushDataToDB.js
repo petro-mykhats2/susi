@@ -3,7 +3,6 @@ const { MongoClient } = require('mongodb')
 const uri = process.env.URI_DATABASE_SUSI
 
 const client = new MongoClient(uri, {
-  useNewUrlParser: true,
   useUnifiedTopology: true,
 })
 
