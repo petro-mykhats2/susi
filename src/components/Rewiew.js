@@ -43,6 +43,58 @@ const Reviews = () => {
     // toast.success('Відгук успішно додано!') // Показуємо сповіщення
   }
 
+  const handleHelpfulClick = async (reviewId) => {
+    // Перевіряємо, чи вже голосував користувач за цей відгук
+    const votedReviews = JSON.parse(
+      localStorage.getItem('votedReviews') || '[]'
+    )
+
+    if (votedReviews.includes(reviewId)) {
+      toast.info('Ви вже оцінили цей відгук')
+      return
+    }
+
+    try {
+      console.log('Sending helpful vote for review:', reviewId)
+
+      const response = await fetch('/.netlify/functions/sendReview', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'incrementHelpful',
+          reviewId: reviewId,
+        }),
+      })
+
+      const data = await response.json()
+      console.log('Response:', data)
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Помилка при оцінюванні відгуку')
+      }
+
+      if (data.matchedCount === 0) {
+        throw new Error('Відгук не знайдено')
+      }
+
+      // Зберігаємо ID відгуку в localStorage
+      localStorage.setItem(
+        'votedReviews',
+        JSON.stringify([...votedReviews, reviewId])
+      )
+
+      // Оновлюємо список відгуків
+      await fetchReviews()
+
+      toast.success('Дякуємо за вашу оцінку!')
+    } catch (error) {
+      console.error('Error:', error)
+      toast.error(error.message || 'Помилка при оцінюванні відгуку')
+    }
+  }
+
   // Calculate overall rating
   const overallRating =
     reviews.length > 0
@@ -91,8 +143,8 @@ const Reviews = () => {
         />
       )}
 
-      {reviews.map((review, index) => (
-        <div key={index} className='review-item'>
+      {reviews.map((review) => (
+        <div key={review._id} className='review-item'>
           <div className='review-header'>
             <div className='review-author'>{review.author}</div>
             <div className='review-date'>{review.date}</div>
@@ -120,8 +172,17 @@ const Reviews = () => {
               ))}
             </div>
           )}
-          <button className='helpful-btn'>
-            Корисний відгук ({review.helpfulCount})
+          <button
+            className={`helpful-btn ${
+              JSON.parse(localStorage.getItem('votedReviews') || '[]').includes(
+                review._id.toString()
+              )
+                ? 'voted'
+                : ''
+            }`}
+            onClick={() => handleHelpfulClick(review._id.toString())}
+          >
+            Корисний відгук ({review.helpfulCount || 0})
           </button>
         </div>
       ))}

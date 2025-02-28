@@ -36,20 +36,64 @@ exports.handler = async (event) => {
         body: JSON.stringify(results),
       }
     } else if (event.httpMethod === 'POST') {
-      const review = JSON.parse(event.body)
-      console.log('Received review data:', review)
+      const data = JSON.parse(event.body)
 
-      if (!review.author || !review.text || !review.rating) {
+      // Якщо це запит на оновлення helpfulCount
+      if (data.action === 'incrementHelpful') {
+        console.log('Updating helpful count for review:', data.reviewId)
+        try {
+          const { ObjectId } = require('mongodb')
+          const objectId = new ObjectId(data.reviewId)
+          console.log('Created ObjectId:', objectId)
+
+          const result = await collection.updateOne(
+            { _id: objectId },
+            { $inc: { helpfulCount: 1 } }
+          )
+          console.log('Update result:', result)
+
+          if (result.matchedCount === 0) {
+            return {
+              statusCode: 404,
+              body: JSON.stringify({
+                message: 'Відгук не знайдено',
+                reviewId: data.reviewId,
+              }),
+            }
+          }
+
+          return {
+            statusCode: 200,
+            body: JSON.stringify({
+              message: 'Оцінку оновлено',
+              modifiedCount: result.modifiedCount,
+              matchedCount: result.matchedCount,
+            }),
+          }
+        } catch (error) {
+          console.error('Error updating helpful count:', error)
+          return {
+            statusCode: 500,
+            body: JSON.stringify({
+              message: 'Помилка при оновленні оцінки',
+              error: error.message,
+            }),
+          }
+        }
+      }
+
+      // Якщо це новий відгук
+      if (!data.author || !data.text || !data.rating) {
         return {
           statusCode: 400,
           body: JSON.stringify({
             message: 'Всі поля повинні бути заповнені',
-            receivedData: review,
+            receivedData: data,
           }),
         }
       }
 
-      const result = await collection.insertOne(review)
+      const result = await collection.insertOne(data)
       console.log('Inserted review:', result)
 
       return {
