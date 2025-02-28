@@ -13,6 +13,8 @@ const Reviews = () => {
     rating: 5,
     text: '',
   })
+  const [currentPage, setCurrentPage] = useState(1)
+  const reviewsPerPage = 4
 
   // Fetch reviews from database
   const fetchReviews = async () => {
@@ -44,7 +46,6 @@ const Reviews = () => {
   }
 
   const handleHelpfulClick = async (reviewId) => {
-    // Перевіряємо, чи вже голосував користувач за цей відгук
     const votedReviews = JSON.parse(
       localStorage.getItem('votedReviews') || '[]'
     )
@@ -53,6 +54,21 @@ const Reviews = () => {
       toast.info('Ви вже оцінили цей відгук')
       return
     }
+
+    // Оптимістичне оновлення UI
+    setReviews((currentReviews) =>
+      currentReviews.map((review) =>
+        review._id === reviewId
+          ? { ...review, helpfulCount: (review.helpfulCount || 0) + 1 }
+          : review
+      )
+    )
+
+    // Зберігаємо ID відгуку в localStorage оптимістично
+    localStorage.setItem(
+      'votedReviews',
+      JSON.stringify([...votedReviews, reviewId])
+    )
 
     try {
       console.log('Sending helpful vote for review:', reviewId)
@@ -79,18 +95,25 @@ const Reviews = () => {
         throw new Error('Відгук не знайдено')
       }
 
-      // Зберігаємо ID відгуку в localStorage
-      localStorage.setItem(
-        'votedReviews',
-        JSON.stringify([...votedReviews, reviewId])
-      )
-
-      // Оновлюємо список відгуків
-      await fetchReviews()
-
       toast.success('Дякуємо за вашу оцінку!')
     } catch (error) {
       console.error('Error:', error)
+
+      // Відкат оптимістичного оновлення у випадку помилки
+      setReviews((currentReviews) =>
+        currentReviews.map((review) =>
+          review._id === reviewId
+            ? { ...review, helpfulCount: (review.helpfulCount || 0) - 1 }
+            : review
+        )
+      )
+
+      // Відкат localStorage
+      localStorage.setItem(
+        'votedReviews',
+        JSON.stringify(votedReviews.filter((id) => id !== reviewId))
+      )
+
       toast.error(error.message || 'Помилка при оцінюванні відгуку')
     }
   }
@@ -106,6 +129,20 @@ const Reviews = () => {
           count: reviews.length,
         }
       : { score: 0, count: 0 }
+
+  // Розрахунок пагінації
+  const indexOfLastReview = currentPage * reviewsPerPage
+  const indexOfFirstReview = indexOfLastReview - reviewsPerPage
+  const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview)
+  const totalPages = Math.ceil(reviews.length / reviewsPerPage)
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber)
+    // Прокручуємо до початку секції відгуків
+    document
+      .querySelector('.reviews-section')
+      .scrollIntoView({ behavior: 'smooth' })
+  }
 
   if (loading) return <div>Завантаження відгуків...</div>
   if (error) return <div>{error}</div>
@@ -143,7 +180,7 @@ const Reviews = () => {
         />
       )}
 
-      {reviews.map((review) => (
+      {currentReviews.map((review) => (
         <div key={review._id} className='review-item'>
           <div className='review-header'>
             <div className='review-author'>{review.author}</div>
@@ -186,6 +223,65 @@ const Reviews = () => {
           </button>
         </div>
       ))}
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className='pagination'>
+          {/* Кнопка "Назад" */}
+          {currentPage > 1 && (
+            <div
+              className='page-btn'
+              onClick={() => handlePageChange(currentPage - 1)}
+            >
+              ←
+            </div>
+          )}
+
+          {/* Номери сторінок */}
+          {[...Array(totalPages)].map((_, index) => {
+            const pageNumber = index + 1
+            // Показуємо тільки поточну сторінку та по 2 сторінки з кожного боку
+            if (
+              pageNumber === 1 ||
+              pageNumber === totalPages ||
+              (pageNumber >= currentPage - 2 && pageNumber <= currentPage + 2)
+            ) {
+              return (
+                <div
+                  key={pageNumber}
+                  className={`page-btn ${
+                    currentPage === pageNumber ? 'active' : ''
+                  }`}
+                  onClick={() => handlePageChange(pageNumber)}
+                >
+                  {pageNumber}
+                </div>
+              )
+            } else if (
+              pageNumber === currentPage - 3 ||
+              pageNumber === currentPage + 3
+            ) {
+              // Показуємо три крапки для пропущених сторінок
+              return (
+                <div key={pageNumber} className='page-dots'>
+                  ...
+                </div>
+              )
+            }
+            return null
+          })}
+
+          {/* Кнопка "Вперед" */}
+          {currentPage < totalPages && (
+            <div
+              className='page-btn'
+              onClick={() => handlePageChange(currentPage + 1)}
+            >
+              →
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }
