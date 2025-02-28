@@ -3,11 +3,11 @@ import ContentDisplay from './ContentDisplay'
 import Reviews from './Rewiew'
 
 const ProductTabContent = ({ selectedOption, pageContext }) => {
-  console.log('ProductTabContent pageContext:', pageContext) // Додаємо лог
+  // console.log('ProductTabContent pageContext:', pageContext) // Додаємо лог
 
   // Використовуємо slug замість sku як унікальний ідентифікатор
   const productId = pageContext?.slug
-  console.log('Resolved productId:', productId) // Додаємо лог
+  // console.log('Resolved productId:', productId) // Додаємо лог
 
   return (
     <div className='container'>
@@ -38,7 +38,7 @@ const ProductTabContent = ({ selectedOption, pageContext }) => {
 
       {selectedOption === 'reviews' && (
         <div className='product-info'>
-          {/* <h2>Відгуки</h2> */}
+          <h2>Відгуки про товар</h2>
           {productId ? (
             <Reviews productId={productId} />
           ) : (

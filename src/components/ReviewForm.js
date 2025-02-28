@@ -8,9 +8,13 @@ const ReviewForm = ({ newReview, setNewReview, onCancel, onSuccess }) => {
     // Додаємо логування
     console.log('Attempting to send review:', newReview)
 
-    // Validate required fields
-    if (!newReview.author || !newReview.text || !newReview.rating) {
-      toast.error('Будь ласка, заповніть всі поля')
+    // Додаємо перевірку на рейтинг
+    if (!newReview.author || !newReview.text || newReview.rating === 0) {
+      toast.error(
+        newReview.rating === 0
+          ? 'Будь ласка, оберіть рейтинг'
+          : 'Будь ласка, заповніть всі поля'
+      )
       return
     }
 
@@ -85,6 +89,9 @@ const ReviewForm = ({ newReview, setNewReview, onCancel, onSuccess }) => {
                 ★
               </span>
             ))}
+            {newReview.rating === 0 && (
+              <span className='rating-warning'>Оберіть оцінку</span>
+            )}
           </div>
         </div>
         <div className='form-group'>

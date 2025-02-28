@@ -13,7 +13,7 @@ const Reviews = ({ productId }) => {
 
   const [newReview, setNewReview] = useState({
     author: '',
-    rating: 5,
+    rating: 0,
     text: '',
     productId: productId,
   })
@@ -87,7 +87,7 @@ const Reviews = ({ productId }) => {
 
     setNewReview({
       author: '',
-      rating: 5,
+      rating: 0,
       text: '',
       productId: productId,
     })
@@ -219,7 +219,7 @@ const Reviews = ({ productId }) => {
     <div className='reviews-section'>
       <ToastContainer position='top-right' autoClose={3000} />
       <div className='reviews-header'>
-        <div className='reviews-title'>Відгуки про товар</div>
+        {/* <div className='reviews-title'></div> */}
         <div className='overall-rating'>
           <div className='rating-number'>{overallRating.score}</div>
           <div className='stars'>
