@@ -29,8 +29,13 @@ exports.handler = async (event) => {
     const collection = client.db('Susi').collection('Reviews')
 
     if (event.httpMethod === 'GET') {
-      // Handle GET request (fetch reviews)
-      const results = await collection.find({}).limit(20).toArray()
+      // Отримуємо productId (slug) з параметрів запиту
+      const { productId } = event.queryStringParameters || {}
+
+      // Якщо є productId, фільтруємо відгуки за ним
+      const query = productId ? { productId } : {}
+      const results = await collection.find(query).limit(20).toArray()
+
       return {
         statusCode: 200,
         body: JSON.stringify(results),
@@ -82,8 +87,8 @@ exports.handler = async (event) => {
         }
       }
 
-      // Якщо це новий відгук
-      if (!data.author || !data.text || !data.rating) {
+      // Перевіряємо наявність productId при створенні відгуку
+      if (!data.author || !data.text || !data.rating || !data.productId) {
         return {
           statusCode: 400,
           body: JSON.stringify({

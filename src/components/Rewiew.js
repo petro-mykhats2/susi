@@ -3,24 +3,39 @@ import ReviewForm from './ReviewForm'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-const Reviews = () => {
+const Reviews = ({ productId }) => {
   const [showReviewForm, setShowReviewForm] = useState(false)
   const [reviews, setReviews] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const reviewsPerPage = 4
+
   const [newReview, setNewReview] = useState({
     author: '',
     rating: 5,
     text: '',
+    productId: productId,
   })
-  const [currentPage, setCurrentPage] = useState(1)
-  const reviewsPerPage = 4
 
-  // Fetch reviews from database
+  // Fetch reviews for specific product
   const fetchReviews = async () => {
     try {
-      const response = await fetch('/.netlify/functions/sendReview')
+      console.log('Fetching reviews for productId:', productId)
+
+      if (!productId) {
+        console.log('No productId provided, skipping fetch')
+        setLoading(false)
+        return
+      }
+
+      const response = await fetch(
+        `/.netlify/functions/sendReview?productId=${productId}`
+      )
+      console.log('Response status:', response.status)
+
       const data = await response.json()
+      console.log('Received reviews:', data)
 
       if (!response.ok) {
         throw new Error('Failed to fetch reviews')
@@ -43,13 +58,31 @@ const Reviews = () => {
   }
 
   useEffect(() => {
+    console.log('Reviews component mounted with productId:', productId)
     fetchReviews()
-  }, [])
+  }, [productId])
+
+  // Оновлюємо початковий стан при зміні productId
+  useEffect(() => {
+    if (productId) {
+      setNewReview((prev) => ({
+        ...prev,
+        productId: productId,
+      }))
+    }
+  }, [productId])
 
   const handleReviewSuccess = () => {
     fetchReviews() // Оновлюємо список відгуків
     setShowReviewForm(false) // Закриваємо форму
-    // toast.success('Відгук успішно додано!') // Показуємо сповіщення
+
+    // Скидаємо форму, але зберігаємо productId
+    setNewReview({
+      author: '',
+      rating: 5,
+      text: '',
+      productId: productId,
+    })
   }
 
   const handleHelpfulClick = async (reviewId) => {
@@ -151,8 +184,9 @@ const Reviews = () => {
       .scrollIntoView({ behavior: 'smooth' })
   }
 
-  if (loading) return <div>Завантаження відгуків...</div>
+  if (loading && productId) return <div>Завантаження відгуків...</div>
   if (error) return <div>{error}</div>
+  if (!productId) return <div>Помилка: ID товару не вказано</div>
 
   return (
     <div className='reviews-section'>
@@ -187,107 +221,125 @@ const Reviews = () => {
         />
       )}
 
-      {currentReviews.map((review) => (
-        <div key={review._id} className='review-item'>
-          <div className='review-header'>
-            <div className='review-author'>{review.author}</div>
-            <div className='review-date'>{review.date}</div>
-          </div>
-          <div className='review-rating'>
-            <div className='stars'>
-              {[...Array(5)].map((_, i) => (
-                <div
-                  key={i}
-                  className='star'
-                  style={i >= review.rating ? { color: '#ccc' } : {}}
-                >
-                  ★
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className='review-text'>{review.text}</div>
-          {review.photos && (
-            <div className='review-photos'>
-              {review.photos.map((photo, photoIndex) => (
-                <div key={photoIndex} className='review-photo'>
-                  <img src={photo} alt='Фото відгуку' />
-                </div>
-              ))}
-            </div>
-          )}
-          <button
-            className={`helpful-btn ${
-              JSON.parse(localStorage.getItem('votedReviews') || '[]').includes(
-                review._id.toString()
-              )
-                ? 'voted'
-                : ''
-            }`}
-            onClick={() => handleHelpfulClick(review._id.toString())}
-          >
-            Корисний відгук ({review.helpfulCount || 0})
-          </button>
-        </div>
-      ))}
-
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <div className='pagination'>
-          {/* Кнопка "Назад" */}
-          {currentPage > 1 && (
-            <div
-              className='page-btn'
-              onClick={() => handlePageChange(currentPage - 1)}
+      {reviews.length === 0 ? (
+        <div className='no-reviews'>
+          <p>Цей товар ще не має відгуків.</p>
+          <p>Будьте першим, хто залишить відгук!</p>
+          {!showReviewForm && (
+            <button
+              className='write-review-btn'
+              onClick={() => setShowReviewForm(true)}
             >
-              ←
-            </div>
-          )}
-
-          {/* Номери сторінок */}
-          {[...Array(totalPages)].map((_, index) => {
-            const pageNumber = index + 1
-            // Показуємо тільки поточну сторінку та по 2 сторінки з кожного боку
-            if (
-              pageNumber === 1 ||
-              pageNumber === totalPages ||
-              (pageNumber >= currentPage - 2 && pageNumber <= currentPage + 2)
-            ) {
-              return (
-                <div
-                  key={pageNumber}
-                  className={`page-btn ${
-                    currentPage === pageNumber ? 'active' : ''
-                  }`}
-                  onClick={() => handlePageChange(pageNumber)}
-                >
-                  {pageNumber}
-                </div>
-              )
-            } else if (
-              pageNumber === currentPage - 3 ||
-              pageNumber === currentPage + 3
-            ) {
-              // Показуємо три крапки для пропущених сторінок
-              return (
-                <div key={pageNumber} className='page-dots'>
-                  ...
-                </div>
-              )
-            }
-            return null
-          })}
-
-          {/* Кнопка "Вперед" */}
-          {currentPage < totalPages && (
-            <div
-              className='page-btn'
-              onClick={() => handlePageChange(currentPage + 1)}
-            >
-              →
-            </div>
+              Написати відгук
+            </button>
           )}
         </div>
+      ) : (
+        <>
+          {currentReviews.map((review) => (
+            <div key={review._id} className='review-item'>
+              <div className='review-header'>
+                <div className='review-author'>{review.author}</div>
+                <div className='review-date'>{review.date}</div>
+              </div>
+              <div className='review-rating'>
+                <div className='stars'>
+                  {[...Array(5)].map((_, i) => (
+                    <div
+                      key={i}
+                      className='star'
+                      style={i >= review.rating ? { color: '#ccc' } : {}}
+                    >
+                      ★
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className='review-text'>{review.text}</div>
+              {review.photos && (
+                <div className='review-photos'>
+                  {review.photos.map((photo, photoIndex) => (
+                    <div key={photoIndex} className='review-photo'>
+                      <img src={photo} alt='Фото відгуку' />
+                    </div>
+                  ))}
+                </div>
+              )}
+              <button
+                className={`helpful-btn ${
+                  JSON.parse(
+                    localStorage.getItem('votedReviews') || '[]'
+                  ).includes(review._id.toString())
+                    ? 'voted'
+                    : ''
+                }`}
+                onClick={() => handleHelpfulClick(review._id.toString())}
+              >
+                Корисний відгук ({review.helpfulCount || 0})
+              </button>
+            </div>
+          ))}
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className='pagination'>
+              {/* Кнопка "Назад" */}
+              {currentPage > 1 && (
+                <div
+                  className='page-btn'
+                  onClick={() => handlePageChange(currentPage - 1)}
+                >
+                  ←
+                </div>
+              )}
+
+              {/* Номери сторінок */}
+              {[...Array(totalPages)].map((_, index) => {
+                const pageNumber = index + 1
+                // Показуємо тільки поточну сторінку та по 2 сторінки з кожного боку
+                if (
+                  pageNumber === 1 ||
+                  pageNumber === totalPages ||
+                  (pageNumber >= currentPage - 2 &&
+                    pageNumber <= currentPage + 2)
+                ) {
+                  return (
+                    <div
+                      key={pageNumber}
+                      className={`page-btn ${
+                        currentPage === pageNumber ? 'active' : ''
+                      }`}
+                      onClick={() => handlePageChange(pageNumber)}
+                    >
+                      {pageNumber}
+                    </div>
+                  )
+                } else if (
+                  pageNumber === currentPage - 3 ||
+                  pageNumber === currentPage + 3
+                ) {
+                  // Показуємо три крапки для пропущених сторінок
+                  return (
+                    <div key={pageNumber} className='page-dots'>
+                      ...
+                    </div>
+                  )
+                }
+                return null
+              })}
+
+              {/* Кнопка "Вперед" */}
+              {currentPage < totalPages && (
+                <div
+                  className='page-btn'
+                  onClick={() => handlePageChange(currentPage + 1)}
+                >
+                  →
+                </div>
+              )}
+            </div>
+          )}
+        </>
       )}
     </div>
   )

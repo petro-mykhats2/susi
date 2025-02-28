@@ -42,17 +42,19 @@ const ReviewForm = ({ newReview, setNewReview, onCancel, onSuccess }) => {
 
       toast.success('Відгук успішно додано!')
 
-      // Reset form
+      // Зберігаємо productId при очищенні форми
+      const productId = newReview.productId
       setNewReview({
         author: '',
         rating: 5,
         text: '',
+        productId: productId, // Зберігаємо productId
       })
 
       // Викликаємо callback успішного додавання
       onSuccess()
     } catch (error) {
-      toast.error('Помилка при відправці відгуку')
+      toast.error(error.message || 'Помилка при відправці відгуку')
       console.error('Error:', error)
     }
   }
