@@ -162,3 +162,13 @@
   .page-btn:hover:not(.active) {
     background: #f1f1f1;
   }
+
+  .review-limit-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: 1px solid #ffeeba;
+    margin: 10px 0;
+    text-align: center;
+  }

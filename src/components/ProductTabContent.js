@@ -38,7 +38,7 @@ const ProductTabContent = ({ selectedOption, pageContext }) => {
 
       {selectedOption === 'reviews' && (
         <div className='product-info'>
-          <h2>Відгуки</h2>
+          {/* <h2>Відгуки</h2> */}
           {productId ? (
             <Reviews productId={productId} />
           ) : (

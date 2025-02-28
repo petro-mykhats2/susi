@@ -21,10 +21,7 @@ const Reviews = ({ productId }) => {
   // Fetch reviews for specific product
   const fetchReviews = async () => {
     try {
-      console.log('Fetching reviews for productId:', productId)
-
       if (!productId) {
-        console.log('No productId provided, skipping fetch')
         setLoading(false)
         return
       }
@@ -32,10 +29,8 @@ const Reviews = ({ productId }) => {
       const response = await fetch(
         `/.netlify/functions/sendReview?productId=${productId}`
       )
-      console.log('Response status:', response.status)
 
       const data = await response.json()
-      console.log('Received reviews:', data)
 
       if (!response.ok) {
         throw new Error('Failed to fetch reviews')
@@ -58,7 +53,6 @@ const Reviews = ({ productId }) => {
   }
 
   useEffect(() => {
-    console.log('Reviews component mounted with productId:', productId)
     fetchReviews()
   }, [productId])
 
@@ -72,17 +66,50 @@ const Reviews = ({ productId }) => {
     }
   }, [productId])
 
-  const handleReviewSuccess = () => {
-    fetchReviews() // Оновлюємо список відгуків
-    setShowReviewForm(false) // Закриваємо форму
+  // Перевіряємо кількість коментарів користувача для цього товару
+  const checkUserReviewLimit = () => {
+    const userReviews = JSON.parse(localStorage.getItem('userReviews') || '{}')
+    const productReviews = userReviews[productId] || 0
+    return productReviews >= 3
+  }
 
-    // Скидаємо форму, але зберігаємо productId
+  // Оновлюємо лічильник коментарів користувача
+  const incrementUserReviewCount = () => {
+    const userReviews = JSON.parse(localStorage.getItem('userReviews') || '{}')
+    userReviews[productId] = (userReviews[productId] || 0) + 1
+    localStorage.setItem('userReviews', JSON.stringify(userReviews))
+  }
+
+  const handleReviewSuccess = () => {
+    incrementUserReviewCount()
+    fetchReviews()
+    setShowReviewForm(false)
+
     setNewReview({
       author: '',
       rating: 5,
       text: '',
       productId: productId,
     })
+  }
+
+  // Модифікуємо рендер кнопки "Залишити відгук"
+  const renderReviewButton = () => {
+    if (checkUserReviewLimit()) {
+      return (
+        <div className='review-limit-warning'>
+          Ви досягли ліміту відгуків для цього товару (максимум 3)
+        </div>
+      )
+    }
+    return (
+      <button
+        className='write-review-btn'
+        onClick={() => setShowReviewForm(true)}
+      >
+        Залишити відгук
+      </button>
+    )
   }
 
   const handleHelpfulClick = async (reviewId) => {
@@ -111,7 +138,7 @@ const Reviews = ({ productId }) => {
     )
 
     try {
-      console.log('Sending helpful vote for review:', reviewId)
+      // console.log('Sending helpful vote for review:', reviewId)
 
       const response = await fetch('/.netlify/functions/sendReview', {
         method: 'POST',
@@ -204,15 +231,10 @@ const Reviews = ({ productId }) => {
           </div>
           <div className='rating-count'>({overallRating.count})</div>
         </div>
-        <button
-          className='write-review-btn'
-          onClick={() => setShowReviewForm(true)}
-        >
-          Залишити відгук
-        </button>
+        {renderReviewButton()}
       </div>
 
-      {showReviewForm && (
+      {showReviewForm && !checkUserReviewLimit() && (
         <ReviewForm
           newReview={newReview}
           setNewReview={setNewReview}
@@ -225,7 +247,7 @@ const Reviews = ({ productId }) => {
         <div className='no-reviews'>
           <p>Цей товар ще не має відгуків.</p>
           <p>Будьте першим, хто залишить відгук!</p>
-          {!showReviewForm && (
+          {!showReviewForm && !checkUserReviewLimit() && (
             <button
               className='write-review-btn'
               onClick={() => setShowReviewForm(true)}

@@ -87,6 +87,23 @@ exports.handler = async (event) => {
         }
       }
 
+      // Перевіряємо кількість відгуків від користувача
+      const existingReviews = await collection
+        .find({
+          productId: data.productId,
+          author: data.author,
+        })
+        .toArray()
+
+      if (existingReviews.length >= 3) {
+        return {
+          statusCode: 400,
+          body: JSON.stringify({
+            message: 'Ви досягли ліміту відгуків для цього товару (максимум 3)',
+          }),
+        }
+      }
+
       // Перевіряємо наявність productId при створенні відгуку
       if (!data.author || !data.text || !data.rating || !data.productId) {
         return {

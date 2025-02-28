@@ -21,7 +21,7 @@ const ReviewForm = ({ newReview, setNewReview, onCancel, onSuccess }) => {
         helpfulCount: 0,
       }
 
-      console.log('Sending data:', reviewData)
+      // console.log('Sending data:', reviewData)
 
       const response = await fetch('/.netlify/functions/sendReview', {
         method: 'POST',
@@ -32,9 +32,9 @@ const ReviewForm = ({ newReview, setNewReview, onCancel, onSuccess }) => {
       })
 
       // Додаємо логування відповіді
-      console.log('Response status:', response.status)
+      // console.log('Response status:', response.status)
       const data = await response.json()
-      console.log('Response data:', data)
+      // console.log('Response data:', data)
 
       if (!response.ok) {
         throw new Error(data.message || 'Помилка при відправці відгуку')
