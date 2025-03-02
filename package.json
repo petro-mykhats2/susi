@@ -33,7 +33,7 @@
     "gatsby-transformer-remark": "^6.1.0",
     "gatsby-transformer-sharp": "^5.0.0",
     "jsonwebtoken": "^9.0.2",
-    "lucide-react": "^0.475.0",
+    "lucide-react": "^0.477.0",
     "mongodb": "^6.3.0",
     "mongoose": "^8.3.2",
     "netlify-cli": "^12.2.7",
