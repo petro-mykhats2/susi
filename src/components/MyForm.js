@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 
-const MyForm = () => {
+const MyForm = ({ onSubmit }) => {
   // Створюємо стани для полів форми
   const [formData, setFormData] = useState({
     name: '',
+    phone: '', // Додано поле телефону
     email: '',
-    comment: '',
+    message: '', // Перейменовано з comment на message для відповідності з API
   })
 
   const [formError, setFormError] = useState(null) // Для відображення помилок
@@ -25,19 +26,25 @@ const MyForm = () => {
     setFormError(null) // Скидаємо попередні помилки
 
     // Перевірка, чи заповнені всі поля
-    if (!formData.name || !formData.email || !formData.comment) {
+    if (
+      !formData.name ||
+      !formData.phone ||
+      !formData.email ||
+      !formData.message
+    ) {
       setFormError('Будь ласка, заповніть всі поля!')
       return
     }
 
-    // Логіка відправки форми (наприклад, до сервера)
-    alert('Форма відправлена!')
+    // Передаємо дані в батьківський компонент
+    onSubmit(formData)
 
     // Очищаємо форму після успішної відправки
     setFormData({
       name: '',
+      phone: '',
       email: '',
-      comment: '',
+      message: '',
     })
   }
 
@@ -54,12 +61,22 @@ const MyForm = () => {
             value={formData.name} // Задаємо значення для інпутів
             required
           />
-          <label htmlFor='name'>Імя</label>
+          <label htmlFor='name'>Ім'я</label>
+        </div>
+        <div className='group'>
+          <input
+            type='tel'
+            name='phone'
+            placeholder='‎'
+            onChange={handleInputChange}
+            value={formData.phone} // Задаємо значення для інпутів
+            required
+          />
+          <label htmlFor='phone'>Телефон</label>
         </div>
         <div className='group'>
           <input
             type='email'
-            id='email'
             name='email'
             placeholder='‎'
             onChange={handleInputChange}
@@ -70,15 +87,14 @@ const MyForm = () => {
         </div>
         <div className='group'>
           <textarea
-            id='comment'
-            name='comment'
+            name='message'
             placeholder='‎'
             onChange={handleInputChange}
             rows='5'
-            value={formData.comment} // Задаємо значення для інпутів
+            value={formData.message} // Задаємо значення для інпутів
             required
           />
-          <label htmlFor='comment'>Напишіть текст</label>
+          <label htmlFor='message'>Напишіть текст</label>
         </div>
 
         {/* Кнопка відправки */}
