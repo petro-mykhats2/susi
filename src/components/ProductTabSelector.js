@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ProductTabSelector = ({ selectedOption, handleChange }) => {
+const ProductTabSelector = ({ selectedOption, handleChange, reviewsCount }) => {
   // Функція для прокрутки на 50px вниз
   const handleScroll = () => {
     window.scrollBy({
@@ -61,7 +61,12 @@ const ProductTabSelector = ({ selectedOption, handleChange }) => {
             handleScroll() // Виклик прокрутки
           }}
         />
-        <span className='name'>Відгуки</span>
+        <span className='name'>
+          Відгуки
+          {reviewsCount !== undefined && (
+            <span className='reviews-count'>({reviewsCount})</span>
+          )}
+        </span>
       </label>
     </div>
   )

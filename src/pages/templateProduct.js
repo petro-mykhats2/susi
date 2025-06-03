@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Layout from '../layout'
 import { Link } from 'gatsby'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,6 +13,7 @@ function Product({ pageContext }) {
   const productComposition = pageContext.product_composition
   const [counter, setCounter] = useState(1)
   const [selectedOption, setSelectedOption] = useState('info')
+  const [reviewsCount, setReviewsCount] = useState(0)
 
   const siteSetting = useSiteSettings()
 
@@ -104,6 +105,23 @@ function Product({ pageContext }) {
         category.node.fields.slug ===
         (pageContext && pageContext.categoryProduct)
     )
+
+  // Отримуємо кількість відгуків при завантаженні сторінки
+  useEffect(() => {
+    const fetchReviewsCount = async () => {
+      try {
+        const response = await fetch(
+          `/.netlify/functions/sendReview?productId=${pageContext.slug}`
+        )
+        const data = await response.json()
+        setReviewsCount(data.length)
+      } catch (error) {
+        console.error('Error fetching reviews count:', error)
+      }
+    }
+
+    fetchReviewsCount()
+  }, [pageContext.slug])
 
   return (
     <Layout>
@@ -228,7 +246,8 @@ function Product({ pageContext }) {
       </div>
       <ProductTabSelector
         selectedOption={selectedOption}
-        handleChange={handleChange}
+        handleChange={(e) => setSelectedOption(e.target.value)}
+        reviewsCount={reviewsCount}
       />
       <ProductTabContent
         selectedOption={selectedOption}

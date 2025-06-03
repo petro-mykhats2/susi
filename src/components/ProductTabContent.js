@@ -1,7 +1,14 @@
 import React from 'react'
 import ContentDisplay from './ContentDisplay'
+import Reviews from './Rewiew'
 
 const ProductTabContent = ({ selectedOption, pageContext }) => {
+  // console.log('ProductTabContent pageContext:', pageContext) // Додаємо лог
+
+  // Використовуємо slug замість sku як унікальний ідентифікатор
+  const productId = pageContext?.slug
+  // console.log('Resolved productId:', productId) // Додаємо лог
+
   return (
     <div className='container'>
       {selectedOption === 'info' && (
@@ -31,8 +38,12 @@ const ProductTabContent = ({ selectedOption, pageContext }) => {
 
       {selectedOption === 'reviews' && (
         <div className='product-info'>
-          <h2>Відгуки</h2>
-          <p>Тут будуть відгуки</p>
+          <h2>Відгуки про товар</h2>
+          {productId ? (
+            <Reviews productId={productId} />
+          ) : (
+            <div>Помилка: Не вдалося визначити ID товару</div>
+          )}
         </div>
       )}
     </div>

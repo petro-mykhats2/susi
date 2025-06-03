@@ -32,41 +32,51 @@ exports.handler = async function (event, context) {
     0
   )
 
-  // Отримання даних про замовника
-  const customerInfo = `Ім'я: ${name}\nТелефон: ${phone}\nПовідомлення: ${message}`
+  // Формування повідомлення в більш читабельному форматі
+  const messageToSend = `
+🛍️ *НОВЕ ЗАМОВЛЕННЯ*
 
-  // Отримання даних про доставку
-  const deliveryInfo = `Опція доставки: ${deliveryFormData.deliveryOption}\nАдреса для самовивозу: ${deliveryFormData.pickupAddress}`
+👤 *Інформація про замовника:*
+• Ім'я: ${name}
+• Телефон: ${phone}
+${message ? `• Коментар: ${message}` : ''}
 
-  // Отримання даних про час доставки
-  const timeInfo = `Опція часу доставки: ${timeFormData.deliveryTimeOption}\nНайближча година: ${timeFormData.nextHour}`
+📦 *Доставка:*
+• Тип: ${deliveryFormData.deliveryOption}
+• Адреса: ${deliveryFormData.pickupAddress}
 
-  // Отримання даних про аксесуари
-  const accessoriesInfo = `Кількість аксесуарів: ${
-    accessoriesData.quantity
-  }\nНавчальні палочки: ${accessoriesData.educational ? 'Так' : 'Ні'}`
+⏰ *Час доставки:*
+• Опція: ${timeFormData.deliveryTimeOption}
+• Час: ${timeFormData.nextHour}
 
-  // Отримання даних про замовлення
-  const cartItemsInfo = cartData
-    .map(
-      (item) =>
-        `${item.name} - Кількість: ${item.quantity} - Ціна: ${
-          item.price
-        } грн - Сума: ${item.price * item.quantity} грн`
-    )
-    .join('\n')
+🥢 *Додатково:*
+• Кількість наборів: ${accessoriesData.quantity}
+• Навчальні палички: ${accessoriesData.educational ? '✅' : '❌'}
 
-  // Знижка і сума замовлення
-  const discountInfo = `Знижка: ${promoCodeDiscount}%\nЗагальна сума: ${totalPrice} грн\nСума зі знижкою: ${totalPriceWithDiscount.toFixed(
-    2
-  )} грн`
+🍱 *Замовлені страви:*
+${cartData
+  .map(
+    (item) =>
+      `• ${item.name}
+   Кількість: ${item.quantity} шт.
+   Ціна: ${item.price} грн
+   Сума: ${(item.price * item.quantity).toFixed(2)} грн`
+  )
+  .join('\n\n')}
 
-  // Складання всіх даних в один текстовий рядок
-  const messageToSend = `${customerInfo}\n\nДані доставки:\n${deliveryInfo}\n\nДані про час доставки:\n${timeInfo}\n\nДані про аксесуари:\n${accessoriesInfo}\n\nЗамовлення:\n${cartItemsInfo}\n\n${discountInfo}`
+💰 *Підсумок:*
+• Сума замовлення: ${totalPrice.toFixed(2)} грн
+${
+  promoCodeDiscount > 0
+    ? `• Знижка: ${promoCodeDiscount}%
+• Сума зі знижкою: ${totalPriceWithDiscount.toFixed(2)} грн`
+    : ''
+}
+`
 
   try {
-    // Відправка повідомлення
-    await bot.sendMessage(chatId, messageToSend)
+    // Відправка повідомлення з форматуванням Markdown
+    await bot.sendMessage(chatId, messageToSend, { parse_mode: 'Markdown' })
     return {
       statusCode: 200,
       body: JSON.stringify({ message: 'Повідомлення відправлено' }),
