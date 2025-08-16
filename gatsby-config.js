@@ -1,6 +1,8 @@
+require('dotenv').config()
+
 module.exports = {
   siteMetadata: {
-    title: `SiteName - main idea or description`,
+    title: `Sushi & Rolls`,
   },
   plugins: [
     {
@@ -55,6 +57,22 @@ module.exports = {
       options: {
         name: `landing`,
         path: `${__dirname}/content/landing/`,
+        ignore: [`**/\.*`], // ігнорувати файли, що починаються з крапки
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: `siteSettings`,
+        path: `${__dirname}/content/siteSettings/`,
+        ignore: [`**/\.*`], // ігнорувати файли, що починаються з крапки
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: `siteContent`,
+        path: `${__dirname}/content/siteContent/`,
         ignore: [`**/\.*`], // ігнорувати файли, що починаються з крапки
       },
     },

@@ -1,0 +1,61 @@
+/* From Uiverse.io by Yaya12085 */
+.loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px; 
+  }
+  
+  .icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    animation: spin 1s linear infinite;
+    stroke: rgba(107, 114, 128, 1);
+  }
+  
+  .loading-text {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 500;
+    color: rgba(107, 114, 128, 1);
+    margin-left: 10px;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  // new loader
+
+  /* HTML: <div class="loader"></div> */
+  .loader {
+    width: 50px;
+    --b: 8px; 
+    aspect-ratio: 1;
+    border-radius: 50%;
+    padding: 1px;
+    background: conic-gradient(#0000 10%, $orange) content-box;
+  
+    /* Спочатку стандартне властивість */
+    mask: 
+      repeating-conic-gradient(#0000 0deg,#000 1deg 20deg,#0000 21deg 36deg),
+      radial-gradient(farthest-side,#0000 calc(100% - var(--b) - 1px),#000 calc(100% - var(--b)));
+  
+    /* Префіксована версія для сумісності з WebKit */
+    -webkit-mask: 
+      repeating-conic-gradient(#0000 0deg,#000 1deg 20deg,#0000 21deg 36deg),
+      radial-gradient(farthest-side,#0000 calc(100% - var(--b) - 1px),#000 calc(100% - var(--b)));
+  
+    /* Стандартне і WebKit об'єднання для маски */
+    mask-composite: intersect;
+    -webkit-mask-composite: destination-in;
+  
+    animation:l4 1s infinite steps(10);
+  }
+  
+  @keyframes l4 {
+    to {transform: rotate(1turn);}
+  }
+  

@@ -1,5 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api')
 const token = process.env.SUSHI_TELEGRAM_TOKEN
+
 const bot = new TelegramBot(token, { polling: false })
 
 exports.handler = async function (event, context) {
@@ -21,38 +22,61 @@ exports.handler = async function (event, context) {
     timeFormData,
     accessoriesData,
     cartData,
+    totalPriceWithDiscount,
+    promoCodeDiscount,
   } = requestBody
 
-  // Отримання даних про замовника
-  const customerInfo = `Ім'я: ${name}\nТелефон: ${phone}\nПовідомлення: ${message}`
+  // Розрахунок загальної суми без знижки
+  const totalPrice = cartData.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  )
 
-  // Отримання даних про доставку
-  const deliveryInfo = `Опція доставки: ${deliveryFormData.deliveryOption}\nАдреса для самовивозу: ${deliveryFormData.pickupAddress}`
+  // Формування повідомлення в більш читабельному форматі
+  const messageToSend = `
+🛍️ *НОВЕ ЗАМОВЛЕННЯ*
 
-  // Отримання даних про час доставки
-  const timeInfo = `Опція часу доставки: ${timeFormData.deliveryTimeOption}\nНайближча година: ${timeFormData.nextHour}`
+👤 *Інформація про замовника:*
+• Ім'я: ${name}
+• Телефон: ${phone}
+${message ? `• Коментар: ${message}` : ''}
 
-  // Отримання даних про аксесуари
-  const accessoriesInfo = `Кількість аксесуарів: ${
-    accessoriesData.quantity
-  }\nНавчальні палочки: ${accessoriesData.educational ? 'Так' : 'Ні'}`
+📦 *Доставка:*
+• Тип: ${deliveryFormData.deliveryOption}
+• Адреса: ${deliveryFormData.pickupAddress}
 
-  // Отримання даних про замовлення
-  const cartItemsInfo = cartData
-    .map(
-      (item) =>
-        `${item.name} - Кількість: ${item.quantity} - Ціна: ${
-          item.price
-        } грн - Сума: ${item.price * item.quantity} грн`
-    )
-    .join('\n')
+⏰ *Час доставки:*
+• Опція: ${timeFormData.deliveryTimeOption}
+• Час: ${timeFormData.nextHour}
 
-  // Складання всіх даних в один текстовий рядок
-  const messageToSend = `${customerInfo}\n\nДані доставки:\n${deliveryInfo}\n\nДані про час доставки:\n${timeInfo}\n\nДані про аксесуари:\n${accessoriesInfo}\n\nЗамовлення:\n${cartItemsInfo}`
+🥢 *Додатково:*
+• Кількість наборів: ${accessoriesData.quantity}
+• Навчальні палички: ${accessoriesData.educational ? '✅' : '❌'}
+
+🍱 *Замовлені страви:*
+${cartData
+  .map(
+    (item) =>
+      `• ${item.name}
+   Кількість: ${item.quantity} шт.
+   Ціна: ${item.price} грн
+   Сума: ${(item.price * item.quantity).toFixed(2)} грн`
+  )
+  .join('\n\n')}
+
+💰 *Підсумок:*
+• Сума замовлення: ${totalPrice.toFixed(2)} грн
+${
+  promoCodeDiscount > 0
+    ? `• Знижка: ${promoCodeDiscount}%
+• Сума зі знижкою: ${totalPriceWithDiscount.toFixed(2)} грн`
+    : ''
+}
+`
 
   try {
-    // Відправка повідомлення
-    await bot.sendMessage(chatId, messageToSend)
+    // Відправка повідомлення з форматуванням Markdown
+    await bot.sendMessage(chatId, messageToSend, { parse_mode: 'Markdown' })
     return {
       statusCode: 200,
       body: JSON.stringify({ message: 'Повідомлення відправлено' }),

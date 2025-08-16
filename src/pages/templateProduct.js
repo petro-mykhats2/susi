@@ -1,14 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Layout from '../layout'
 import { Link } from 'gatsby'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../redux/cart'
 import { addToFavorite, removeFromFavorite } from '../redux/favorite'
+import ProductTabSelector from '../components/ProductTabSelector'
+import ProductTabContent from '../components/ProductTabContent'
+import useSiteSettings from '../hooks/useSiteSettings'
 
 function Product({ pageContext }) {
   const ingredients = pageContext.ingredients
   const productComposition = pageContext.product_composition
   const [counter, setCounter] = useState(1)
+  const [selectedOption, setSelectedOption] = useState('info')
+  const [reviewsCount, setReviewsCount] = useState(0)
+
+  const siteSetting = useSiteSettings()
+
+  const handleChange = (event) => {
+    setSelectedOption(event.target.value)
+  }
 
   // Функція для перевірки наявності інгредієнта
   const isIngredientAvailable = (ingredientName) => {
@@ -95,6 +106,23 @@ function Product({ pageContext }) {
         (pageContext && pageContext.categoryProduct)
     )
 
+  // Отримуємо кількість відгуків при завантаженні сторінки
+  useEffect(() => {
+    const fetchReviewsCount = async () => {
+      try {
+        const response = await fetch(
+          `/.netlify/functions/sendReview?productId=${pageContext.slug}`
+        )
+        const data = await response.json()
+        setReviewsCount(data.length)
+      } catch (error) {
+        console.error('Error fetching reviews count:', error)
+      }
+    }
+
+    fetchReviewsCount()
+  }, [pageContext.slug])
+
   return (
     <Layout>
       <div className='breadcrumb'>
@@ -147,12 +175,17 @@ function Product({ pageContext }) {
             )}
 
             <div className='product-label'>Кількість:</div>
-            <div className='product-label_under'>8 шт</div>
-            {pageContext.weight && (
+            {pageContext.quantity && pageContext.quantity_unit && (
+              <div className='product-label_under'>
+                {pageContext.quantity} {pageContext.quantity_unit}
+              </div>
+            )}
+
+            {pageContext.weight && pageContext.weight_unit && (
               <>
                 <div className='product-label'>Вага: </div>
                 <div className='product-label_under'>
-                  {pageContext.weight} г
+                  {pageContext.weight} {pageContext.weight_unit}
                 </div>
               </>
             )}
@@ -183,7 +216,7 @@ function Product({ pageContext }) {
           <div className='product-right_bottom'>
             <div className='product-right_bottom_left'>
               <div className='product-price'>
-                {pageContext.price.toFixed(2) * counter} грн
+                {pageContext.price.toFixed(2) * counter} {siteSetting.currency}
               </div>
               <div className='product-calc'>
                 <div className='product-calc_less' onClick={decrementCounter}>
@@ -211,7 +244,15 @@ function Product({ pageContext }) {
           </div>
         </div>
       </div>
-      <div className='product-info'>{pageContext.description}</div>
+      <ProductTabSelector
+        selectedOption={selectedOption}
+        handleChange={(e) => setSelectedOption(e.target.value)}
+        reviewsCount={reviewsCount}
+      />
+      <ProductTabContent
+        selectedOption={selectedOption}
+        pageContext={pageContext}
+      />
     </Layout>
   )
 }

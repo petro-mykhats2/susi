@@ -25,7 +25,6 @@ const Sidebar = ({ isOpen }) => {
   }
 
   const cartItems = useSelector((state) => state.cart.cartItems)
-  console.log('cartItems', cartItems)
   const totalQuantity = cartItems.reduce(
     (total, item) => total + item.quantity,
     0
@@ -103,7 +102,7 @@ const Sidebar = ({ isOpen }) => {
             <Link className='sparkle u-hover--sparkle' to='/'>
               Доставка
             </Link>
-            <Link className='sparkle u-hover--sparkle' to='/'>
+            <Link className='sparkle u-hover--sparkle' to='/promotions-page'>
               Акції
             </Link>
             <Link className='sparkle u-hover--sparkle' to='/favorite/'>
@@ -147,6 +146,13 @@ const Sidebar = ({ isOpen }) => {
                 to='/favorite/'
                 onClick={() => closeMenu()}
               >
+                <Link
+                  className='menu-item'
+                  to='/promotions-page/'
+                  onClick={() => closeMenu()}
+                >
+                  Акції
+                </Link>
                 {totalFavoriteItems > 0 ? (
                   <div className='shopping-cart-count'>
                     {totalFavoriteItems}

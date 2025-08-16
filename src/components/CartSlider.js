@@ -1,166 +1,46 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import Cart from './Cart'
-import fetch from 'cross-fetch'
-import { useSelector, useDispatch } from 'react-redux'
-import { clearCart } from '../redux/cart'
+import { useSelector } from 'react-redux'
 import DeliveryForm from './DeliveryForm'
 import DeliveryTime from './DeliveryTime'
 import Accessories from './Accessories'
+import PromoCodeChecker from './PromoCodeChecker'
+import CartHeader from './CartHeader'
+import Notification from './Notification'
+import LoaderOverlay from './LoaderOverlay'
+import useOrderForm from './useOrderForm'
 
 const CartSlider = ({ isOpen, onClose }) => {
-  const [isOrdering, setIsOrdering] = useState(false)
-  const [successMessage, setSuccessMessage] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
-  const [nameError, setNameError] = useState(false)
-  const [phoneError, setPhoneError] = useState(false)
-  const [addressError, setAddressError] = useState(false)
-  const errorBlockRef = useRef(null)
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    message: '',
-    deliveryFormData: {},
-    timeFormData: {},
-    cartData: [],
-    accessoriesData: {
-      quantity: 2,
-      educational: false,
-    },
-  })
-
-  const dispatch = useDispatch()
   const cartItems = useSelector((state) => state.cart.cartItems)
+  const totalPrice = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  )
 
-  useEffect(() => {
-    setFormData((prevData) => ({
-      ...prevData,
-      cartData: cartItems,
-    }))
-  }, [cartItems])
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-
-    if (
-      !formData.name ||
-      !formData.phone ||
-      !formData.deliveryFormData.pickupAddress
-    ) {
-      setNameError(!formData.name)
-      setPhoneError(!formData.phone)
-      setAddressError(true)
-
-      if (errorBlockRef.current) {
-        errorBlockRef.current.focus()
-      }
-      return
-    }
-
-    setIsOrdering(true)
-
-    try {
-      const requestOptions = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          message: formData.message,
-          phone: formData.phone,
-          deliveryFormData: formData.deliveryFormData,
-          timeFormData: formData.timeFormData,
-          accessoriesData: formData.accessoriesData,
-          cartData: formData.cartData,
-        }),
-      }
-
-      // Send data to MongoDB
-      const response = await fetch(
-        '/.netlify/functions/pushDataToDB',
-        requestOptions
-      )
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`)
-      }
-
-      // Send data to Telegram
-      const telegramResponse = await fetch(
-        '/.netlify/functions/telegram',
-        requestOptions
-      )
-      if (!telegramResponse.ok) {
-        throw new Error(
-          `Error sending message to Telegram bot! Status: ${telegramResponse.status}`
-        )
-      }
-
-      setSuccessMessage('Ваше замовлення успішно виконано!')
-      setErrorMessage('')
-
-      setFormData({
-        name: '',
-        phone: '',
-        message: '',
-        deliveryFormData: {},
-        timeFormData: {},
-        cartData: [],
-        accessoriesData: {
-          quantity: 2,
-          educational: false,
-        },
-      })
-      dispatch(clearCart())
-    } catch (error) {
-      console.error('Error sending the message:', error)
-      setErrorMessage('Помилка при відправленні замовлення')
-    } finally {
-      setTimeout(() => {
-        setSuccessMessage('')
-        setErrorMessage('')
-        setIsOrdering(false)
-      }, 4000)
-    }
-  }
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-    if (name === 'name') setNameError(!value)
-    if (name === 'phone') setPhoneError(!value)
-  }
-
-  const handleDeliveryFormData = (data) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      deliveryFormData: data,
-    }))
-  }
-
-  const handleTimeFormData = (data) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      timeFormData: data,
-    }))
-  }
-
-  const handleAccessoriesChange = (accessoriesData) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      accessoriesData: accessoriesData,
-    }))
-  }
+  const {
+    formData,
+    handleInputChange,
+    handlePromoCodeResult,
+    handleSubmit,
+    setFormData,
+    isOrdering,
+    successMessage,
+    errorMessage,
+    nameError,
+    phoneError,
+    addressError,
+    errorBlockRef,
+    totalPriceWithDiscount,
+    promoCodeDiscount,
+    priceWithDiscount,
+  } = useOrderForm(cartItems, totalPrice)
 
   return (
     <div className={`cart-slider ${isOpen ? 'open' : ''}`}>
-      <div className='cart-header'>
-        <h2>Корзина</h2>
-        <button onClick={onClose}>Закрити</button>
-      </div>
+      <CartHeader onClose={onClose} />
       <Cart />
       {cartItems && cartItems.length === 0 ? null : (
         <form onSubmit={handleSubmit} className='form-checkoutBlock'>
-          <h3 className='form-field'>Оформити замовлення</h3>
           <div
             ref={errorBlockRef}
             tabIndex={-1}
@@ -173,11 +53,11 @@ const CartSlider = ({ isOpen, onClose }) => {
               name='name'
               value={formData.name}
               onChange={handleInputChange}
-              placeholder='Ваше імя'
+              placeholder='Ваше імʼя'
             />
           </div>
           {nameError && (
-            <p className='errorMessage'>Заповніть правильно ім'я!</p>
+            <p className='errorMessage'>Заповніть правильно імʼя!</p>
           )}
           <div className={`form-field ${phoneError ? 'error' : ''}`}>
             <input
@@ -192,19 +72,25 @@ const CartSlider = ({ isOpen, onClose }) => {
           {phoneError && (
             <p className='errorMessage'>Заповніть правильно номер телефону!</p>
           )}
-          <DeliveryForm handleDeliveryFormData={handleDeliveryFormData} />
-          <DeliveryTime handleTimeFormData={handleTimeFormData} />
-          <Accessories onChange={handleAccessoriesChange} />
-          {isOrdering && (
-            <div className='loader-overlay'>
-              <div className='loader'></div>
-              <div className='loader-title'>
-                Виконується обробка замовлення...
-              </div>
-              )
-            </div>
-          )}
-
+          <DeliveryForm
+            handleDeliveryFormData={(data) =>
+              setFormData((prevData) => ({
+                ...prevData,
+                deliveryFormData: data,
+              }))
+            }
+          />
+          <DeliveryTime
+            handleTimeFormData={(data) =>
+              setFormData((prevData) => ({ ...prevData, timeFormData: data }))
+            }
+          />
+          <Accessories
+            onChange={(accessoriesData) =>
+              setFormData((prevData) => ({ ...prevData, accessoriesData }))
+            }
+          />
+          {isOrdering && <LoaderOverlay />}
           <div className='form-field'>
             <textarea
               type='text'
@@ -214,6 +100,31 @@ const CartSlider = ({ isOpen, onClose }) => {
               onChange={handleInputChange}
               placeholder='Напишіть ваші побажання або зауваження (необов’язково)'
             />
+          </div>
+          <PromoCodeChecker onApplyPromoCode={handlePromoCodeResult} />
+          {promoCodeDiscount > 0 ? (
+            <div className='total-price'>
+              <div className='total-price-title-small'>Загальна вартість:</div>
+              <div className='old-price'> {totalPrice.toFixed(2)} грн</div>
+              <div className='discount'>
+                <div className='discount-title'>Знижка:</div>
+                <div>
+                  {' '}
+                  -{promoCodeDiscount.toFixed(2)} % {'( '}
+                  {priceWithDiscount.toFixed(2)}
+                  {' грн)'}
+                </div>
+              </div>
+            </div>
+          ) : null}{' '}
+          <div className='total-price price-final'>
+            <div className='total-price-title'>
+              {promoCodeDiscount > 0
+                ? 'Загальна вартість зі знижкою:'
+                : 'Загальна вартість:'}
+            </div>
+
+            <div> {totalPriceWithDiscount.toFixed(2)} грн</div>
           </div>
           <button
             className={`item-buttom_button button_submit ${
@@ -226,8 +137,10 @@ const CartSlider = ({ isOpen, onClose }) => {
           </button>
         </form>
       )}
-      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      <Notification
+        successMessage={successMessage}
+        errorMessage={errorMessage}
+      />
     </div>
   )
 }

@@ -82,7 +82,7 @@ const Cart = () => {
                 </div>
               ))}
             <span className='total-price'>
-              <div className='total-price-title'>Загальна вартість:</div>
+              <div className='total-price-title'>Сума без знижки:</div>
               <div>{cartTotal.toFixed(2)} грн</div>
             </span>
           </div>

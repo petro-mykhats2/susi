@@ -3,11 +3,14 @@ import React, { useState } from 'react'
 
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../redux/cart'
+import useSiteSettings from '../hooks/useSiteSettings'
 
 // перевірити чи з цього компонента додається в корзину
 
 const ItemProductCategory = ({ orderdata }) => {
   const [showAddedToCartMessage, setShowAddedToCartMessage] = useState(false)
+
+  const siteSetting = useSiteSettings()
 
   const dispatch = useDispatch()
   const handleAddToCart = (product) => {
@@ -69,7 +72,7 @@ const ItemProductCategory = ({ orderdata }) => {
       </Link>
       <div className='item-buttom'>
         <div className='item-buttom_price'>
-          {orderdata.frontmatter.price.toFixed(2)} грн
+          {orderdata.frontmatter.price.toFixed(2)} {siteSetting.currency}
         </div>
 
         <div

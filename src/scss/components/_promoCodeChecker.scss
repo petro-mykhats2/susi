@@ -1,0 +1,110 @@
+/* From Uiverse.io by Bodyhc */ 
+.promocode-block {
+   border: 1px solid #ccc;
+    border-radius: 1px; 
+    padding: 10px;
+}
+.promocode {
+    display: inline-block;
+    position: relative;
+    margin: 5px 5px 15px;
+    
+  }
+  
+  .promocode input[type="text"] {
+    width: 120px;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .promocode input[type="text"]::placeholder {
+    font-size: 10px;
+    text-align: center;
+
+  }
+  
+  .promocode button[type="button"] {
+    background-color: $orange;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    right: -115px;
+    transition: .4s ease;
+  }
+  
+  .promocode button[type="button"]:hover {
+    transform: scale(1.02);
+    color: rgb(255, 255, 255);
+    background-color: $black;
+  }
+
+  .promocode-message {
+    color: green;
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 10px;
+    animation: fadeIn 0.4s ease-in-out;
+  }
+  
+  .promocode-error {
+    color: red;
+    font-weight: bold;
+    line-height: 150%;
+    margin-top: 10px;
+    animation: fadeIn 0.4s ease-in-out;
+  }
+
+.promocode-message-image,
+.promocode-error-image {
+  vertical-align: sub; 
+  width: 20px; 
+  height: 20px;
+  animation: fadeIn 0.4s ease-in-out;
+  margin-right: 5px; 
+  
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.discount {
+    font-size: 18px;
+    font-weight: 600;
+    color: $red; 
+    background-color: #f9eedf;
+    padding: 5px 10px;
+    border-radius: 5px;
+    
+    &-title {
+        color: $black;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: normal;
+    
+    }
+}
+   .old-price {
+    font-size: 16px;
+        text-decoration: line-through;
+        color: $grey;
+        margin-bottom: 10px;
+    }
+
+.price-final {
+    background-color: #f3f3f3;
+    line-height: normal;
+    padding-bottom: 10px;
+    margin: 10px 0px;
+    animation: fadeIn 0.4s ease-in-out;
+}
